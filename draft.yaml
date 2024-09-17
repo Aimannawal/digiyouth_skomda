@@ -1,0 +1,21 @@
+models:
+  Category:
+    name: string
+    slug: string unique
+  Team:
+    user_id: foreign
+    Text : string
+  Project:
+    category_id: foreign
+    team_id: foreign
+    title: string
+    slug: string unique
+    description: string
+    photo: string nullable
+    url_video: string nullable
+  Comment: 
+    project_id: foreign
+    text: string
+
+controllers:  
+  # ...

@@ -1,0 +1,19 @@
+created:
+    - database/factories/CategoryFactory.php
+    - database/factories/TeamFactory.php
+    - database/factories/ProjectFactory.php
+    - database/factories/CommentFactory.php
+    - database/migrations/2024_09_17_063915_create_categories_table.php
+    - database/migrations/2024_09_17_063916_create_teams_table.php
+    - database/migrations/2024_09_17_063917_create_projects_table.php
+    - database/migrations/2024_09_17_063918_create_comments_table.php
+    - app/Models/Category.php
+    - app/Models/Team.php
+    - app/Models/Project.php
+    - app/Models/Comment.php
+models:
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable default:NULL', password: string, number: 'integer nullable default:NULL', profile_picture: 'string nullable default:NULL', remember_token: 'string:100 nullable default:NULL' }
+    Category: { name: string, slug: 'string unique' }
+    Team: { user_id: foreign, Text: string }
+    Project: { category_id: foreign, team_id: foreign, title: string, slug: 'string unique', description: string, photo: 'string nullable', url_video: 'string nullable' }
+    Comment: { project_id: foreign, text: string }
