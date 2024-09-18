@@ -21,41 +21,43 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+
+    protected static ?string $navigationGroup = 'Source';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('category_id')
-                ->relationship('category', 'name')
-                ->searchable()
-                ->preload()
-                ->required(),
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 Forms\Components\Select::make('team_id')
-                ->relationship('team', 'Text')
-                ->searchable()
-                ->preload()
-                ->required(),
+                    ->relationship('team', 'Text')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 Forms\Components\TextInput::make('title')
-                ->required()
-                ->reactive()
-                ->afterStateUpdated(function (\Filament\Forms\Set $set, $state){
-                    $set('slug', Str::slug($state));
-                })
-                ->maxLength(255),
-            Forms\Components\TextInput::make('slug')
-                ->required()
-                ->readOnly()
-                ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function (\Filament\Forms\Set $set, $state){
+                        $set('slug', Str::slug($state));
+                    })
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->readOnly()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
-                    Forms\Components\FileUpload::make('photo')
+                Forms\Components\FileUpload::make('photo')
                     ->directory('photo_projects')
                     ->image(),
-                    Forms\Components\RichEditor::make('url_video')
+                Forms\Components\TextInput::make('url_video')
                     ->required(),
             ]);
     }
@@ -65,23 +67,23 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
-                ->numeric()
-                ->sortable(),
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('team.Text')
-                ->numeric()
-                ->sortable(),
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
-                ->label('title')
-                ->searchable(),
+                    ->label('title')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
-                ->label('slug')
-                ->searchable(),
+                    ->label('slug')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('description')
-                ->label('description')
-                ->searchable(),
+                    ->label('description')
+                    ->searchable(),
                 Tables\Columns\ImageColumn::make('photo')
                     ->url(fn ($record) => Storage::url($record->photo_projects)),                
-                    Tables\Columns\TextColumn::make('url_video')
+                Tables\Columns\TextColumn::make('url_video')
                     ->label('url_video')
                     ->searchable(),
             ])

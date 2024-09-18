@@ -17,18 +17,20 @@ class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+
+    protected static ?string $navigationGroup = 'Interactions';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('project_id')
-                ->relationship('project', 'title')
-                ->searchable()
-                ->preload()
-                ->required(),
-                Forms\Components\RichEditor::make('text')
+                    ->relationship('project', 'title')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Forms\Components\TextInput::make('text')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
@@ -40,11 +42,11 @@ class CommentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('project.title')
-                ->numeric()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('text')
-                ->label('Text')
-                ->searchable(),
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('text')
+                    ->label('Text')
+                    ->searchable(),
             ])
             ->filters([
                 //

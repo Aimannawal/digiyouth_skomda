@@ -18,23 +18,27 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+
+    protected static ?string $navigationGroup = 'Category';
+
+    protected static ?string $navigationLabel = 'Category Projects  ';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                ->required()
-                ->reactive()
-                ->afterStateUpdated(function (\Filament\Forms\Set $set, $state){
-                    $set('slug', Str::slug($state));
-                })
-                ->maxLength(255),
-            Forms\Components\TextInput::make('slug')
-                ->required()
-                ->readOnly()
-                ->maxLength(255),
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function (\Filament\Forms\Set $set, $state){
+                        $set('slug', Str::slug($state));
+                    })
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->readOnly()
+                    ->maxLength(255),
             ]);
     }
 
