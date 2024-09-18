@@ -33,7 +33,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
-                    ->unique(User::class, 'email')
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
                     ->password()
@@ -51,6 +51,11 @@ class UserResource extends Resource
                 Forms\Components\Hidden::make('remember_token')
                     ->default(Str::random(60)) 
                     ->dehydrated(false), 
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
             ]);
     }
 
