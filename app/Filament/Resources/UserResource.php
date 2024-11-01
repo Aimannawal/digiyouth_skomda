@@ -67,17 +67,17 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('number')
-                    ->toggleable(),
-                Tables\Columns\ImageColumn::make('profile_picture')
-                    ->label('Profile Picture')
-                    ->url(fn ($record) => Storage::url($record->profile_picture)),                
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('email_verified_at')
+                //     ->dateTime()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('number')
+                //     ->toggleable(),
+                // Tables\Columns\ImageColumn::make('profile_picture')
+                //     ->label('Profile Picture')
+                //     ->url(fn ($record) => Storage::url($record->profile_picture)),                
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -94,6 +94,9 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+            // ->headerActions([
+            //     Tables\Actions\CreateAction::make(),
+            // ]);
     }
 
     public static function getRelations(): array

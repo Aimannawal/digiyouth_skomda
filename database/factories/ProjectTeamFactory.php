@@ -4,16 +4,18 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Team;
+use App\Models\Project;
+use App\Models\ProjectTeam;
+use App\Models\User;
 
-class TeamFactory extends Factory
+class ProjectTeamFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Team::class;
+    protected $model = ProjectTeam::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +23,8 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'project_id' => Project::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

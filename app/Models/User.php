@@ -11,9 +11,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
+//  implements FilamentUser
 {
-    use HasFactory, Notifiable, HasRoles, HasPanelShield;
+    use HasFactory, Notifiable, HasRoles;
+    // , HasPanelShield;
 
     /**
      * The attributes that are mass assignable.

@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
-            $table->foreignId('team_id')->constrained();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('description');
-            $table->string('photo')->nullable();
-            $table->string('url_video')->nullable();
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->string('text');
             $table->timestamps();
         });
 
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('comments');
     }
 };

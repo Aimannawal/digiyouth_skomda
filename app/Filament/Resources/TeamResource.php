@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TeamResource\Pages;
 use App\Filament\Resources\TeamResource\RelationManagers;
 use App\Models\Team;
+use App\Models\TeamUser;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Stmt\Label;
 
 class TeamResource extends Resource
 {
@@ -27,15 +29,20 @@ class TeamResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                Forms\Components\TextInput::make('Text')
+
+                Forms\Components\TextInput::make('name')
+                    ->label('Team Name')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
+                Forms\Components\Select::make('users')
+                    ->multiple()
+                    ->relationship('users', 'name')
+                    ->Label('Team Members')->preload(),
+                // Forms\Components\Toggle::make('role_in_team')
+                //     ->label('Role in Team')  // Checkbox for true/false role
+                //     ->default(false)  // Set a default value
+                //     ->required()->inline(),
             ]);
     }
 
@@ -43,12 +50,17 @@ class TeamResource extends Resource
     {
         return $table
             ->columns([
-            Tables\Columns\TextColumn::make('user.name')
-                ->numeric()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('Text')
-                ->label('Text')
-                ->searchable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Team')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('users.name')
+                    ->label('Members')
+                    ->formatStateUsing(function ($state, $record) {
+                        // $record is the Team instance
+                        return $record->users->pluck('name')->join(', '); // List all user names, separated by commas
+                    })
+                    ->sortable()->searchable(),
             ])
             ->filters([
                 //

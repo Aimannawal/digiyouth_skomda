@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Team extends Model
+class ProjectTeam extends Model
 {
     use HasFactory;
 
@@ -15,7 +16,8 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'project_id',
+        'user_id',
     ];
 
     /**
@@ -25,11 +27,17 @@ class Team extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'project_id' => 'integer',
+        'user_id' => 'integer',
     ];
 
-    public function users()
+    public function project(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'team_users', 'team_id', 'user_id')
-        ->withPivot("role_in_team")->withTimestamps();
+        return $this->belongsTo(Project::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

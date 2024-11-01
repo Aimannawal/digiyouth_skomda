@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('failed_import_rows', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained();
-            $table->string('text');
+            $table->json('data');
+            $table->foreignId('import_id')->constrained()->cascadeOnDelete();
+            $table->text('validation_error')->nullable();
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('failed_import_rows');
     }
 };

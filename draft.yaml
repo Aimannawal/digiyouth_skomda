@@ -3,8 +3,11 @@ models:
     name: string
     slug: string unique
   Team:
+    name: string
+  TeamUser:
+    team_id: foreign
     user_id: foreign
-    Text : string
+    # role_in_team: boolean
   Project:
     category_id: foreign
     team_id: foreign
@@ -13,9 +16,12 @@ models:
     description: string
     photo: string nullable
     url_video: string nullable
-  Comment: 
+  ProjectTeam:
+    project_id: foreign
+    user_id: foreign
+  Comment:
     project_id: foreign
     text: string
 
-controllers:  
+controllers:
   # ...

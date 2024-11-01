@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('team_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('Text');
+            $table->foreignId('team_id')->constrained()->onDelete("cascade");
+            $table->foreignId('user_id')->constrained()->onDelete("cascade");
+            $table->boolean('role_in_team')->nullable();
             $table->timestamps();
         });
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('team_users');
     }
 };

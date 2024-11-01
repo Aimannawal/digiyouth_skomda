@@ -3,19 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-// use Illuminate\Container\Attributes\Storage;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-
 
 class ProjectResource extends Resource
 {
@@ -35,29 +28,43 @@ class ProjectResource extends Resource
                     ->preload()
                     ->required(),
                 Forms\Components\Select::make('team_id')
-                    ->relationship('team', 'Text')
+                    ->relationship('team', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->reactive()
-                    ->afterStateUpdated(function (\Filament\Forms\Set $set, $state){
-                        $set('slug', Str::slug($state));
+                    ->afterStateUpdated(function (\Filament\Forms\Set $set, $state) {
+                        $set('slug', \Illuminate\Support\Str::slug($state));
                     })
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->readOnly()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('photo')
                     ->directory('photo_projects')
-                    ->image(),
+                    ->image()
+                    ->multiple()
+                    ->required()
+                    ->dehydrateStateUsing(function ($state) {
+                        return $state ? implode(',', $state) : null;
+                    }),
                 Forms\Components\TextInput::make('url_video')
+                    ->required(),
+                Forms\Components\Toggle::make('status')
+                    ->label('Accepted/Rejected')
+                    ->onColor('success')  // Color for accepted
+                    ->offColor('danger')   // Color for rejected
+                    ->onIcon('heroicon-o-check')  // Icon for accepted
+                    ->offIcon('heroicon-o-x-circle')  // Icon for rejected
+                    ->inline(false)
+                    ->default(false)  // Default to rejected
                     ->required(),
             ]);
     }
@@ -66,29 +73,35 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('team.Text')
-                    ->numeric()
+                // Tables\Columns\TextColumn::make('category.name')
+                //     ->sortable(),
+                Tables\Columns\TextColumn::make('team.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title')
-                    ->label('title')
+                    ->label('Title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->label('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label('description')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('photo')
-                    ->url(fn ($record) => Storage::url($record->photo_projects)),                
-                Tables\Columns\TextColumn::make('url_video')
-                    ->label('url_video')
+                // Tables\Columns\TextColumn::make('slug')
+                //     ->label('Slug')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('description')
+                //     ->label('Description')
+                //     ->searchable(),
+                // Tables\Columns\ImageColumn::make('photo')
+                //     ->url(fn ($record) => \Illuminate\Support\Facades\Storage::url($record->photo_projects)),
+                // Tables\Columns\TextColumn::make('url_video')
+                //     ->label('URL Video')
+                //     ->searchable(),
+                Tables\Columns\ToggleColumn::make('status') // Use ToggleColumn here
+                    ->label('Status')
+                    ->sortable()
                     ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        1 => 'Accepted',
+                        0 => 'Rejected',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -98,13 +111,6 @@ class ProjectResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

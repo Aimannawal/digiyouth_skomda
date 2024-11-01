@@ -1,19 +1,27 @@
 created:
     - database/factories/CategoryFactory.php
     - database/factories/TeamFactory.php
+    - database/factories/TeamUserFactory.php
     - database/factories/ProjectFactory.php
+    - database/factories/ProjectTeamFactory.php
     - database/factories/CommentFactory.php
-    - database/migrations/2024_09_17_063915_create_categories_table.php
-    - database/migrations/2024_09_17_063916_create_teams_table.php
-    - database/migrations/2024_09_17_063917_create_projects_table.php
-    - database/migrations/2024_09_17_063918_create_comments_table.php
+    - database/migrations/2024_10_02_050714_create_categories_table.php
+    - database/migrations/2024_10_02_050715_create_teams_table.php
+    - database/migrations/2024_10_02_050716_create_team_users_table.php
+    - database/migrations/2024_10_02_050717_create_projects_table.php
+    - database/migrations/2024_10_02_050718_create_project_teams_table.php
+    - database/migrations/2024_10_02_050719_create_comments_table.php
     - app/Models/Category.php
     - app/Models/Team.php
+    - app/Models/TeamUser.php
     - app/Models/Project.php
+    - app/Models/ProjectTeam.php
     - app/Models/Comment.php
 models:
     User: { name: string, email: string, email_verified_at: 'timestamp nullable default:NULL', password: string, number: 'integer nullable default:NULL', profile_picture: 'string nullable default:NULL', remember_token: 'string:100 nullable default:NULL' }
     Category: { name: string, slug: 'string unique' }
-    Team: { user_id: foreign, Text: string }
+    Team: { name: string }
     Project: { category_id: foreign, team_id: foreign, title: string, slug: 'string unique', description: string, photo: 'string nullable', url_video: 'string nullable' }
     Comment: { project_id: foreign, text: string }
+    TeamUser: { team_id: foreign, user_id: foreign, role_in_team: boolean }
+    ProjectTeam: { project_id: foreign, user_id: foreign }
