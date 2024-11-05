@@ -9,33 +9,37 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Filament\Imports\UserImporter;
 
 class ListUsers extends ListRecords
 {
-    protected static string $resource = UserResource::class;
+        protected static string $resource = UserResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),
+            Actions\ImportAction::make()
+            ->importer(UserImporter::class)
+            ->icon('heroicon-o-document-arrow-down'),
         ];
     }
 
-    public function getHeader(): ?View
-    {
-        $data = Actions\CreateAction::make();
-        return view('filament.custom.upload-file', compact('data'));
-    }
-
-    public $file = '';
-    // public function save(){
-    //     if($this->file != ''){
-    //         Excel::import(new ImportUsers, $this->file);
-    //     }
-    //     // User::create([
-    //     //     'name' => 'Aiman',
-    //     //     'email' => 'f9IbM@example.com',
-    //     //     'password' => 'password',
-    //     // ]);
+    // public function getHeader(): ?View
+    // {
+    //     $data = Actions\CreateAction::make();
+    //     return view('filament.custom.upload-file', compact('data'));
     // }
+
+    // public $file = '';
+    // // public function save(){
+    // //     if($this->file != ''){
+    // //         Excel::import(new ImportUsers, $this->file);
+    // //     }
+    // //     // User::create([
+    // //     //     'name' => 'Aiman',
+    // //     //     'email' => 'f9IbM@example.com',
+    // //     //     'password' => 'password',
+    // //     // ]);
+    // // }
 }
