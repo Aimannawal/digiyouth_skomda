@@ -16,13 +16,14 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'category_id',
         'team_id',
         'title',
         'slug',
         'description',
         'photo',
-        'url_video',
+        'url',
     ];
 
     /**
@@ -48,10 +49,9 @@ class Project extends Model
 
     public function getPhotoAttribute($value)
     {
-        return $value ? explode(',', $value) : []; // Convert to array
+        return $value ? explode(',', $value) : [];
     }
 
-    // Mutator to convert the array into a comma-separated string when saving the 'photo' attribute
     public function setPhotoAttribute($value)
     {
         $this->attributes['photo'] = is_array($value) ? implode(',', $value) : $value;

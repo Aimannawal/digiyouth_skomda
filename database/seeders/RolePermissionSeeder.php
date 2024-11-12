@@ -151,5 +151,53 @@ class RolePermissionSeeder extends Seeder
                 ]);
         
                 $user->assignRole($studentRole);
+
+                $user = User::create([
+                    "name" => "Arka Jenar Maarif",
+                    "email" => "arka@gmail.com",
+                    "password" => bcrypt("arka1234"),
+                ]);
+        
+                $user->assignRole($studentRole);
+
+                $user = User::create([
+                    "name" => "Muhammad Rizal Ramzi",
+                    "email" => "ramzi@gmail.com",
+                    "password" => bcrypt("ramzi1234"),
+                ]);
+        
+                $user->assignRole($studentRole);
+
+                $user = User::create([
+                    "name" => "Elang Satrio Al Ayyu",
+                    "email" => "elang@gmail.com",
+                    "password" => bcrypt("elang1234"),
+                ]);
+        
+                $user->assignRole($studentRole);
+
+                $user = User::create([
+                    "name" => "Aiman Wafi'i An Nawal",
+                    "email" => "aiman@gmail.com",
+                    "password" => bcrypt("aiman1234"),
+                ]);
+        
+                $user->assignRole($studentRole);
+
+                $user = User::create([
+                    "name" => "Abi Arrasyid",
+                    "email" => "abi@gmail.com",
+                    "password" => bcrypt("abi1234"),
+                ]);
+        
+                $user->assignRole($studentRole);
+
+                $user = User::create([
+                    "name" => "Ihsan Ryu Al Kautsar",
+                    "email" => "ryu@gmail.com",
+                    "password" => bcrypt("ryu1234"),
+                ]);
+        
+                $user->assignRole($studentRole);
     }
 }

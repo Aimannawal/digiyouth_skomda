@@ -15,11 +15,12 @@ return new class extends Migration
 
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('team_id')->constrained()->onDelete('cascade');
+            $table->foreignId('team_id')->constrained()->onDelete('cascade')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('description');
+            $table->longText('description');
             $table->string('photo')->nullable();
             $table->string('url')->nullable();
             $table->timestamps();

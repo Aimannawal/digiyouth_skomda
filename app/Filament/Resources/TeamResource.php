@@ -53,14 +53,14 @@ class TeamResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Team')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('users.name')
                     ->label('Members')
                     ->formatStateUsing(function ($state, $record) {
                         // $record is the Team instance
                         return $record->users->pluck('name')->join(', '); // List all user names, separated by commas
                     })
-                    ->sortable()->searchable(),
+                    ->sortable(),
             ])
             ->filters([
                 //

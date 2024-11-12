@@ -16,6 +16,7 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'project_id',
         'text',
     ];
@@ -33,5 +34,10 @@ class Comment extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

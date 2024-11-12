@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class CommentResource extends Resource
 {
@@ -25,6 +26,9 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Hidden::make('user_id')
+                    ->default(Auth()->id())
+                    ->required(),
                 Forms\Components\Select::make('project_id')
                     ->relationship('project', 'title')
                     ->searchable()
@@ -41,6 +45,9 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('project.title')
                     ->numeric()
                     ->sortable(),

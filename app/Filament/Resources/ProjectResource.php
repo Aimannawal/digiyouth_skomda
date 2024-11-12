@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectResource extends Resource
 {
@@ -22,6 +23,9 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Hidden::make('user_id')
+                    ->default(Auth()->id())
+                    ->required(),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->searchable()
@@ -43,9 +47,9 @@ class ProjectResource extends Resource
                     ->required()
                     ->readOnly()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
+                    Forms\Components\RichEditor::make('description')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull(),           
                 Forms\Components\FileUpload::make('photo')
                     ->directory('photo_projects')
                     ->image()
@@ -56,15 +60,16 @@ class ProjectResource extends Resource
                     }),
                 Forms\Components\TextInput::make('url')
                     ->required(),
-                Forms\Components\Toggle::make('status')
+                    Forms\Components\Toggle::make('status')
                     ->label('Accepted/Rejected')
                     ->onColor('success') 
                     ->offColor('danger')   
                     ->onIcon('heroicon-o-check')  
                     ->offIcon('heroicon-o-x-circle')  
                     ->inline(false)
-                    ->default(false) 
-                    ->required(),
+                    ->default(false)  
+                    ->required()
+                    ->disabled(),              
             ]);
     }
 
