@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('projects', function (Blueprint $table) {
             $table->tinyInteger('status')
                 ->default('0')
-                ->after('url_video'); 
+                ->after('url'); 
         });
     }
 

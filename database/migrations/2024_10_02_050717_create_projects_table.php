@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('description');
             $table->string('photo')->nullable();
-            $table->string('url_video')->nullable();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
 

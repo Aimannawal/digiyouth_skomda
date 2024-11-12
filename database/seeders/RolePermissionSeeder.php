@@ -120,7 +120,7 @@ class RolePermissionSeeder extends Seeder
                 ]);
         
                 $studentRole->givePermissionTo([
-                                $permissions[24],
+                    $permissions[24],
                     $permissions[24],
                     $permissions[26],
                     $permissions[42],
@@ -145,17 +145,9 @@ class RolePermissionSeeder extends Seeder
                 $user->assignRole($teacherRole);
         
                 $user = User::create([
-                    "name" => "ayam",
-                    "email" => "ayam@gmail.com",
-                    "password" => bcrypt("ayam1234"),
-                ]);
-        
-                $user->assignRole($studentRole);
-        
-                $user = User::create([
-                    "name" => "bebek",
-                    "email" => "bebek@gmail.com",
-                    "password" => bcrypt("bebek1234"),
+                    "name" => "student",
+                    "email" => "student@gmail.com",
+                    "password" => bcrypt("student1234"),
                 ]);
         
                 $user->assignRole($studentRole);

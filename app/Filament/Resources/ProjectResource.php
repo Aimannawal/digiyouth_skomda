@@ -54,16 +54,16 @@ class ProjectResource extends Resource
                     ->dehydrateStateUsing(function ($state) {
                         return $state ? implode(',', $state) : null;
                     }),
-                Forms\Components\TextInput::make('url_video')
+                Forms\Components\TextInput::make('url')
                     ->required(),
                 Forms\Components\Toggle::make('status')
                     ->label('Accepted/Rejected')
-                    ->onColor('success')  // Color for accepted
-                    ->offColor('danger')   // Color for rejected
-                    ->onIcon('heroicon-o-check')  // Icon for accepted
-                    ->offIcon('heroicon-o-x-circle')  // Icon for rejected
+                    ->onColor('success') 
+                    ->offColor('danger')   
+                    ->onIcon('heroicon-o-check')  
+                    ->offIcon('heroicon-o-x-circle')  
                     ->inline(false)
-                    ->default(false)  // Default to rejected
+                    ->default(false) 
                     ->required(),
             ]);
     }
@@ -87,10 +87,10 @@ class ProjectResource extends Resource
                 //     ->searchable(),
                 // Tables\Columns\ImageColumn::make('photo')
                 //     ->url(fn ($record) => \Illuminate\Support\Facades\Storage::url($record->photo_projects)),
-                // Tables\Columns\TextColumn::make('url_video')
-                //     ->label('URL Video')
+                // Tables\Columns\TextColumn::make('url')
+                //     ->label('url')
                 //     ->searchable(),
-                Tables\Columns\ToggleColumn::make('status') // Use ToggleColumn here
+                Tables\Columns\ToggleColumn::make('status')
                     ->label('Status')
                     ->sortable()
                     ->searchable(),
