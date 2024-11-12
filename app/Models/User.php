@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
-//  implements FilamentUser
+// implements FilamentUser
 {
     use HasFactory, Notifiable, HasRoles;
     // , HasPanelShield;

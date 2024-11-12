@@ -45,7 +45,6 @@ class ProjectResource extends Resource
                     ->maxLength(255),
                 Forms\Components\RichEditor::make('description')
                     ->required()
-                    ->maxLength(255)
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('photo')
                     ->directory('photo_projects')

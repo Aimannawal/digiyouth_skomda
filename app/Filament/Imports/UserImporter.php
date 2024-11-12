@@ -15,13 +15,13 @@ class UserImporter extends Importer
     {
         return [
             ImportColumn::make('name')
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
 
             ImportColumn::make('email')
-                ->rules(rules: ['required', 'email', 'max:255', 'unique:users,email']),
+                ->rules(rules: ['max:255', 'unique:users,email']),
 
             ImportColumn::make('password')
-                ->rules(['required', 'max:255']),
+                ->rules(['max:255']),
 
             ImportColumn::make('number')
                 ->rules(['nullable', 'max:255']),
@@ -34,12 +34,10 @@ class UserImporter extends Importer
 
     public function resolveRecord(): ?User
     {
-        // return User::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
-
-        return new User();
+        return User::firstOrNew([
+            // Update existing records, matching them by `$this->data['column_name']`
+            'email' => $this->data['email'],
+        ]);
     }
 
     public static function getCompletedNotificationBody(Import $import): string

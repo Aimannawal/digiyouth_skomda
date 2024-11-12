@@ -28,10 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'danger' => Color::Rose,
+               'danger' => Color::Red,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::Indigo,
+                'primary' => '#e30613', 
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
