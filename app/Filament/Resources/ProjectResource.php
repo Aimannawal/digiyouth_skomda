@@ -60,7 +60,7 @@ class ProjectResource extends Resource
                     }),
                 Forms\Components\TextInput::make('url')
                     ->required(),
-                    Forms\Components\Toggle::make('status')
+                Forms\Components\Toggle::make('status')
                     ->label('Accepted/Rejected')
                     ->onColor('success') 
                     ->offColor('danger')   

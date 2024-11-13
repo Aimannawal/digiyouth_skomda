@@ -18,7 +18,7 @@ class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left';
 
     protected static ?string $navigationGroup = 'Interactions';
 
@@ -38,6 +38,16 @@ class CommentResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
+                Forms\Components\Toggle::make('status')
+                    ->label('Accepted/Rejected')
+                    ->onColor('success') 
+                    ->offColor('danger')   
+                    ->onIcon('heroicon-o-check')  
+                    ->offIcon('heroicon-o-x-circle')  
+                    ->inline(true)
+                    ->default(true)  
+                    ->required()
+                    ->disabled(), 
             ]);
     }
 
@@ -46,7 +56,7 @@ class CommentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->label('name')
+                    ->label('Name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('project.title')
                     ->numeric()
@@ -54,9 +64,17 @@ class CommentResource extends Resource
                 Tables\Columns\TextColumn::make('text')
                     ->label('Text')
                     ->searchable(),
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label('Status')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        1 => 'Accepted',
+                        0 => 'Rejected',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

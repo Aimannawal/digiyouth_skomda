@@ -1,0 +1,106 @@
+/* Hilangkan scrollbar */
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hidden {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.page-active{
+    color: white;
+    background-color: #B13437;
+}
+.page-inactive{
+    color: #323232;
+    background-color: #f9f9f9;
+}
+
+
+.nav-active{
+    color: #323232;
+    background-color: #f9f9f9;
+}
+
+/* Styles untuk sidebar */
+/* Styles untuk sidebar */
+#sidebar {
+    position: fixed; /* Memastikan sidebar di atas layout */
+    top: 0;
+    right: 0;
+    transform: translateX(100%); /* Memindahkan sidebar keluar layar ke kanan */
+    transition: transform 0.3s ease-in-out;
+    width: 100vw;
+    height: 100vh; /* Sesuaikan agar menutupi layar */
+    z-index: 30;
+}
+
+#sidebar.open {
+    transform: translateX(0); /* Sidebar muncul di layar */
+}
+
+
+body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Optional: Tambahkan animasi untuk smooth transition */
+.sidebar-transition {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Optional: Tambahkan overlay saat sidebar terbuka */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+/* Style untuk kategoriList */
+.kategori-list {
+    transition: max-height 0.3s ease, opacity 0.3s ease; /* Transisi smooth */
+}
+
+/* Saat active */
+.kategori-list.active {
+    max-height: 121.86vw;
+    padding-top: 5vw; 
+    padding-bottom: 5vw; 
+    opacity: 1;
+}
+
+/* Saat tidak active */
+.kategori-list:not(.active) {
+    max-height: 0;
+    opacity: 0;
+}
+#detail {
+    background-image: url('/assets/detail-image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 83.256vw;
+    height: 110.698vw;
+}
+
+@media (min-width: 430px) {
+    #detail {
+        width: 91.458vw;  
+        height: 20.0833vw; 
+        background-size: contain;
+    }
+}

@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             TeamsTableSeeder::class,
             TeamUsersTableSeeder::class,
             ProjectSeeder::class,
+            CommentSeeder::class,
+            LikeSeeder::class,
+            ReplySeeder::class,
         ]);
     }
     

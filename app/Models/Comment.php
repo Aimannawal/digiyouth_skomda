@@ -19,6 +19,7 @@ class Comment extends Model
         'user_id',
         'project_id',
         'text',
+        'status',
     ];
 
     /**
@@ -39,5 +40,9 @@ class Comment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function replies()
+    {
+        return $this->hasMany(Reply::class, 'comment_id');
     }
 }

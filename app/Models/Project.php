@@ -61,4 +61,9 @@ class Project extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
