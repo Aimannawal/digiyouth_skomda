@@ -33,6 +33,7 @@
     width: 100vw;
     height: 100vh; /* Sesuaikan agar menutupi layar */
     z-index: 30;
+    overflow-y: auto;
 }
 
 #sidebar.open {
@@ -77,9 +78,9 @@ body.no-scroll {
 
 /* Saat active */
 .kategori-list.active {
-    max-height: 121.86vw;
-    padding-top: 5vw; 
-    padding-bottom: 5vw; 
+    max-height: 150vw;
+    padding-top: 8vw; 
+    padding-bottom: 8vw; 
     opacity: 1;
 }
 
@@ -89,7 +90,7 @@ body.no-scroll {
     opacity: 0;
 }
 #detail {
-    background-image: url('/assets/detail-image.png');
+    background-image: url('/src/assets/detail-image.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
