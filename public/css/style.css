@@ -90,7 +90,7 @@ body.no-scroll {
     opacity: 0;
 }
 #detail {
-    background-image: url('/src/assets/detail-image.png');
+    background-image: url('/assets/detail-image.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

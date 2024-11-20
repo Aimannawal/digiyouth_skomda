@@ -23,6 +23,9 @@ class UserImporter extends Importer
             ImportColumn::make('password')
                 ->rules(['max:255']),
 
+            ImportColumn::make('grade')
+                ->rules(['max:255']),
+
             ImportColumn::make('number')
                 ->rules(['nullable', 'max:255']),
 
