@@ -61,22 +61,6 @@ class DigiyouthController extends Controller
         return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members, "category" => $category]);
     }
 
-    public function category(string $id)
-{
-    $likeModel = Like::class;
-    $category = Category::find($id);
-    $allCategories = Category::all();
-
-    $projects = Project::where("category_id", $id)->paginate(8); 
-
-    return view('category', [
-        "projects" => $projects,
-        "likeModel" => $likeModel,
-        "category" => $category,
-        "allCategories" => $allCategories
-    ]);
-}
-
 
     public function login()
     {
