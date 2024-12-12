@@ -631,13 +631,13 @@
         <div class="bg-white py-[2vw] px-[3vw]">
             <div class="grid sm:grid-cols-5 grid-cols-1 gap-x-[2vw] sm:gap-y-0 gap-y-[6.977vw] sm:px-0 px-[8.372vw]">
                 <div class="space-y-[1.5vw] sm:inline hidden">
-                    <img src="assets/logo.png" alt="" class="w-[11.406vw] h-[4.115vw]">
+                    <img src="/assets/logo.png" alt="" class="w-[11.406vw] h-[4.115vw]">
                     <p class="text-[1.042vw]">Ready to take the next step? Submit your project and let your skills
                         shine.</p>
                     <div class="flex space-x-[1vw]">
-                        <img src="assets/website.svg" alt="" class="w-[1.563vw] h-[1.563vw]">
-                        <img src="assets/instagram.svg" alt="" class="w-[1.563vw] h-[1.563vw]">
-                        <img src="assets/facebook.svg" alt="" class="w-[1.563vw] h-[1.563vw]">
+                        <img src="/assets/website.svg" alt="" class="w-[1.563vw] h-[1.563vw]">
+                        <img src="/assets/instagram.svg" alt="" class="w-[1.563vw] h-[1.563vw]">
+                        <img src="/assets/facebook.svg" alt="" class="w-[1.563vw] h-[1.563vw]">
                     </div>
                     <p class="text-[1.042vw]">Copyright © 2024 All right reserved | Skomda</p>
                 </div>
@@ -645,23 +645,18 @@
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Menu Utama</li>
-                        <li><a href="index.html">Beranda</a></li>
-                        <li>Kategori</li>
-                        <li>Event</li>
+                        <li><a href="/">Beranda</a></li>
+                        <li><a href="/category/1">Kategori</a></li>
+                        <li><a href="/event">Event</a></li>
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
-                        <li><a href="">Hacker</a></li>
-                        <li><a href="">Hipster</a></li>
-                        <li><a href="">Hustler</a></li>
-                        <li><a href="">IoT Engineer</a></li>
-                        <li><a href="">Cloud Engineer</a></li>
-                        <li><a href="">Graphic Designer</a></li>
-                        <li><a href="">Network Engineer</a></li>
-                        <li><a href="">Fiber Optic Engineer</a></li>
+                        @foreach ($allCategories as $all)
+                            <li><a href="/category/{{  $all->id  }}">{{ $all->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
@@ -682,14 +677,14 @@
                     </ul>
                 </div>
                 <div class="space-y-[6vw] sm:hidden flex flex-col items-center justify-center">
-                    <a href="index.html"><img src="assets/logo.png" alt=""
+                    <a href="index.html"><img src="/assets/logo.png" alt=""
                             class="w-[46.512vw] h-[16.779vw]"></a>
                     <p class="text-[3.256vw] text-center">Ready to take the next step? Submit your project and let your
                         skills shine.</p>
                     <div class="flex space-x-[5vw]">
-                        <img src="assets/website.svg" alt="" class="w-[5.5vw] h-[5.5vw]">
-                        <img src="assets/instagram.svg" alt="" class="w-[5.5vw] h-[5.5vw]">
-                        <img src="assets/facebook.svg" alt="" class="w-[5.5vw] h-[5.5vw]">
+                        <img src="/assets/website.svg" alt="" class="w-[5.5vw] h-[5.5vw]">
+                        <img src="/assets/instagram.svg" alt="" class="w-[5.5vw] h-[5.5vw]">
+                        <img src="/assets/facebook.svg" alt="" class="w-[5.5vw] h-[5.5vw]">
                     </div>
                     <p class="text-[3.256vw]">Copyright © 2024 All right reserved | Skomda</p>
                 </div>
