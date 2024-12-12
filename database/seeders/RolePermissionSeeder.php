@@ -145,9 +145,10 @@ class RolePermissionSeeder extends Seeder
         
                 $studentRole->givePermissionTo([
                     $permissions[24],
-                    $permissions[24],
+                    $permissions[25],
                     $permissions[26],
                     $permissions[42],
+                    $permissions[43],
                     $permissions[44],
                     $permissions[45],
                 ]);
