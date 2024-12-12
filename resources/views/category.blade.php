@@ -237,28 +237,17 @@
             </div>
             <div
                 class="sm:w-auto w-full flex items-center sm:space-x-[2vw] space-x-[6.977vw] sm:px-[14.708vw] px-0 sm:ps-0 sm:pe-0 ps-[8.372vw] pe-[8.372vw] mt-[2vw] sm:overflow-hidden overflow-x-auto whitespace-nowrap scrollbar-hidden">
-                <div
+                {{-- <div
                     class="sm:p-[0.521vw] p-[2.326vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] flex items-center justify-center">
                     <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Cloud Engineer</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Fiber Optic</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Hacker</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Hustler</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">IoT Engineer</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Network Engineer</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">System Administrator</h1>
-                </div>
+                </div> --}}
+                @foreach ($cat as $c)
+                <a href="/category/{{ $c->id }}">
+                    <div class="flex justify-center">
+                        <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">{{ $c->name }}</h1>
+                    </div>
+                </a>
+                @endforeach
             </div>
             <div
                 class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center">

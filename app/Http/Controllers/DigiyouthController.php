@@ -57,13 +57,15 @@ class DigiyouthController extends Controller
 {
     $likeModel = Like::class;
     $category = Category::find($id);
+    $cat = Category::all();
 
     $projects = Project::where("category_id", $id)->paginate(8); 
 
     return view('category', [
         "projects" => $projects,
         "likeModel" => $likeModel,
-        "category" => $category
+        "category" => $category,
+        "cat" => $cat
     ]);
 }
 
