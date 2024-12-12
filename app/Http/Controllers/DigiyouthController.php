@@ -14,12 +14,14 @@ class DigiyouthController extends Controller
 {
     public function index()
     {
+        // Ambil data project, termasuk kategori dan jumlah likes
         $project = Project::with('category')
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')
             ->take(3)
             ->get();
-
+    
+        // Ambil data contributor populer
         $popularContributors = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
             ->groupBy('user_id')
             ->orderBy('contributions', 'desc')
@@ -34,9 +36,14 @@ class DigiyouthController extends Controller
                     'contributions' => $teamUser->contributions,
                 ];
             });
-
-        return view('index', compact('project', 'popularContributors'));
+    
+        // Ambil semua kategori
+        $allCategories = Category::all();
+    
+        // Kirim data ke view
+        return view('index', compact('project', 'popularContributors', 'allCategories'));
     }
+    
 
 
     public function detail(string $id)
@@ -45,25 +52,28 @@ class DigiyouthController extends Controller
         // $team = Team::where("project_id", $id)->get();
         // dd($team);
         $project = Project::find($id);
+        $category = Category::all();
         $membersArray = [];
         foreach($project->team->users as $member){
             $membersArray[] = $member->name;
         }
         $members = implode(", ",$membersArray);
-        return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members]);
+        return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members, "category" => $category]);
     }
 
     public function category(string $id)
 {
     $likeModel = Like::class;
     $category = Category::find($id);
+    $allCategories = Category::all();
 
     $projects = Project::where("category_id", $id)->paginate(8); 
 
     return view('category', [
         "projects" => $projects,
         "likeModel" => $likeModel,
-        "category" => $category
+        "category" => $category,
+        "allCategories" => $allCategories
     ]);
 }
 

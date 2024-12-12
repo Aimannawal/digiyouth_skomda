@@ -16,6 +16,11 @@
     background-color: #f9f9f9;
 }
 
+.active{
+    padding: 2.326vw;
+    background-color: #F9F9F9;
+    border-radius: 2.326vw;
+}
 
 .nav-active{
     color: #323232;
@@ -103,5 +108,9 @@ body.no-scroll {
         width: 91.458vw;  
         height: 20.0833vw; 
         background-size: contain;
+    }
+    .active {
+        padding: 0.521vw;
+        border-radius: 0.521vw;
     }
 }

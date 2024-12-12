@@ -237,11 +237,20 @@
             </div>
             <div
                 class="sm:w-auto w-full flex items-center sm:space-x-[2vw] space-x-[6.977vw] sm:px-[14.708vw] px-0 sm:ps-0 sm:pe-0 ps-[8.372vw] pe-[8.372vw] mt-[2vw] sm:overflow-hidden overflow-x-auto whitespace-nowrap scrollbar-hidden">
-                <div
+                @foreach ($allCategories as $all)
+                    <div class="flex justify-center">
+                        <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw] 
+                            @if ($all->id == $category->id) active @endif">
+                            <a href="/category/{{  $all->id  }}">{{  $all->name  }}</a>
+                        </h1>
+                    </div>
+                @endforeach
+
+                {{-- <div
                     class="sm:p-[0.521vw] p-[2.326vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] flex items-center justify-center">
                     <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Cloud Engineer</h1>
-                </div>
-                <div class="flex justify-center">
+                </div> --}}
+                {{-- <div class="flex justify-center">
                     <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Fiber Optic</h1>
                 </div>
                 <div class="flex justify-center">
@@ -258,7 +267,7 @@
                 </div>
                 <div class="flex justify-center">
                     <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">System Administrator</h1>
-                </div>
+                </div> --}}
             </div>
             <div
                 class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center">
@@ -338,71 +347,73 @@
             @endforeach
         </div>
         <div class="sm:mt-[5vw] mt-[15vw]">
-            <div
-                class="grid grid-cols-7 sm:gap-x-[0.521vw] gap-x-[12vw] sm:px-[32vw] px-[8.372vw] sm:text-[0.938vw] text-[3.256vw] font-semibold">
-        
+            @php
+                $pageCount = count($projects->getUrlRange(1, $projects->lastPage()));
+            @endphp
+            <div class="flex items-center justify-center sm:px-[10vw] px-[5vw] sm:space-x-[1vw] space-x-[3vw]">
                 <!-- Previous Page Link -->
-                @if ($projects->onFirstPage())
-                    <div class="flex justify-center items-center">
+                <div class="flex justify-center items-center">
+                    @if ($projects->onFirstPage())
                         <div
                             class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
                             <img src="/assets/arrow.svg" alt=""
                                 class="sm:w-[0.821vw] sm:h-[0.908vw] w-[3vw] h-[3vw]">
                         </div>
-                    </div>
-                @else
-                    <div class="flex justify-center items-center">
+                    @else
                         <a href="{{ $projects->previousPageUrl() }}">
                             <div
-                                class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
+                                class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-active sm:rounded-[0.26vw] rounded-[1.163vw]">
                                 <img src="/assets/arrow.svg" alt=""
                                     class="sm:w-[0.821vw] sm:h-[0.908vw] w-[3vw] h-[3vw]">
                             </div>
                         </a>
-                    </div>
-                @endif
+                    @endif
+                </div>
         
                 <!-- Pagination Numbers -->
-                @foreach ($projects->getUrlRange(1, $projects->lastPage()) as $page => $url)
-                    <div class="flex justify-center items-center">
-                        @if ($page == $projects->currentPage())
-                            <div
-                                class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-active sm:rounded-[0.26vw] rounded-[1.163vw]">
-                                <p>{{ $page }}</p>
-                            </div>
-                        @else
-                            <a href="{{ $url }}">
+                <div
+                    class="grid grid-cols-{{ $pageCount }} sm:gap-x-[0.521vw] gap-x-[2vw] sm:text-[0.938vw] text-[3.256vw] font-semibold">
+                    @foreach ($projects->getUrlRange(1, $projects->lastPage()) as $page => $url)
+                        <div class="flex justify-center items-center">
+                            @if ($page == $projects->currentPage())
                                 <div
-                                    class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
+                                    class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-active sm:rounded-[0.26vw] rounded-[1.163vw]">
                                     <p>{{ $page }}</p>
                                 </div>
-                            </a>
-                        @endif
-                    </div>
-                @endforeach
+                            @else
+                                <a href="{{ $url }}">
+                                    <div
+                                        class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
+                                        <p>{{ $page }}</p>
+                                    </div>
+                                </a>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
         
                 <!-- Next Page Link -->
-                @if ($projects->hasMorePages())
-                    <div class="flex justify-center items-center">
+                <div class="flex justify-center items-center">
+                    @if ($projects->hasMorePages())
                         <a href="{{ $projects->nextPageUrl() }}">
                             <div
-                                class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
+                                class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-active sm:rounded-[0.26vw] rounded-[1.163vw]">
                                 <img src="/assets/arrow.svg" alt=""
                                     class="sm:w-[0.821vw] sm:h-[0.908vw] w-[3vw] h-[3vw] rotate-180">
                             </div>
                         </a>
-                    </div>
-                @else
-                    <div class="flex justify-center items-center">
+                    @else
                         <div
                             class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
                             <img src="/assets/arrow.svg" alt=""
                                 class="sm:w-[0.821vw] sm:h-[0.908vw] w-[3vw] h-[3vw] rotate-180">
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
         </div>
+        
+        
         
     </section>
 
@@ -425,23 +436,18 @@
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Menu Utama</li>
-                        <li><a href="index.html">Beranda</a></li>
-                        <li>Kategori</li>
-                        <li>Event</li>
+                        <li><a href="/">Beranda</a></li>
+                        <li><a href="/category/1">Kategori</a></li>
+                        <li><a href="/event">Event</a></li>
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
-                        <li><a href="">Hacker</a></li>
-                        <li><a href="">Hipster</a></li>
-                        <li><a href="">Hustler</a></li>
-                        <li><a href="">IoT Engineer</a></li>
-                        <li><a href="">Cloud Engineer</a></li>
-                        <li><a href="">Graphic Designer</a></li>
-                        <li><a href="">Network Engineer</a></li>
-                        <li><a href="">Fiber Optic Engineer</a></li>
+                        @foreach ($allCategories as $all)
+                            <li><a href="/category/{{  $all->id  }}">{{ $all->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">

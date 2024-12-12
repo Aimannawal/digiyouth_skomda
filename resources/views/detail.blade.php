@@ -225,9 +225,9 @@
         </div>
     </div>
 
-    <div class="w-full h-[400vh] sm:mt-[10vw] mt-[35vw]">
-        <section class="sm:px-[4.271vw] px-[8.372vw] sm:mt-[4vw] mt-[10vw]">
-            <div class="w-full">
+    <div class="w-full sm:mt-[10vw] mt-[35vw]">
+        <section class="sm:px-[4.271vw] px-[8.372vw] sm:mt-[4vw] mt-[10vw] relative">
+            <div class=" absolute z-0">
                 <div id="detail" class="relative px-[5vw] rounded-[3.488vw]">
                     <div
                         class=" flex flex-col  items-center sm:pt-[4vw] pt-[20vw] relative sm:h-[20.833vw] h-[110.698vw] sm:space-y-[2vw] space-y-[3vw]">
@@ -244,7 +244,7 @@
                                 {{ $project->created_at->format('d F Y') }}</p>
                         </div>
                         <div
-                            class="flex sm:flex-row flex-col sm:justify-between justify-center items-center absolute w-full text-white sm:top-[12vw] bottom-[25vw] sm:space-y-0 space-y-[6vw] px-[3.7vw]">
+                            class="flex sm:flex-row flex-col sm:justify-between justify-center items-center absolute w-full text-white sm:top-[13vw] bottom-[25vw] sm:space-y-0 space-y-[6vw] px-[3.7vw]">
                             <div class="sm:text-[0.938vw] text-[3.256vw] sm:text-start text-center">
                                 <p>Leader : {{ $project->user->name }}</p>
                                 <p>Team : {{ $members }}</p>
@@ -291,9 +291,9 @@
             </div>
         </section>
 
-        <section class="flex justify-center items-center relative">
+        <section class="flex justify-center items-center">
             <div
-                class="absolute sm:w-[76.042vw] w-[75.116vw] h-auto shadow sm:top-[-3.3vw] top-[-15vw] bg-white p-[5vw] rounded-[1.563vw] flex flex-col items-center justify-center">
+                class="z-10 sm:mt-[17vw] mt-[100vw] sm:w-[76.042vw] w-[75.116vw] h-auto shadow sm:top-[-3.3vw] top-[-15vw] bg-white p-[5vw] rounded-[1.563vw] flex flex-col items-center justify-center">
                 <div class="sm:space-y-[2.5vw] space-y-[4vw]">
                     @php
                         $photos = is_string($project->photo)
@@ -310,7 +310,11 @@
                     </div>
                     <h3 class="sm:text-[2.083vw] text-[4.651vw] font-semibold">{{ $project->title }}</h3>
 
-                    {!! $project->description !!}
+                    {{-- {!! $project->description !!} --}}
+                    <div class="sm:space-y-[1.5vw] space-y-[6vw]">
+                        <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Treadwear.co</h3>
+                        <p class="sm:text-[0.938vw] text-[3.256vw]">{{  $project->description  }}</p>
+                    </div>
                     {{-- <div class="sm:space-y-[1.5vw] space-y-[6vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Exciting UD Business Case Competition
                             at Jakarta Expo</h3>
@@ -382,8 +386,7 @@
 
                     <div class="sm:space-y-[1.5vw] space-y-[3vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold ">Sneak Peak</h3>
-                        <div
-                            class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
+                        <div class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
                             @php
                                 $photos = is_string($project->photo)
                                     ? explode(',', $project->photo)
@@ -394,11 +397,20 @@
                             @foreach ($photos as $index => $photo)
                                 <div class="flex justify-center">
                                     <img src="{{ Storage::url($photo) }}" alt=""
-                                        class="sm:w-[11.667vw] sm:h-[7.813vw] w-[63.256vw] h-[47.442vw] rounded-[0.781vw] ">
+                                        class="sm:w-[11.667vw] sm:h-[7.813vw] w-[63.256vw] h-[47.442vw] rounded-[0.781vw] cursor-pointer"
+                                        onclick="openModal('{{ Storage::url($photo) }}')">
                                 </div>
                             @endforeach
                         </div>
                     </div>
+                <!-- Modal -->
+                <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
+                    onclick="closeModal(event)">
+                    <div class="relative flex items-center justify-center" onclick="event.stopPropagation()">
+                        <img id="modalImage" src="" alt="" class="w-[20vw] h-[20vw] object-cover">
+                    </div>
+                </div>
+
                 </div>
                 <div id="comment-section" class="sm:mt-[5vw] mt-[8vw]">
                     <div>
@@ -532,7 +544,7 @@
             </div>
         </section>
     </div>
-    <footer class="sm:mt-[20vw] mt-[120vw]">
+    <footer class="sm:mt-[20vw] mt-[15vw]">
         <div class="bg-white py-[2vw] px-[3vw]">
             <div class="grid sm:grid-cols-5 grid-cols-1 gap-x-[2vw] sm:gap-y-0 gap-y-[6.977vw] sm:px-0 px-[8.372vw]">
                 <div class="space-y-[1.5vw] sm:inline hidden">
@@ -550,23 +562,18 @@
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Menu Utama</li>
-                        <li><a href="index.html">Beranda</a></li>
-                        <li>Kategori</li>
-                        <li>Event</li>
+                        <li><a href="/">Beranda</a></li>
+                        <li><a href="/category/1">Kategori</a></li>
+                        <li><a href="/event">Event</a></li>
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
-                        <li><a href="">Hacker</a></li>
-                        <li><a href="">Hipster</a></li>
-                        <li><a href="">Hustler</a></li>
-                        <li><a href="">IoT Engineer</a></li>
-                        <li><a href="">Cloud Engineer</a></li>
-                        <li><a href="">Graphic Designer</a></li>
-                        <li><a href="">Network Engineer</a></li>
-                        <li><a href="">Fiber Optic Engineer</a></li>
+                        @foreach ($category as $category)
+                            <li><a href="/category/{{  $category->id  }}">{{ $category->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
@@ -601,6 +608,31 @@
             </div>
         </div>
     </footer>
+
+
+    <script>
+        // Fungsi untuk membuka modal dan menampilkan gambar
+        function openModal(imageUrl) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const nav = document.querySelector('nav')
+            nav.classList.add('hidden')
+            modalImage.src = imageUrl;
+            modal.classList.remove('hidden');
+        }
+    
+        // Fungsi untuk menutup modal ketika area kosong diklik
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            const nav = document.querySelector('nav')
+            // Cek apakah yang diklik adalah area di luar konten modal
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+                nav.classList.remove('hidden')
+            }
+        }
+
+    </script>
 
     <script>
         const sidebar = document.getElementById('sidebar');
