@@ -21,7 +21,7 @@
             <img src="assets/logo.png" alt=""
                 class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
-                <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="index.html">Beranda</a>
+                <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="{{ route("homepage") }}">Beranda</a>
                 </li>
                 <!-- Menambahkan class group pada kategori-button -->
                 <li id="kategori-button" class="cursor-pointer group relative">
@@ -32,27 +32,27 @@
                         <div class="grid grid-cols-3 gap-[1vw] text-[0.938vw]">
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">Hacker</a></li>
+                                        href="{{ route("category", 1) }}">Hacker</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">IoT Engineer</a></li>
+                                        href="{{ route("category", 2) }}">IoT Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">Network Engineer</a></li>
+                                        href="{{ route("category", 3) }}">Network Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">Hipster</a></li>
+                                        href="{{ route("category", 4) }}">Hipster</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="category.html">Cloud Engineer</a></li>
+                                        href="{{ route("category", 5) }}">Cloud Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">Fiber Optic Engineer</a></li>
+                                        href="{{ route("category", 6) }}">Fiber Optic Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">Hustler</a></li>
+                                        href="{{ route("category", 7) }}">Hustler</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">Graphic Designer</a></li>
+                                        href="{{ route("category", 8) }}">Graphic Designer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="">System Administrator</a></li>
+                                        href="{{ route("category", 9) }}">System Administrator</a></li>
                             </ul>
                         </div>
                     </div>
@@ -257,6 +257,7 @@
             <div class="grid sm:grid-cols-3 grid-cols-2 sm:px-[10vw] px-0 sm:gap-[1.302vw] gap-[3.488vw] mt-[3vw]">
                 <div class="flex justify-center items-center">
                     <div>
+                        <a href="/category/1">
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300">
@@ -270,12 +271,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Hacker</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/4">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
@@ -291,12 +294,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Hipster</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/7">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -313,12 +318,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Hustler</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/2">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -332,12 +339,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 IoT Engineer</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/8">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -352,12 +361,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Graphic Designer</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/5">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -381,12 +392,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Cloud Engineer</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/3">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -410,12 +423,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Network Engineer</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/6">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -430,12 +445,14 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 Fiber Optic Engineer</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
+                        <a href="/category/9">
                         <div
                             class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                             <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -449,6 +466,7 @@
                                 class="sm:text-[1.146vw] text-[4.186vw] font-semibold text-white group-hover:text-dark transition-colors duration-300">
                                 System Administrator</h1>
                         </div>
+                    </a>
                     </div>
                 </div>
 
@@ -482,7 +500,8 @@
                 class="mt-[3vw] flex items-center sm:gap-x-[1vw] gap-x-[4vw] overflow-x-auto scrollbar-hidden scroll-smooth pe-[3vw]">
                 <!-- Card 1 -->
                 @foreach ($project as $index => $pr)
-                    <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
+                <a href="{{ route('detail', $pr->id) }}">    
+                <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
                         @php
                             $photos = is_string($pr->photo)
                                 ? explode(',', $pr->photo)
@@ -548,7 +567,8 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </a>
+                    @endforeach
             </div>
         </div>
     </section>

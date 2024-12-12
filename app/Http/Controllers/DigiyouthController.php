@@ -37,20 +37,39 @@ class DigiyouthController extends Controller
 
         return view('index', compact('project', 'popularContributors'));
     }
-    
 
-    public function detail()
-        {
-            return view('detail');
-        }
 
-    public function category()
-        {
-            return view('category');
+    public function detail(string $id)
+    {
+        $likeModel = Like::class;
+        // $team = Team::where("project_id", $id)->get();
+        // dd($team);
+        $project = Project::find($id);
+        $membersArray = [];
+        foreach($project->team->users as $member){
+            $membersArray[] = $member->name;
         }
+        $members = implode(", ",$membersArray);
+        return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members]);
+    }
+
+    public function category(string $id)
+{
+    $likeModel = Like::class;
+    $category = Category::find($id);
+
+    $projects = Project::where("category_id", $id)->paginate(8); 
+
+    return view('category', [
+        "projects" => $projects,
+        "likeModel" => $likeModel,
+        "category" => $category
+    ]);
+}
+
 
     public function login()
-        {
-            return view('login');
-        }
+    {
+        return view('login');
+    }
 }

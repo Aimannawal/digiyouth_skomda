@@ -8,10 +8,10 @@ use App\Http\Controllers\FileUploadController;
 
 // Route::post('/upload', [FileUploadController::class, 'save'])->name('upload.save');
 
-Route::get('/', [DigiyouthController::class, 'index']);
+Route::get('/', [DigiyouthController::class, 'index'])->name("homepage");
 
-Route::get('/detail', [DigiyouthController::class, 'detail']);
+Route::get('/detail/{id}', [DigiyouthController::class, 'detail'])->name('detail');
 
-Route::get('/category', [DigiyouthController::class, 'category']);
+Route::get('/category/{id}', [DigiyouthController::class, 'category'])->name("category");
 
 Route::get('/login', [DigiyouthController::class, 'login']);

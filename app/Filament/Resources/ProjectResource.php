@@ -47,9 +47,9 @@ class ProjectResource extends Resource
                     ->required()
                     ->readOnly()
                     ->maxLength(255),
-                    Forms\Components\RichEditor::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->required()
-                    ->columnSpanFull(),           
+                    ->columnSpanFull(),
                 Forms\Components\FileUpload::make('photo')
                     ->directory('photo_projects')
                     ->image()
@@ -62,14 +62,19 @@ class ProjectResource extends Resource
                     ->required(),
                 Forms\Components\Toggle::make('status')
                     ->label('Accepted/Rejected')
-                    ->onColor('success') 
-                    ->offColor('danger')   
-                    ->onIcon('heroicon-o-check')  
-                    ->offIcon('heroicon-o-x-circle')  
+                    ->onColor('success')
+                    ->offColor('danger')
+                    ->onIcon('heroicon-o-check')
+                    ->offIcon('heroicon-o-x-circle')
                     ->inline(false)
-                    ->default(false)  
+                    ->default(false)
                     ->required()
-                    ->disabled(),              
+                    ->hidden(true)
+                    ->disabled(),
+                Forms\Components\Select::make('tools')
+                    ->multiple()
+                    ->relationship('tools', 'name')
+                    ->Label('Tools')->preload(),
             ]);
     }
 
@@ -77,28 +82,16 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('category.name')
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('team.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Title')
                     ->searchable(),
-                // Tables\Columns\TextColumn::make('slug')
-                //     ->label('Slug')
-                //     ->searchable(),
-                // Tables\Columns\TextColumn::make('description')
-                //     ->label('Description')
-                //     ->searchable(),
-                // Tables\Columns\ImageColumn::make('photo')
-                //     ->url(fn ($record) => \Illuminate\Support\Facades\Storage::url($record->photo_projects)),
-                // Tables\Columns\TextColumn::make('url')
-                //     ->label('url')
-                //     ->searchable(),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('Status')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->visible(fn() => auth()->check() && (auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('Guru'))),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')

@@ -66,6 +66,10 @@ class Project extends Model
     {
         return $this->hasMany(Like::class);
     }
+    public function tools()
+    {
+        return $this->belongsToMany(Tool::class, 'project_tools', 'project_id', 'tool_id')->withTimestamps();
+    }
 
     public function user()
     {

@@ -81,7 +81,31 @@ class RolePermissionSeeder extends Seeder
             "delete_user",
             "delete_any_user",
             "force_delete_user",
-            "force_delete_any_user"
+            "force_delete_any_user",
+            "view_reply",
+            "view_any_reply",
+            "create_reply",
+            "update_reply",
+            "restore_reply",
+            "restore_any_reply",
+            "replicate_reply",
+            "reorder_reply",
+            "delete_reply",
+            "delete_any_reply",
+            "force_delete_reply",
+            "force_delete_any_reply",
+            "view_like",
+            "view_any_like",
+            "create_like",
+            "update_like",
+            "restore_like",
+            "restore_any_like",
+            "replicate_like",
+            "reorder_like",
+            "delete_like",
+            "delete_any_like",
+            "force_delete_like",
+            "force_delete_any_like"
         ];
         
                 foreach ($permissions as $permission) {
