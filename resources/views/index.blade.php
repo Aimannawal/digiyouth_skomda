@@ -500,75 +500,89 @@
                 class="mt-[3vw] flex items-center sm:gap-x-[1vw] gap-x-[4vw] overflow-x-auto scrollbar-hidden scroll-smooth pe-[3vw]">
                 <!-- Card 1 -->
                 @foreach ($project as $index => $pr)
-                <a href="{{ route('detail', $pr->id) }}">    
-                <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
-                        @php
-                            $photos = is_string($pr->photo)
-                                ? explode(',', $pr->photo)
-                                : (is_array($pr->photo)
-                                    ? $pr->photo
-                                    : []);
-                            $firstPhoto = $photos[0] ?? null;
-                            $rank = $index + 1;
-                            $color = match ($rank) {
-                                1 => '#FFD700',
-                                2 => '#8B8B8B',
-                                3 => '#895125',
-                                default => '#000000',
-                            };
-                        @endphp
+                    @if ($pr->status == 1)
+                    <a href="{{ route('detail', $pr->id) }}">    
+                    <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
+                            @php
+                                $photos = is_string($pr->photo)
+                                    ? explode(',', $pr->photo)
+                                    : (is_array($pr->photo)
+                                        ? $pr->photo
+                                        : []);
+                                $firstPhoto = $photos[0] ?? null;
+                                $rank = $index + 1;
+                                $color = match ($rank) {
+                                    1 => '#FFD700',
+                                    2 => '#8B8B8B',
+                                    3 => '#895125',
+                                    default => '#000000',
+                                };
+                            @endphp
 
-                        @if ($firstPhoto)
-                            <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
-                                class="sm:w-[37.24vw] sm:h-[24.531vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
-                        @else
-                            <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
-                        @endif
-                        <!-- Overlay dan informasi profile yang muncul saat hover -->
-                        <div
-                            class="sm:w-[37.24vw] sm:h-[14.2655vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                        <div
-                            class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <img src="{{ Storage::url($pr->user->profile_picture) }}" alt=""
-                                class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full">
-                            <p class="sm:text-[1.25vw] text-[3.256vw] text-white font-semibold">{{ $pr->user->name }}
-                            </p>
-                        </div>
-                        <div
-                            class="absolute bg-white sm:w-[5.208vw] sm:h-[5.208vw] w-[11.628vw] h-[11.628vw] rounded-full top-[1.5vw] left-[2vw] flex items-center justify-center">
-                            <h1 class="sm:text-[2.083vw] text-[5.581vw] font-semibold"
-                                style="color: {{ $color }}">#{{ $index + 1 }}</h1>
-                        </div>
+                            @if ($firstPhoto)
+                                <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
+                                    class="sm:w-[37.24vw] sm:h-[24.531vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
+                            @else
+                                <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
+                            @endif
+                            <!-- Overlay dan informasi profile yang muncul saat hover -->
+                            <div
+                                class="sm:w-[37.24vw] sm:h-[14.2655vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                            <div
+                                class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                {{-- <img src="{{ Storage::url($pr->user->profile_picture) }}" alt=""
+                                    class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full"> --}}
+                                @php
+                                    $profilePicture = $pr->user->profile_picture ? Storage::url($pr->user->profile_picture) : null;
+                                    $userName = $pr->user->name;
+                                    $initials = strtoupper(substr($userName, 0, 1)) . strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));  // Extract initials
+                                @endphp
+                                @if($profilePicture)
+                                <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile" class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full">
+                            @else
+                            <div class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+                                    {{ $initials }}
+                                </div>
+                            @endif
+                                <p class="sm:text-[1.25vw] text-[3.256vw] text-white font-semibold">{{ $pr->user->name }}
+                                </p>
+                            </div>
+                            <div
+                                class="absolute bg-white sm:w-[5.208vw] sm:h-[5.208vw] w-[11.628vw] h-[11.628vw] rounded-full top-[1.5vw] left-[2vw] flex items-center justify-center">
+                                <h1 class="sm:text-[2.083vw] text-[5.581vw] font-semibold"
+                                    style="color: {{ $color }}">#{{ $index + 1 }}</h1>
+                            </div>
 
 
-                        <div class="flex space-x-[1vw] mt-[2vw] sm:justify-start justify-between">
-                            <h3 class="sm:text-[1.875vw] text-[4.651vw] font-semibold">{{ $pr->title }}</h3>
-                            <p
-                                class="sm:text-[1.042vw] sm:px-[1.563vw] sm:py-[0.781vw] text-[2.791vw] px-[5.814vw] py-[2.326vw] bg-main bg-opacity-5 rounded-full text-main font-bold">
-                                {{ $pr->category->name }}</p>
+                            <div class="flex space-x-[1vw] mt-[2vw] sm:justify-start justify-between">
+                                <h3 class="sm:text-[1.875vw] text-[4.651vw] font-semibold">{{ $pr->title }}</h3>
+                                <p
+                                    class="sm:text-[1.042vw] sm:px-[1.563vw] sm:py-[0.781vw] text-[2.791vw] px-[5.814vw] py-[2.326vw] bg-main bg-opacity-5 rounded-full text-main font-bold">
+                                    {{ $pr->category->name }}</p>
+                            </div>
+                            <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
+                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                    <img src="assets/thumb.svg" alt=""
+                                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
+                                        {{ $pr->likes_count }}</p>
+                                </div>
+                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                    <img src="assets/view.svg" alt=""
+                                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">1.100</p>
+                                </div>
+                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                    <img src="assets/share.svg" alt=""
+                                        class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
+                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">1.100</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                <img src="assets/thumb.svg" alt=""
-                                    class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
-                                    {{ $pr->likes_count }}</p>
-                            </div>
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                <img src="assets/view.svg" alt=""
-                                    class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">1.100</p>
-                            </div>
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                <img src="assets/share.svg" alt=""
-                                    class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">1.100</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                    @endforeach
+                    </a>                                  
+                    @endif
+                @endforeach
             </div>
         </div>
     </section>
@@ -585,8 +599,28 @@
             @foreach ($popularContributors as $contributor)
                 <div
                     class="border border-gray-300 sm:w-[18.385vw] sm:h-[17.292vw] w-[39.302vw] h-[36.965vw] sm:rounded-[0.781vw] flex flex-col justify-center items-center space-y-[0.7vw] flex-shrink-0  rounded-full">
-                    <img src="{{ asset('storage/' . $contributor['photo']) }}" alt=""
-                        class="sm:w-[7.419vw] sm:h-[7.419vw] w-[16.279vw] h-[16.279vw] object-cover rounded-full">
+                    {{-- <img src="{{ asset('storage/' . $contributor['photo']) }}" alt=""
+                        class="sm:w-[7.419vw] sm:h-[7.419vw] w-[16.279vw] h-[16.279vw] object-cover rounded-full"> --}}
+                        @php
+                        $photo = $contributor['photo'] ? asset('storage/' . $contributor['photo']) : null;
+                        $userName = $contributor['name'];
+                        $initials = strtoupper(substr($userName, 0, 1)) . strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));  // Extract initials
+                    @endphp
+                    
+                    <div class="flex items-center justify-center">
+                        @if($photo)
+                            <img src="{{ $photo }}" alt="{{ $userName }}'s profile" class="sm:w-[7.419vw] sm:h-[7.419vw] w-[16.279vw] h-[16.279vw] object-cover rounded-full">
+                        @else
+                            <div class="sm:w-[7.419vw] sm:h-[7.419vw] w-[16.279vw] h-[16.279vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+                                {{ $initials }}
+                            </div>
+                        @endif
+                    </div>
+                    
+                    <div class="text-center mt-2 text-sm text-white">
+                        <p>{{ $userName }}</p>
+                    </div>
+                                            
                     <h1 class="sm:text-[1.042vw] text-[3.256vw] font-semibold">{{ $contributor['name'] }}</h1>
                     <p class="sm:text-[0.938vw] text-[2.791vw] opacity-50 font-medium">Kontribusi:
                         {{ $contributor['contributions'] }}</p>

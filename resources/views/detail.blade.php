@@ -11,7 +11,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     @vite('resources/css/app.css')
 
-    <title>Cloud Computing</title>
+    <title>Digiyouth | SMK Telkom Sidoarjo</title>
 </head>
 
 <body class="text-dark relative ">
@@ -312,8 +312,8 @@
 
                     {{-- {!! $project->description !!} --}}
                     <div class="sm:space-y-[1.5vw] space-y-[6vw]">
-                        <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Treadwear.co</h3>
-                        <p class="sm:text-[0.938vw] text-[3.256vw]">{{  $project->description  }}</p>
+                        {{-- <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Treadwear.co</h3> --}}
+                        <p class="sm:text-[0.938vw] text-[3.256vw]">{!!  $project->description  !!}</p>
                     </div>
                     {{-- <div class="sm:space-y-[1.5vw] space-y-[6vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Exciting UD Business Case Competition
@@ -357,14 +357,10 @@
                             <h3 class="sm:text-[0.938vw] text-[3.256vw] font-semibold">Project Tools</h3>
                         </div>
                         <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                            <img src="/assets/tools-1.svg" alt=""
-                                class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
-                            <img src="/assets/tools-2.svg" alt=""
-                                class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
-                            <img src="/assets/tools-3.svg" alt=""
-                                class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
-                            <img src="/assets/tools-4.svg" alt=""
-                                class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
+                            @foreach ($toolsArray as $tool)
+                            <img src="{{ $tool }}" alt=""
+                            class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
+                            @endforeach
                         </div>
                     </div>
 
@@ -374,7 +370,7 @@
                             <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
                                 <img src="/assets/thumb.svg" alt=""
                                     class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">200</p>
+                                <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400"> {{ $likeModel::where('project_id', $project->id)->count() }}</p>
                             </div>
                             <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
                                 <img src="/assets/share.svg" alt=""

@@ -10,7 +10,7 @@
     <script src="/js/navbar.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     @vite('resources/css/app.css')
-    <title>Cloud Computing</title>
+    <title>Digiyouth | SMK Telkom Sidoarjo</title>
 </head>
 
 <body class="text-dark relative">
@@ -288,6 +288,7 @@
         <div
             class="w-full sm:grid sm:grid-cols-4 grid-cols-1 flex flex-col justify-center items-center sm:gap-x-[1.042vw] sm:gap-y-[3vw] gap-y-[8vw]">
             @foreach ($projects as $project)
+                @if ($project->status == 1)
                     <div class="relative group">
 
                         @php
@@ -314,8 +315,22 @@
                         </div>
                         <div
                             class="flex items-center absolute sm:bottom-[7vw] bottom-[22vw] sm:left-[3vw] left-[6vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <img src="{{ Storage::url($project->user->profile_picture) }}" alt=""
-                                class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full">
+                            @php
+                                $profilePicture = $project->user->profile_picture ? Storage::url($project->user->profile_picture) : null;
+                                $userName = $project->user->name;
+                                $initials = strtoupper(substr($userName, 0, 1)) . strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));  // Extract initials
+                            @endphp
+
+                            <div class="flex items-center justify-center">
+                                @if($profilePicture)
+                                    <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile" class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full">
+                                @else
+                                <div class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-xs sm:text-sm text-center">
+                                    {{ $initials }}
+                                </div>                                
+                                @endif
+                            </div>
+
                             <p class="sm:text-[0.938vw] text-[3.256vw] text-white font-semibold">{{ $project->user->name }}</p>
                         </div>
                     </a>
@@ -344,6 +359,7 @@
                             </div>
                         </div>
                     </div>
+                @endif
             @endforeach
         </div>
         <div class="sm:mt-[5vw] mt-[15vw]">

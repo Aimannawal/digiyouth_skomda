@@ -14,35 +14,54 @@ class DigiyouthController extends Controller
 {
     public function index()
     {
-        // Ambil data project, termasuk kategori dan jumlah likes
         $project = Project::with('category')
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')
             ->take(3)
             ->get();
-    
-        // Ambil data contributor populer
-        $popularContributors = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
+
+        $teamUserContributions = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
             ->groupBy('user_id')
-            ->orderBy('contributions', 'desc')
-            ->take(5)
             ->get()
-            ->map(function ($teamUser) {
-                $user = User::find($teamUser->user_id);
+            ->keyBy('user_id');
+
+        $projectContributions = Project::select('user_id', \DB::raw('COUNT(*) as contributions'))
+            ->groupBy('user_id')
+            ->get()
+            ->keyBy('user_id'); 
+
+        $combinedContributions = collect();
+
+        $allUserIds = $teamUserContributions->keys()->merge($projectContributions->keys())->unique();
+
+        foreach ($allUserIds as $userId) {
+            $teamUserCount = $teamUserContributions->get($userId)->contributions ?? 0;
+            $projectCount = $projectContributions->get($userId)->contributions ?? 0;
+
+            $combinedContributions->push([
+                'user_id' => $userId,
+                'contributions' => $teamUserCount + $projectCount,
+            ]);
+        }
+
+        $popularContributors = $combinedContributions
+            ->sortByDesc('contributions')
+            ->take(5)
+            ->map(function ($contribution) {
+                $user = User::find($contribution['user_id']);
                 return [
                     'id' => $user->id,
                     'name' => $user->name,
                     'photo' => $user->profile_picture,
-                    'contributions' => $teamUser->contributions,
+                    'contributions' => $contribution['contributions'],
                 ];
             });
-    
-        // Ambil semua kategori
+
         $allCategories = Category::all();
-    
-        // Kirim data ke view
+
         return view('index', compact('project', 'popularContributors', 'allCategories'));
     }
+
     
     public function category(string $id)
     {
@@ -63,8 +82,6 @@ class DigiyouthController extends Controller
     public function detail(string $id)
     {
         $likeModel = Like::class;
-        // $team = Team::where("project_id", $id)->get();
-        // dd($team);
         $project = Project::find($id);
         $category = Category::all();
         $membersArray = [];
@@ -72,7 +89,13 @@ class DigiyouthController extends Controller
             $membersArray[] = $member->name;
         }
         $members = implode(", ",$membersArray);
-        return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members, "category" => $category]);
+        $toolsArray = [];
+        foreach($project->tool as $tool){
+            $toolsArray[] = $tool->image;
+        }
+        $tools = implode(", ",$toolsArray);
+        $toolsArray = explode(", ", $tools);
+        return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members, "category" => $category, "toolsArray" => $toolsArray]);
     }
 
 

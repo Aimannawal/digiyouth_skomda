@@ -8,7 +8,7 @@
          <link href="css/style.css" rel="stylesheet">
          <script src="js/navbar.js"></script>
          @vite('resources/css/app.css')
-        <title>Digiyouth | Login</title>
+        <title>Digiyouth | SMK Telkom Sidoarjo</title>
     </head>
 <body class="text-dark relative ">
     

@@ -71,6 +71,11 @@ class Project extends Model
         return $this->belongsToMany(Tool::class, 'project_tools', 'project_id', 'tool_id')->withTimestamps();
     }
 
+    public function tool()
+    {
+        return $this->belongsToMany(Tool::class, 'project_tools', 'project_id', 'tool_id')->withTimestamps();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
