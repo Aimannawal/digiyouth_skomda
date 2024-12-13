@@ -66,6 +66,7 @@ class DigiyouthController extends Controller
     }
 
 
+    
     public function category(string $id)
     {
         $likeModel = Like::class;
@@ -84,14 +85,18 @@ class DigiyouthController extends Controller
 
     public function detail(string $id)
     {
-        $likeModel = Like::class;
-        $project = Project::find($id);
+        $likeModel = Like::class; // Model untuk mengelola "like"
+        $project = Project::findOrFail($id); // Pastikan project ditemukan, jika tidak return 404
         $category = Category::all();
+
+        // Data tim
         $membersArray = [];
         foreach ($project->team->users as $member) {
             $membersArray[] = $member->name;
         }
         $members = implode(", ", $membersArray);
+
+        // Data alat yang digunakan dalam project
         $toolsArray = [];
         foreach ($project->tool as $tool) {
             $toolsArray[] = $tool->image;
@@ -99,10 +104,27 @@ class DigiyouthController extends Controller
         $tools = implode(", ", $toolsArray);
         $toolsArray = explode(", ", $tools);
 
+        // Komentar terkait project
         $comments = Comment::where("project_id", $id)->get();
         $commentsCount = Comment::where("project_id", $id)->count();
-        return view('detail', ["project" => $project, "likeModel" => $likeModel, "members" => $members, "category" => $category, "toolsArray" => $toolsArray, "comments" => $comments, "commentsCount" => $commentsCount]);
+
+        // Cek apakah user sudah menyukai project ini
+        $userLiked = auth()->check() && Like::where('project_id', $id)
+            ->where('user_id', auth()->id())
+            ->exists();
+
+        return view('detail', [
+            "project" => $project,
+            "likeModel" => $likeModel,
+            "members" => $members,
+            "category" => $category,
+            "toolsArray" => $toolsArray,
+            "comments" => $comments,
+            "commentsCount" => $commentsCount,
+            "userLiked" => $userLiked, // Ditambahkan untuk kebutuhan tombol like
+        ]);
     }
+
 
 
     public function login()

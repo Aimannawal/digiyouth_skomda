@@ -61,22 +61,66 @@
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="">Event</a></li>
             </ul>
         </div>
-        <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
+        <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw] relative">
+            {{-- Modal --}}
+            {{-- <div class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
+                <a href="" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Profile</a>
+                <a href="" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">History</a>
+                <form action="" method="POST" style="display: inline;">
+                    @csrf
+                    <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Log Out</button>
+                </form>
+            </div> --}}
             <input type="text" name="" id=""
                 class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
                 placeholder="Cari proyek, kategori, atau nama siswa">
                 @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end">
+                <nav class="-mx-3 flex flex-1 justify-end relative">
                     @auth
-                        <a href="{{ route('dashboard') }}"
-                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}"
-                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
+                    @php
+                        $user = auth()->user();
+                        $photo = $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
+                        $userName = $user ? $user->name : 'Guest';
+                        $initials = $userName ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('') : 'G';
+                    @endphp
 
+                    <div x-data="{ dropdownOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
+                        <div class="relative flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                            <!-- Foto atau Inisial -->
+                            @if ($photo)
+                                <img src="{{ $photo }}" alt="{{ $userName }}" @click="dropdownOpen = !dropdownOpen"
+                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                            @else
+                                <div @click="dropdownOpen = !dropdownOpen"
+                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
+                                    {{ $initials }}
+                                </div>
+                            @endif
+
+                            <!-- Dropdown Menu -->
+                            <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false" 
+                                class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
+                                <a href="" 
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Profile</a>
+                                <a href="" 
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">History</a>
+                                <form action="" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">
+                                        Log Out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <!-- Tombol Login -->
+                    <a href="{{ route('login') }}"
+                        class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
                     @endauth
                 </nav>
-            @endif
+                @endif
+
 
         
         </div>
@@ -393,24 +437,36 @@
                         </div>
                     </div>
 
-                    <div class="sm:space-y-[0.7vw] space-y-[2vw]">
+                    <div x-data="{ isLiked: {{ json_encode($userLiked) }} }" class="sm:space-y-[0.7vw] space-y-[2vw]">
                         <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold">Suka dengan project ini?</p>
                         <div class="flex items-center sm:space-x-[1.5vw] space-x-[4vw]">
+                            <!-- Tombol Like -->
                             <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
-                                <form action="{{ route('detail.like', $project->id) }}" method="post">@csrf <button
-                                        type="submit"><img src="/assets/thumb.svg" alt=""
-                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]"></button>
+                                <form action="{{ route('detail.like', $project->id) }}" method="post" 
+                                      @submit.prevent="isLiked = !isLiked; $el.submit()">
+                                    @csrf
+                                    <button type="submit">
+                                        <svg :class="isLiked ? 'fill-red-500' : 'fill-[#323232] opacity-50'" 
+                                             class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]" 
+                                             viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M28.75 12.4375C28.75 11.7778 28.4866 11.1451 28.0178 10.6786C27.5489 10.2121 26.913 9.94999 26.25 9.94999H18.35L19.55 4.26606C19.575 4.14168 19.5875 4.00487 19.5875 3.86806C19.5875 3.35812 19.375 2.88549 19.0375 2.54968L17.7125 1.24374L9.4875 9.42762C9.025 9.8878 8.75 10.5097 8.75 11.1937V23.6312C8.75 24.291 9.01339 24.9237 9.48223 25.3902C9.95107 25.8567 10.587 26.1187 11.25 26.1187H22.5C23.5375 26.1187 24.425 25.4969 24.8 24.6014L28.575 15.8329C28.6875 15.5469 28.75 15.2484 28.75 14.925V12.4375ZM1.25 26.1187H6.25V11.1937H1.25V26.1187Z"/>
+                                        </svg>
+                                    </button>
                                 </form>
                                 <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">
-                                    {{ $likeModel::where('project_id', $project->id)->count() }}</p>
+                                    {{ $likeModel::where('project_id', $project->id)->count() }}
+                                </p>
                             </div>
+                    
+                            <!-- Tombol Share -->
                             <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
-                                <img src="/assets/share.svg" alt=""
+                                <img src="/assets/share.svg" alt="Share Icon"
                                     class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
                                 <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">Share</p>
                             </div>
                         </div>
                     </div>
+                    
 
                     <div class="sm:space-y-[1.5vw] space-y-[3vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold ">Sneak Peak</h3>
@@ -433,12 +489,13 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div id="imageModal"
-                        class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
-                        onclick="closeModal(event)">
+                    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50" onclick="closeModal(event)" style="margin: 0">
                         <div class="relative flex items-center justify-center" onclick="event.stopPropagation()">
-                            <img id="modalImage" src="" alt=""
-                                class="w-[20vw] h-[20vw] object-cover">
+                            <!-- Icon Close -->
+                            <button class="absolute top-4 right-4 text-white text-lg font-bold bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-opacity-75" onclick="closeModal(event)">
+                                &times;
+                            </button>
+                            <img id="modalImage" src="" alt="" class="sm:w-[21.667vw] sm:h-[17.813vw] w-[73.256vw] h-[57.442vw] mt-[10vw] object-cover">
                         </div>
                     </div>
 
@@ -667,20 +724,20 @@ $initials =
         function openModal(imageUrl) {
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
-            const nav = document.querySelector('nav')
-            nav.classList.add('hidden')
+            const nav = document.querySelector('nav');
+            nav.classList.add('hidden');
             modalImage.src = imageUrl;
             modal.classList.remove('hidden');
         }
-
-        // Fungsi untuk menutup modal ketika area kosong diklik
+    
+        // Fungsi untuk menutup modal ketika area kosong atau icon close diklik
         function closeModal(event) {
             const modal = document.getElementById('imageModal');
-            const nav = document.querySelector('nav')
-            // Cek apakah yang diklik adalah area di luar konten modal
-            if (event.target === modal) {
+            const nav = document.querySelector('nav');
+            // Cek apakah yang diklik adalah area di luar konten modal atau tombol close
+            if (event.target === modal || event.target.closest('button')) {
                 modal.classList.add('hidden');
-                nav.classList.remove('hidden')
+                nav.classList.remove('hidden');
             }
         }
     </script>
