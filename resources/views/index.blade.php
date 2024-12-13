@@ -69,18 +69,44 @@
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
-                        <a href="{{ route('dashboard') }}"
-                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}"
-                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
+                    @php
+                        $user = auth()->user();
+                        $photo = $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
+                        $userName = $user ? $user->name : 'Guest';
+                        $initials = $userName ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('') : 'G';
+                    @endphp
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                Register
-                            </a>
-                        @endif
+                    <div x-data="{ dropdownOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
+                        <div class="relative flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                            <!-- Foto atau Inisial -->
+                            @if ($photo)
+                                <img src="{{ $photo }}" alt="{{ $userName }}" @click="dropdownOpen = !dropdownOpen"
+                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                            @else
+                                <div @click="dropdownOpen = !dropdownOpen"
+                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
+                                    {{ $initials }}
+                                </div>
+                            @endif
+
+                            <!-- Dropdown Menu -->
+                            <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false" 
+                                class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
+                                <a href="http://127.0.0.1:8000/admin" 
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
+                                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">
+                                        Log Out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <!-- Tombol Login -->
+                    <a href="{{ route('login') }}"
+                        class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
                     @endauth
                 </nav>
             @endif
@@ -616,13 +642,13 @@
                                     <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
                                         <img src="assets/view.svg" alt=""
                                             class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">1.100
+                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">60
                                         </p>
                                     </div>
                                     <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
                                         <img src="assets/share.svg" alt=""
                                             class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">1.100
+                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">46
                                         </p>
                                     </div>
                                 </div>
@@ -673,8 +699,8 @@
                     </div>
 
                     <h1 class="sm:text-[1.042vw] text-[3.256vw] font-semibold">{{ $contributor['name'] }}</h1>
-                    <p class="sm:text-[0.938vw] text-[2.791vw] opacity-50 font-medium">Kontribusi:
-                        {{ $contributor['contributions'] }}</p>
+                    <p class="sm:text-[0.938vw] text-[2.791vw] opacity-50 font-medium">
+                        {{ $contributor['grade'] }}</p>
                 </div>
             @endforeach
 

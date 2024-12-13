@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Project;
+use App\Models\Reply;
 use App\Models\Team;
 use App\Models\TeamUser;
 use App\Models\User;
@@ -55,6 +56,7 @@ class DigiyouthController extends Controller
                 return [
                     'id' => $user->id,
                     'name' => $user->name,
+                    'grade' => $user->grade,
                     'photo' => $user->profile_picture,
                     'contributions' => $contribution['contributions'],
                 ];
@@ -170,6 +172,27 @@ class DigiyouthController extends Controller
             }else{
                 Like::destroy($like->id);
             }
+
+
+            return redirect()->back();
+        }
+    }
+
+    public function reply(Request $request, string $id)
+    {
+        if (Auth::id() == null ) {
+            return redirect()->route('login');
+        } else {
+            // dd($request->input('comment')); 
+            if($request->input('reply') == null){
+                return redirect()->back();
+            }
+            $comment = Comment::find($id);
+        $newReply = Reply::create([
+                'comment_id' => $comment->id,
+                'user_id' => Auth::id(),
+                'content' => $request->input('reply'),
+            ]);
 
 
             return redirect()->back();

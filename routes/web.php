@@ -14,6 +14,7 @@ Route::get('/', [DigiyouthController::class, 'index'])->name("homepage");
 Route::get('/detail/{id}', [DigiyouthController::class, 'detail'])->name('detail');
 Route::post('/detail/{id}/like', [DigiyouthController::class, 'like'])->name('detail.like');
 Route::post('/detail/{id}/comment', [DigiyouthController::class, 'comment'])->name('detail.comment');
+Route::post('/detail/{id}/reply', [DigiyouthController::class, 'reply'])->name('detail.reply');
 
 Route::get('/category/{id}', [DigiyouthController::class, 'category'])->name("category");
 
