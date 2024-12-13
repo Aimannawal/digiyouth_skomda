@@ -20,7 +20,8 @@
             <img src="/assets/logo.png" alt=""
                 class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
-                <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="{{ route("homepage") }}">Beranda</a>
+                <li class="hover:text-main transition-all duration-300 ease-in-out"><a
+                        href="{{ route('homepage') }}">Beranda</a>
                 </li>
                 <!-- Menambahkan class group pada kategori-button -->
                 <li id="kategori-button" class="cursor-pointer group relative">
@@ -31,27 +32,27 @@
                         <div class="grid grid-cols-3 gap-[1vw] text-[0.938vw]">
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 1) }}">Hacker</a></li>
+                                        href="{{ route('category', 1) }}">Hacker</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 2) }}">IoT Engineer</a></li>
+                                        href="{{ route('category', 2) }}">IoT Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 3) }}">Network Engineer</a></li>
+                                        href="{{ route('category', 3) }}">Network Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 4) }}">Hipster</a></li>
+                                        href="{{ route('category', 4) }}">Hipster</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 5) }}">Cloud Engineer</a></li>
+                                        href="{{ route('category', 5) }}">Cloud Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 6) }}">Fiber Optic Engineer</a></li>
+                                        href="{{ route('category', 6) }}">Fiber Optic Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 7) }}">Hustler</a></li>
+                                        href="{{ route('category', 7) }}">Hustler</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 8) }}">Graphic Designer</a></li>
+                                        href="{{ route('category', 8) }}">Graphic Designer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route("category", 9) }}">System Administrator</a></li>
+                                        href="{{ route('category', 9) }}">System Administrator</a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,8 +64,19 @@
             <input type="text" name="" id=""
                 class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
                 placeholder="Cari proyek, kategori, atau nama siswa">
-            <button
-                class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</button>
+            @if (Route::has('login'))
+                <nav class="-mx-3 flex flex-1 justify-end">
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
+
+                    @endauth
+                </nav>
+            @endif
+
         </div>
         <div id="hamburger" class="sm:hidden pt-[3vw]">
             <img src="/assets/hamburger.svg" alt="" class=" w-[6.047vw] h-[4.535vw]">
@@ -83,9 +95,26 @@
                         class="w-full h-full rounded-[2vw] border-[0.233vw] border-gray-300 text-[3.256vw] p-[5vw] outline-none placeholder:text-[3.256vw]"
                         placeholder="Cari proyek, kategori, atau nama siswa">
                 </li>
-                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <button class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
-                </li>
+                @if (Route::has('login'))
+                <nav class="-mx-3 flex flex-1 justify-end">
+                    @auth
+                    <form action="/dashboard" method="GET">
+                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                            <button type="submit"
+                                class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
+                        </li>
+                    </form>   
+                    @else
+                    <form action="/login" method="GET">
+                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                            <button type="submit"
+                                class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
+                        </li>
+                    </form>   
+                    @endauth
+                </nav>
+            @endif
+
                 <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Beranda</li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
@@ -239,9 +268,10 @@
                 class="sm:w-auto w-full flex items-center sm:space-x-[2vw] space-x-[6.977vw] sm:px-[14.708vw] px-0 sm:ps-0 sm:pe-0 ps-[8.372vw] pe-[8.372vw] mt-[2vw] sm:overflow-hidden overflow-x-auto whitespace-nowrap scrollbar-hidden">
                 @foreach ($allCategories as $all)
                     <div class="flex justify-center">
-                        <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw] 
+                        <h1
+                            class="font-medium sm:text-[1.146vw] text-[4.186vw] 
                             @if ($all->id == $category->id) active @endif">
-                            <a href="/category/{{  $all->id  }}">{{  $all->name  }}</a>
+                            <a href="/category/{{ $all->id }}">{{ $all->name }}</a>
                         </h1>
                     </div>
                 @endforeach
@@ -306,34 +336,41 @@
                             //     default => '#000000',
                             // };
                         @endphp
-                    <a href="{{ route('detail', $project->id) }}">
-                        <img src="{{ Storage::url($firstPhoto) }}" alt=""
-                            class="sm:w-[22.083vw] sm:h-[14.063vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
-                        <!-- Overlay dan informasi profile yang muncul saat hover -->
-                        <div
-                            class="sm:w-[21.7vw] sm:h-[7.0315vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[5.3vw] bottom-[17.3vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        </div>
-                        <div
-                            class="flex items-center absolute sm:bottom-[7vw] bottom-[22vw] sm:left-[3vw] left-[6vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            @php
-                                $profilePicture = $project->user->profile_picture ? Storage::url($project->user->profile_picture) : null;
-                                $userName = $project->user->name;
-                                $initials = strtoupper(substr($userName, 0, 1)) . strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));  // Extract initials
-                            @endphp
-
-                            <div class="flex items-center justify-center">
-                                @if($profilePicture)
-                                    <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile" class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full">
-                                @else
-                                <div class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-xs sm:text-sm text-center">
-                                    {{ $initials }}
-                                </div>                                
-                                @endif
+                        <a href="{{ route('detail', $project->id) }}">
+                            <img src="{{ Storage::url($firstPhoto) }}" alt=""
+                                class="sm:w-[22.083vw] sm:h-[14.063vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
+                            <!-- Overlay dan informasi profile yang muncul saat hover -->
+                            <div
+                                class="sm:w-[21.7vw] sm:h-[7.0315vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[5.3vw] bottom-[17.3vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             </div>
+                            <div
+                                class="flex items-center absolute sm:bottom-[7vw] bottom-[22vw] sm:left-[3vw] left-[6vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                @php
+                                    $profilePicture = $project->user->profile_picture
+                                        ? Storage::url($project->user->profile_picture)
+                                        : null;
+                                    $userName = $project->user->name;
+                                    $initials =
+                                        strtoupper(substr($userName, 0, 1)) .
+                                        strtoupper(substr($userName, strpos($userName, ' ') + 1, 1)); // Extract initials
+                                @endphp
 
-                            <p class="sm:text-[0.938vw] text-[3.256vw] text-white font-semibold">{{ $project->user->name }}</p>
-                        </div>
-                    </a>
+                                <div class="flex items-center justify-center">
+                                    @if ($profilePicture)
+                                        <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile"
+                                            class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full">
+                                    @else
+                                        <div
+                                            class="sm:w-[1.656vw] sm:h-[1.656vw] w-[5.814vw] h-[5.814vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-xs sm:text-sm text-center">
+                                            {{ $initials }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <p class="sm:text-[0.938vw] text-[3.256vw] text-white font-semibold">
+                                    {{ $project->user->name }}</p>
+                            </div>
+                        </a>
                         <div class="flex justify-between sm:mt-[1vw] mt-[3vw] items-center">
                             <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">{{ $project->title }}</h3>
                             <p
@@ -385,7 +422,7 @@
                         </a>
                     @endif
                 </div>
-        
+
                 <!-- Pagination Numbers -->
                 <div
                     class="grid grid-cols-{{ $pageCount }} sm:gap-x-[0.521vw] gap-x-[2vw] sm:text-[0.938vw] text-[3.256vw] font-semibold">
@@ -407,7 +444,7 @@
                         </div>
                     @endforeach
                 </div>
-        
+
                 <!-- Next Page Link -->
                 <div class="flex justify-center items-center">
                     @if ($projects->hasMorePages())
@@ -428,9 +465,9 @@
                 </div>
             </div>
         </div>
-        
-        
-        
+
+
+
     </section>
 
 
@@ -462,7 +499,7 @@
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
                         @foreach ($allCategories as $all)
-                            <li><a href="/category/{{  $all->id  }}">{{ $all->name }}</a></li>
+                            <li><a href="/category/{{ $all->id }}">{{ $all->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

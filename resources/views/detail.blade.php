@@ -59,14 +59,26 @@
                     </div>
                 </li>
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="">Event</a></li>
-            </ul>   
+            </ul>
         </div>
         <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
             <input type="text" name="" id=""
                 class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
                 placeholder="Cari proyek, kategori, atau nama siswa">
-            <button
-                class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</button>
+                @if (Route::has('login'))
+                <nav class="-mx-3 flex flex-1 justify-end">
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
+
+                    @endauth
+                </nav>
+            @endif
+
+        
         </div>
         <div id="hamburger" class="sm:hidden pt-[3vw]">
             <img src="/assets/hamburger.svg" alt="" class=" w-[6.047vw] h-[4.535vw]">
@@ -85,9 +97,26 @@
                         class="w-full h-full rounded-[2vw] border-[0.233vw] border-gray-300 text-[3.256vw] p-[5vw] outline-none placeholder:text-[3.256vw]"
                         placeholder="Cari proyek, kategori, atau nama siswa">
                 </li>
-                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <button class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
-                </li>
+                @if (Route::has('login'))
+                <nav class="-mx-3 flex flex-1 justify-end">
+                    @auth
+                    <form action="/dashboard" method="GET">
+                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                            <button type="submit"
+                                class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
+                        </li>
+                    </form>   
+                    @else
+                    <form action="/login" method="GET">
+                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                            <button type="submit"
+                                class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
+                        </li>
+                    </form>   
+                    @endauth
+                </nav>
+            @endif
+
                 <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Beranda</li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
@@ -313,7 +342,7 @@
                     {{-- {!! $project->description !!} --}}
                     <div class="sm:space-y-[1.5vw] space-y-[6vw]">
                         {{-- <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Treadwear.co</h3> --}}
-                        <p class="sm:text-[0.938vw] text-[3.256vw]">{!!  $project->description  !!}</p>
+                        <p class="sm:text-[0.938vw] text-[3.256vw]">{!! $project->description !!}</p>
                     </div>
                     {{-- <div class="sm:space-y-[1.5vw] space-y-[6vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.186vw] font-medium">Exciting UD Business Case Competition
@@ -358,8 +387,8 @@
                         </div>
                         <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
                             @foreach ($toolsArray as $tool)
-                            <img src="{{ $tool }}" alt=""
-                            class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
+                                <img src="{{ $tool }}" alt=""
+                                    class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
                             @endforeach
                         </div>
                     </div>
@@ -368,9 +397,12 @@
                         <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold">Suka dengan project ini?</p>
                         <div class="flex items-center sm:space-x-[1.5vw] space-x-[4vw]">
                             <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
-                                <img src="/assets/thumb.svg" alt=""
-                                    class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400"> {{ $likeModel::where('project_id', $project->id)->count() }}</p>
+                                <form action="{{ route('detail.like', $project->id) }}" method="post">@csrf <button
+                                        type="submit"><img src="/assets/thumb.svg" alt=""
+                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]"></button>
+                                </form>
+                                <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">
+                                    {{ $likeModel::where('project_id', $project->id)->count() }}</p>
                             </div>
                             <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
                                 <img src="/assets/share.svg" alt=""
@@ -382,7 +414,8 @@
 
                     <div class="sm:space-y-[1.5vw] space-y-[3vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold ">Sneak Peak</h3>
-                        <div class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
+                        <div
+                            class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
                             @php
                                 $photos = is_string($project->photo)
                                     ? explode(',', $project->photo)
@@ -399,38 +432,43 @@
                             @endforeach
                         </div>
                     </div>
-                <!-- Modal -->
-                <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
-                    onclick="closeModal(event)">
-                    <div class="relative flex items-center justify-center" onclick="event.stopPropagation()">
-                        <img id="modalImage" src="" alt="" class="w-[20vw] h-[20vw] object-cover">
+                    <!-- Modal -->
+                    <div id="imageModal"
+                        class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
+                        onclick="closeModal(event)">
+                        <div class="relative flex items-center justify-center" onclick="event.stopPropagation()">
+                            <img id="modalImage" src="" alt=""
+                                class="w-[20vw] h-[20vw] object-cover">
+                        </div>
                     </div>
-                </div>
 
                 </div>
                 <div id="comment-section" class="sm:mt-[5vw] mt-[8vw]">
                     <div>
-                        <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                        {{-- <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
                             <img src="/assets/profile-picture.png" alt=""
                                 class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
                             <div class="space-y-[0.2vw]">
                                 <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Arka Jenar Ma'arif</h3>
                                 <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">XII SIJA 1</p>
                             </div>
-                        </div>
-                        <div class="sm:ps-[5.271vw] ps-0 relative sm:mt-0 mt-[3vw]">
-                            <textarea name="" id="" placeholder="Berikan dukungan dan Saranmu di sini..."
-                                class="sm:placeholder:text-[0.938vw] placeholder:text-[3.256vw] sm:w-[54.948vw] w-[63.023vw] sm:h-[9.688vw] h-[43.256vw] border-[0.2vw] sm:rounded-[0.781vw] rounded-[3.488vw] sm:p-[1vw] p-[5vw] focus:outline-main sm:text-[0.938vw] text-[3.256vw]"></textarea>
-                            <button
-                                class="absolute sm:right-[7.5vw] sm:bottom-[2vw] bottom-[5vw] right-[5vw] sm:py-[1.042vw] sm:px-[2.604vw] py-[2.326vw] px-[6.977vw] bg-main sm:rounded-[0.521vw] sm:text-[1.042vw] rounded-[2.326vw] text-[3.256vw] font-semibold text-white ">Kirim</button>
-                        </div>
+                        </div> --}}
+                        <form action="{{ route('detail.comment', $project->id) }}" method="post">
+                            @csrf
+                            <div class="sm:ps-[5.271vw] ps-0 relative sm:mt-0 mt-[3vw]">
+                                <textarea name="comment" id="" placeholder="Berikan dukungan dan Saranmu di sini..."
+                                    class="sm:placeholder:text-[0.938vw] placeholder:text-[3.256vw] sm:w-[54.948vw] w-[63.023vw] sm:h-[9.688vw] h-[43.256vw] border-[0.2vw] sm:rounded-[0.781vw] rounded-[3.488vw] sm:p-[1vw] p-[5vw] focus:outline-main sm:text-[0.938vw] text-[3.256vw]"></textarea>
+                                <button
+                                    class="absolute sm:right-[7.5vw] sm:bottom-[2vw] bottom-[5vw] right-[5vw] sm:py-[1.042vw] sm:px-[2.604vw] py-[2.326vw] px-[6.977vw] bg-main sm:rounded-[0.521vw] sm:text-[1.042vw] rounded-[2.326vw] text-[3.256vw] font-semibold text-white ">Kirim</button>
+                            </div>
+                        </form>
                     </div>
                     <div id="other-comments" class="mt-[3vw] sm:space-y-[2vw] space-y-[12vw]">
                         <div
                             class="flex sm:flex-row flex-col sm:justify-between justify-start sm:items-center items-start">
                             <div class="">
                                 <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold">Komentar Lainnya</h3>
-                                <p class="sm:text-[0.938vw] text-[3.256vw]">3 Komentar</p>
+                                <p class="sm:text-[0.938vw] text-[3.256vw]">{{ $commentsCount }} Komentar</p>
                             </div>
                             <div class="sm:w-auto sm:block w-full flex items-center justify-center sm:mt-0 mt-[6vw]">
                                 <div
@@ -448,91 +486,109 @@
                             </div>
                         </div>
                         <div class="space-y-[3vw]">
-                            <div x-data="{ replyOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
-                                <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                                    <img src="/assets/profile-picture.png" alt=""
-                                        class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
-                                    <div class="space-y-[0.2vw]">
-                                        <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Ezar Fausta Rafi
-                                            <span class="font-normal">- 1 Hari yang lalu</span>
-                                        </h3>
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">XII SIJA
-                                            1</p>
-                                    </div>
-                                </div>
-                                <p class="sm:text-[0.938vw] text-[3.256vw]">Desain web-nya sangat menarik dan
-                                    profesional. Kombinasi warna dan tipografinya sangat pas. Layout web-nya sangat
-                                    user-friendly dan mudah dinavigasi. Pengunjung pasti akan betah berlama-lama di
-                                    sini. Konsep desain web-nya sangat kreatif dan unik. Saya belum pernah melihat yang
-                                    seperti ini sebelumnya.</p>
+@foreach ($comments as $comment)
+@if ($comment->status == 1)
+@php
+$photo = $comment->user->profile_picture ? asset('storage/' . $comment->user->profile_picture) : null;
+$userName = $comment->user->name;
+$initials =
+    strtoupper(substr($userName, 0, 1)) .
+    strtoupper(substr($userName, strpos($userName, ' ') + 1, 1)); // Extract initials
+@endphp
+<div x-data="{ replyOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
+    <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
+        @if ($photo)
 
-                                <!-- Tombol Like dan Balas -->
-                                <div class="flex items-center space-x-[1.5vw]">
-                                    <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
-                                        <img src="/assets/thumb.svg" alt=""
-                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">200</p>
-                                    </div>
-                                    <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center cursor-pointer"
-                                        @click="replyOpen = !replyOpen">
-                                        <img src="/assets/comment.svg" alt=""
-                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">Balas
-                                        </p>
-                                        <img src="/assets/arrow-filter.svg" alt=""
-                                            :class="{ 'rotate-180': replyOpen }"
-                                            class="sm:w-[0.8vw] sm:h-[0.9vw] w-[2.5vw] h-[2.6vw] transition-transform duration-300">
-                                    </div>
+        <img src="{{ $photo }}" alt=""
+            class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
+    @else
+        <div
+            class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+            {{ $initials }}
+        </div>
+    @endif
+        <div class="space-y-[0.2vw]">
+            <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">{{ $comment->user->name }}
+                <span class="font-normal">- 1 Hari yang lalu</span>
+            </h3>
+            <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">XII SIJA
+                1</p>
+        </div>
+    </div>
+    <p class="sm:text-[0.938vw] text-[3.256vw]">{{ $comment->text }}</p>
 
-
-
-                                </div>
-
-                                <!-- Balasan -->
-                                <div x-show="replyOpen" class="sm:ps-[2.5vw] ps-0 sm:space-y-[2vw] space-y-[4vw]"
-                                    x-transition>
-                                    <div class="space-y-[1.5vw] sm:mt-[2.5vw] mt-[8vw]">
-                                        <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                                            <img src="/assets/profile-picture.png" alt=""
-                                                class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
-                                            <div class="space-y-[0.2vw]">
-                                                <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Arka Jenar
-                                                    Ma'arif <span class="font-normal">ke <span
-                                                            class="font-semibold text-main">Ezar Fausta
-                                                            Rafi</span></span></h3>
-                                                <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
-                                                    XII SIJA 1</p>
-                                            </div>
-                                        </div>
-                                        <p class="sm:text-[0.938vw] text-[3.256vw]">Desain web-nya sangat menarik dan
-                                            profesional. Kombinasi warna dan tipografinya sangat pas. Layout web-nya
-                                            sangat user-friendly dan mudah dinavigasi. Pengunjung pasti akan betah
-                                            berlama-lama di sini. Konsep desain web-nya sangat kreatif dan unik. Saya
-                                            belum pernah melihat yang seperti ini sebelumnya.</p>
-                                    </div>
+    <!-- Tombol Like dan Balas -->
+    <div class="flex items-center space-x-[1.5vw]">
+        {{-- <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
+            <img src="/assets/thumb.svg" alt=""
+                class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+            <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">200</p>
+        </div> --}}
+        <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center cursor-pointer"
+            @click="replyOpen = !replyOpen">
+            <img src="/assets/comment.svg" alt=""
+                class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+            <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">Balas
+            </p>
+            <img src="/assets/arrow-filter.svg" alt=""
+                :class="{ 'rotate-180': replyOpen }"
+                class="sm:w-[0.8vw] sm:h-[0.9vw] w-[2.5vw] h-[2.6vw] transition-transform duration-300">
+        </div>
 
 
-                                    <!-- Form Balas Komentar -->
-                                    <div>
-                                        <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                                            <img src="/assets/profile-picture.png" alt=""
-                                                class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
-                                            <div class="space-y-[0.2vw]">
-                                                <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Arka Jenar
-                                                    Ma'arif</h3>
-                                                <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
-                                                    XII SIJA 1</p>
-                                            </div>
-                                        </div>
-                                        <div class="sm:ps-[5.271vw] ps-0 relative sm:mt-0 mt-[3vw]">
-                                            <textarea name="" id="" placeholder="Berikan dukungan dan Saranmu di sini..."
-                                                class="sm:placeholder:text-[0.938vw] placeholder:text-[3.256vw] sm:w-[54.948vw] w-[63.023vw] sm:h-[9.688vw] h-[43.256vw] border-[0.2vw] sm:rounded-[0.781vw] rounded-[3.488vw] sm:text-[0.938vw] text-[3.256vw] sm:p-[1vw] p-[5vw] focus:outline-main"></textarea>
-                                            <button
-                                                class="absolute sm:right-[4vw] sm:bottom-[2vw] bottom-[5vw] right-[5vw] sm:py-[1.042vw] sm:px-[2.604vw] py-[2.326vw] px-[6.977vw] bg-main sm:rounded-[0.521vw] sm:text-[1.042vw]  rounded-[2.326vw] text-[3.256vw] font-semibold text-white ">Kirim</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+    </div>
+
+    <!-- Balasan -->
+    <div x-show="replyOpen" class="sm:ps-[2.5vw] ps-0 sm:space-y-[2vw] space-y-[4vw]"
+        x-transition>
+        <div class="space-y-[1.5vw] sm:mt-[2.5vw] mt-[8vw]">
+            <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                <img src="/assets/profile-picture.png" alt=""
+                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
+                <div class="space-y-[0.2vw]">
+                    <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Arka Jenar
+                        Ma'arif <span class="font-normal">ke <span
+                                class="font-semibold text-main">Ezar Fausta
+                                Rafi</span></span></h3>
+                    <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
+                        XII SIJA 1</p>
+                </div>
+            </div>
+            <p class="sm:text-[0.938vw] text-[3.256vw]">Desain web-nya sangat menarik dan
+                profesional. Kombinasi warna dan tipografinya sangat pas. Layout web-nya
+                sangat user-friendly dan mudah dinavigasi. Pengunjung pasti akan betah
+                berlama-lama di sini. Konsep desain web-nya sangat kreatif dan unik. Saya
+                belum pernah melihat yang seperti ini sebelumnya.</p>
+        </div>
+
+
+        <!-- Form Balas Komentar -->
+        <div>
+            {{-- <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                <img src="/assets/profile-picture.png" alt=""
+                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
+                <div class="space-y-[0.2vw]">
+                    <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Arka Jenar
+                        Ma'arif</h3>
+                    <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
+                        XII SIJA 1</p>
+                </div>
+            </div> --}}
+            <form action="{{ route('detail.comment', $project->id) }}" method="post">
+                @csrf
+                <div class="sm:ps-[5.271vw] ps-0 relative sm:mt-0 mt-[3vw]">
+                    <textarea name="comment" id="" placeholder="Berikan dukungan dan Saranmu di sini..."
+                        class="sm:placeholder:text-[0.938vw] placeholder:text-[3.256vw] sm:w-[54.948vw] w-[63.023vw] sm:h-[9.688vw] h-[43.256vw] border-[0.2vw] sm:rounded-[0.781vw] rounded-[3.488vw] sm:text-[0.938vw] text-[3.256vw] sm:p-[1vw] p-[5vw] focus:outline-main"></textarea>
+                    <button
+                        class="absolute sm:right-[4vw] sm:bottom-[2vw] bottom-[5vw] right-[5vw] sm:py-[1.042vw] sm:px-[2.604vw] py-[2.326vw] px-[6.977vw] bg-main sm:rounded-[0.521vw] sm:text-[1.042vw]  rounded-[2.326vw] text-[3.256vw] font-semibold text-white ">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
+@endforeach
 
                         </div>
                     </div>
@@ -568,7 +624,7 @@
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
                         @foreach ($category as $category)
-                            <li><a href="/category/{{  $category->id  }}">{{ $category->name }}</a></li>
+                            <li><a href="/category/{{ $category->id }}">{{ $category->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -616,7 +672,7 @@
             modalImage.src = imageUrl;
             modal.classList.remove('hidden');
         }
-    
+
         // Fungsi untuk menutup modal ketika area kosong diklik
         function closeModal(event) {
             const modal = document.getElementById('imageModal');
@@ -627,7 +683,6 @@
                 nav.classList.remove('hidden')
             }
         }
-
     </script>
 
     <script>

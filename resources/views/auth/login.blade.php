@@ -19,7 +19,9 @@
                     <h1 class="sm:text-[2.083vw] text-[7.442vw] font-semibold">Masuk</h1>
                     <p class="opacity-50 sm:text-[1.042vw] text-[3.721vw] font-medium">Masuk ke akun anda</p>
                 </div>
-                <form action="" class="sm:w-[30vw] w-[83.256vw] sm:space-y-[1vw] space-y-[4vw]">
+                <form method="POST" action="{{ route("login") }}" class="sm:w-[30vw] w-[83.256vw] sm:space-y-[1vw] space-y-[4vw]">
+                    @csrf
+                    
                     <div class="sm:space-y-0 space-y-[2vw]">
                         <label for="email" class="block sm:text-[1.25vw] text-[4.186vw] font-medium text-gray-700 mb-[0.833vw]">Email</label>
                         <input type="email" id="email" name="email" class="w-full p-[4vw] sm:p-[1vw]  border focus:outline-none focus:ring-2 focus:ring-main sm:rounded-[0.781vw] rounded-[2.326vw] sm:placeholder:text-[0.938vw] placeholder:text-[3.721vw] text-[3.721vw] sm:text-[1.25vw]" placeholder="Email Anda" autocomplete="off" required>
