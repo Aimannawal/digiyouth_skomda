@@ -93,10 +93,10 @@
                                 @if ($photo)
                                     <img src="{{ $photo }}" alt="{{ $userName }}"
                                         @click="dropdownOpen = !dropdownOpen"
-                                        class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                                        class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
                                 @else
                                     <div @click="dropdownOpen = !dropdownOpen"
-                                        class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
+                                        class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
                                         {{ $initials }}
                                     </div>
                                 @endif
@@ -435,7 +435,7 @@
                         <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
                             @foreach ($toolsArray as $tool)
                                 <img src="{{ $tool }}" alt=""
-                                    class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw]">
+                                    class="sm:w-[4vw] sm:h-[4vw] w-[8vw] h-[9vw] p-[0.5vw] border-[0.1vw] rounded-[1vw] object-contain">
                             @endforeach
                         </div>
                     </div>
@@ -473,9 +473,8 @@
 
 
                     <div class="sm:space-y-[1.5vw] space-y-[3vw]">
-                        <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold ">Sneak Peak</h3>
-                        <div
-                            class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
+                        <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold">Sneak Peak</h3>
+                        <div class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
                             @php
                                 $photos = is_string($project->photo)
                                     ? explode(',', $project->photo)
@@ -493,18 +492,13 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div id="imageModal"
-                        class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
-                        onclick="closeModal(event)" style="margin: 0">
-                        <div class="relative flex items-center justify-center" onclick="event.stopPropagation()">
+                    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden  justify-center items-center z-50 transition-opacity duration-300 opacity-0" onclick="closeModal(event)" style="margin: 0">
+                        <div class="relative flex items-center justify-center scale-0 transition-transform duration-300" id="modalContent" onclick="event.stopPropagation()">
                             <!-- Icon Close -->
-                            <button
-                                class="absolute top-4 right-4 text-white text-lg font-bold bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-opacity-75"
-                                onclick="closeModal(event)">
+                            <button class="absolute top-4 right-4 text-white text-lg font-bold bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-opacity-75" onclick="closeModal(event)">
                                 &times;
                             </button>
-                            <img id="modalImage" src="" alt=""
-                                class="sm:w-[66.667vw] sm:h-[37.5vw] w-[73.256vw] h-[57.442vw] mt-[6vw] object-cover rounded-[0.6vw]">
+                            <img id="modalImage" src="" alt="" class="sm:w-[66.667vw] sm:h-[37.5vw] w-[73.256vw] h-[57.442vw] mt-[6vw] object-contain">
                         </div>
                     </div>
 
@@ -642,6 +636,7 @@
                                             class="sm:ps-[2.5vw] ps-0 sm:space-y-[2vw] space-y-[4vw]" x-transition>
                                             {{-- {{ dd($comment->replies) }} --}}
                                             @foreach ($comment->replies as $reply)
+                                            @if ($reply->status == 1)
                                                 <div class="space-y-[1.5vw] sm:mt-[2.5vw] mt-[8vw]">
                                                     <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
                                                         @php
@@ -678,6 +673,7 @@
                                                     <p class="sm:text-[0.938vw] text-[3.256vw]">{{ $reply->content }}
                                                     </p>
                                                 </div>
+                                                @endif
                                             @endforeach
 
 
@@ -782,25 +778,38 @@
 
 
     <script>
-        // Fungsi untuk membuka modal dan menampilkan gambar
         function openModal(imageUrl) {
             const modal = document.getElementById('imageModal');
+            const modalContent = document.getElementById('modalContent');
             const modalImage = document.getElementById('modalImage');
             const nav = document.querySelector('nav');
+    
             nav.classList.add('hidden');
             modalImage.src = imageUrl;
             modal.classList.remove('hidden');
+    
+            // Animasi masuk
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-0');
+                modalContent.classList.add('scale-100');
+            }, 10);
         }
-
-        // Fungsi untuk menutup modal ketika area kosong atau icon close diklik
+    
         function closeModal(event) {
             const modal = document.getElementById('imageModal');
+            const modalContent = document.getElementById('modalContent');
             const nav = document.querySelector('nav');
-            // Cek apakah yang diklik adalah area di luar konten modal atau tombol close
-            if (event.target === modal || event.target.closest('button')) {
+    
+            // Animasi keluar
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-0');
+    
+            setTimeout(() => {
                 modal.classList.add('hidden');
                 nav.classList.remove('hidden');
-            }
+            }, 300); // Durasi sesuai dengan animasi
         }
     </script>
 

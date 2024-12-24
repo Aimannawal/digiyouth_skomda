@@ -81,10 +81,10 @@
                             <!-- Foto atau Inisial -->
                             @if ($photo)
                                 <img src="{{ $photo }}" alt="{{ $userName }}" @click="dropdownOpen = !dropdownOpen"
-                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                                    class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
                             @else
                                 <div @click="dropdownOpen = !dropdownOpen"
-                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
+                                    class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
                                     {{ $initials }}
                                 </div>
                             @endif

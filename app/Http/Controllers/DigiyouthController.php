@@ -50,7 +50,7 @@ class DigiyouthController extends Controller
 
         $popularContributors = $combinedContributions
             ->sortByDesc('contributions')
-            ->take(5)
+            ->take(10)
             ->map(function ($contribution) {
                 $user = User::find($contribution['user_id']);
                 return [

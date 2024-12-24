@@ -80,7 +80,17 @@ class ProjectResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = auth()->user();
+
+            // Add a condition to filter the data based on the user's role
+        $query = Project::query();
+        if ($user->hasRole('Murid')) {
+            // Assuming 'student_id' is the column that links the booking to the student
+            $query->where('user_id', $user->id);
+        }
+
         return $table
+            ->query(fn () => $query)
             ->columns([
                 Tables\Columns\TextColumn::make('team.name')
                     ->sortable(),
