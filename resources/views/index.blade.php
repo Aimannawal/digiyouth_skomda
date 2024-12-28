@@ -584,13 +584,13 @@
 
                                 @if ($firstPhoto)
                                     <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
-                                        class="sm:w-[37.24vw] sm:h-[24.531vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
+                                        class="sm:w-[37.708vw] sm:h-[28.281vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
                                 @else
                                     <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
                                 @endif
                                 <!-- Overlay dan informasi profile yang muncul saat hover -->
                                 <div
-                                    class="sm:w-[37.24vw] sm:h-[14.2655vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    class="sm:w-[37.3vw] sm:h-[28.281vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 </div>
                                 <div
                                     class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

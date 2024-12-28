@@ -17,6 +17,9 @@ export default {
             screens: {
                 'sm' : '430px',
             },
+            colors: {
+                dark : '#323232',
+            }
     },
     },
 

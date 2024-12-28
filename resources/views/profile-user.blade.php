@@ -285,52 +285,44 @@
     </div>
 
 
-    <section class="sm:mt-[10vw] mt-[30vw] sm:px-[11.667vw] ">
-        <div class="w-full flex flex-col justify-center items-center sm:space-y-[1.5vw] space-y-[7vw]">
-            <div class=" flex flex-col justify-center items-center">
-                <div class="bg-main sm:w-[5.208vw] sm:h-[0.521vw] w-[11.628vw] h-[1.163vw]"></div>
-                <div class="space-y-[0.5vw] flex flex-col items-center">
-                    <h1 class="font-semibold sm:text-[2.865vw] text-[7.907vw]">{{ $category->name }}
-                    </h1>
-                    <p class="sm:text-[1.042vw] text-[3.256vw] text-center sm:max-w-full max-w-[74.651vw]">Berbagai
-                        projek menarik dari Digital Talent Program {{ $category->name }}</p>
-                </div>
-            </div>
-            <div
-                class="sm:w-auto w-full flex items-center sm:space-x-[2vw] space-x-[6.977vw] sm:px-[14.708vw] px-0 sm:ps-0 sm:pe-0 ps-[8.372vw] pe-[8.372vw] mt-[2vw] sm:overflow-hidden overflow-x-auto whitespace-nowrap scrollbar-hidden">
-                @foreach ($allCategories as $all)
-                    <div class="flex justify-center">
-                        <h1
-                            class="font-medium sm:text-[1.146vw] text-[4.186vw] 
-                            @if ($all->id == $category->id) active @endif">
-                            <a href="/category/{{ $all->id }}">{{ $all->name }}</a>
-                        </h1>
-                    </div>
-                @endforeach
+    <section class="sm:mt-[10vw] mt-[30vw] sm:px-[11.667vw] flex items-center justify-center">
+        <div class="sm:space-y-[1.5vw] space-y-[5vw] flex flex-col items-center">
 
-                {{-- <div
-                    class="sm:p-[0.521vw] p-[2.326vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] flex items-center justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Cloud Engineer</h1>
-                </div> --}}
-                {{-- <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Fiber Optic</h1>
+            <div class="flex sm:flex-row flex-col items-center justify-center sm:space-x-[1vw] space-x-0 space-y-[2vw] sm:space-y-0">
+                <img src="assets/profile-picture.png" alt="" class=" sm:w-[5.208vw] sm:h-[5.208vw] w-[23.256vw] h-[23.256vw]">
+                <div class="sm:space-y-[0.2vw] space-y-0">
+                    <h1 class="sm:text-[1.667vw] text-[4.651vw] font-semibold">Sanji Zuckerberk</h1>
+                    <div class="opacity-50 flex items-center sm:space-x-[0.7vw] space-x-[2vw]">
+                        <h3 class="sm:text-[1.042vw] text-[3.256vw] font-medium">XII TJA 1</h3>
+                        <div class="bg-dark sm:w-[0.26vw] sm:h-[0.26vw] w-[1.163vw] h-[1.163vw]  rounded-full"></div>
+                        <h3 class="sm:text-[1.042vw] text-[3.256vw] font-medium">8 Karya</h3>
+                    </div>
                 </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Hacker</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Hustler</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">IoT Engineer</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">Network Engineer</h1>
-                </div>
-                <div class="flex justify-center">
-                    <h1 class="font-medium sm:text-[1.146vw] text-[4.186vw]">System Administrator</h1>
-                </div> --}}
             </div>
+
+            <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
+                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                    <img src="assets/thumb.svg" alt=""
+                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
+                        10</p>
+                </div>
+                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                    <img src="assets/view.svg" alt=""
+                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">60
+                    </p>
+                </div>
+                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                    <img src="assets/share.svg" alt=""
+                        class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
+                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">46
+                    </p>
+                </div>
+            </div>
+
+            <p class="sm:text-[1.042vw] text-[3.256vw]">Berbagai projek menarik dari Sanji Zuckerberg</p>
+
             <div
                 class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center">
                 <img src="/assets/filter.svg" alt=""
@@ -349,7 +341,7 @@
     <section class="sm:px-[4.375vw] sm:mt-[3vw] mt-[7vw] px-[1.875vw]">
         <div
             class="w-full sm:grid sm:grid-cols-4 grid-cols-1 flex flex-col justify-center items-center sm:gap-x-[1.042vw] sm:gap-y-[3vw] gap-y-[8vw]">
-            @foreach ($projects as $project)
+            {{-- @foreach ($projects as $project)
                 @if ($project->status == 1)
                     <div class="relative group">
 
@@ -429,9 +421,9 @@
                         </div>
                     </div>
                 @endif
-            @endforeach
+            @endforeach --}}
         </div>
-        <div class="sm:mt-[5vw] mt-[15vw]">
+        {{-- <div class="sm:mt-[5vw] mt-[15vw]">
             @php
                 $pageCount = count($projects->getUrlRange(1, $projects->lastPage()));
             @endphp
@@ -496,7 +488,7 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
 
@@ -530,9 +522,9 @@
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
-                        @foreach ($allCategories as $all)
+                        {{-- @foreach ($allCategories as $all)
                             <li><a href="/category/{{ $all->id }}">{{ $all->name }}</a></li>
-                        @endforeach
+                        @endforeach --}}
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">

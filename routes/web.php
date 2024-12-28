@@ -18,6 +18,9 @@ Route::post('/detail/{id}/reply', [DigiyouthController::class, 'reply'])->name('
 
 Route::get('/category/{id}', [DigiyouthController::class, 'category'])->name("category");
 
+Route::get('/profile-user', function () {
+    return view('profile-user');
+});
 // Route::get('/login', [DigiyouthController::class, 'login']);
 // Route::get('/', function () {
 //     return view('welcome');
