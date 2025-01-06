@@ -474,7 +474,8 @@
 
                     <div class="sm:space-y-[1.5vw] space-y-[3vw]">
                         <h3 class="sm:text-[1.25vw] text-[4.651vw] font-semibold">Sneak Peak</h3>
-                        <div class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
+                        <div
+                            class="sm:flex block gap-[0.625vw] sm:space-y-0 space-y-[4vw] sm:justify-start justify-center">
                             @php
                                 $photos = is_string($project->photo)
                                     ? explode(',', $project->photo)
@@ -492,13 +493,19 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden  justify-center items-center z-50 transition-opacity duration-300 opacity-0" onclick="closeModal(event)" style="margin: 0">
-                        <div class="relative flex items-center justify-center scale-0 transition-transform duration-300" id="modalContent" onclick="event.stopPropagation()">
+                    <div id="imageModal"
+                        class="fixed inset-0 bg-black bg-opacity-50 hidden  justify-center items-center z-50 transition-opacity duration-300 opacity-0"
+                        onclick="closeModal(event)" style="margin: 0">
+                        <div class="relative flex items-center justify-center scale-0 transition-transform duration-300"
+                            id="modalContent" onclick="event.stopPropagation()">
                             <!-- Icon Close -->
-                            <button class="absolute top-4 right-4 text-white text-lg font-bold bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-opacity-75" onclick="closeModal(event)">
+                            <button
+                                class="absolute top-4 right-4 text-white text-lg font-bold bg-black bg-opacity-50 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-opacity-75"
+                                onclick="closeModal(event)">
                                 &times;
                             </button>
-                            <img id="modalImage" src="" alt="" class="sm:w-[66.667vw] sm:h-[37.5vw] w-[73.256vw] h-[57.442vw] mt-[6vw] object-contain">
+                            <img id="modalImage" src="" alt=""
+                                class="sm:w-[66.667vw] sm:h-[37.5vw] w-[73.256vw] h-[57.442vw] mt-[6vw] object-contain">
                         </div>
                     </div>
 
@@ -506,41 +513,48 @@
                 <div id="comment-section" class="sm:mt-[5vw] mt-[8vw]">
                     <div>
                         <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                            @if(Auth::check())
-                            @auth
-                            @php
-                                $user = auth()->user();
-                                $photo =
-                                    $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
-                                $userName = $user ? $user->name : 'Guest';
-                                $initials = $userName
-                                    ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('')
-                                    : 'G';
-                            @endphp
-                            @if ($photo)
-                            <img src="{{ $photo }}" alt="{{ $userName }}"
-                                class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
-                        @else
-                        <div
-                            class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
-                                {{ $initials }}
-                            </div>
-                        @endif
-                        <div class="space-y-[0.2vw]">
-                                    <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">{{ $user->name }}</h3>
-                                    <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">{{ $user->grade ?? 'Guest' }}</p>
-                                </div>
+                            @if (Auth::check())
+                                @auth
+                                    @php
+                                        $user = auth()->user();
+                                        $photo =
+                                            $user && $user->profile_picture
+                                                ? asset('storage/' . $user->profile_picture)
+                                                : null;
+                                        $userName = $user ? $user->name : 'Guest';
+                                        $initials = $userName
+                                            ? collect(explode(' ', $userName))
+                                                ->map(fn($word) => strtoupper($word[0]))
+                                                ->join('')
+                                            : 'G';
+                                    @endphp
+                                    @if ($photo)
+                                        <img src="{{ $photo }}" alt="{{ $userName }}"
+                                            class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                                    @else
+                                        <div
+                                            class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+                                            {{ $initials }}
+                                        </div>
+                                    @endif
+                                    <div class="space-y-[0.2vw]">
+                                        <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">{{ $user->name }}
+                                        </h3>
+                                        <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
+                                            {{ $user->grade ?? 'Guest' }}</p>
+                                    </div>
                                 @endauth
                             @else
                                 <img src="/assets/default.png" alt=""
                                     class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
                                 <div class="space-y-[0.2vw]">
                                     <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Guest</h3>
-                                    <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">Please Login</p>
+                                    <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">Please Login
+                                    </p>
                                 </div>
                             @endif
                         </div>
-                        
+
                         <form action="{{ route('detail.comment', $project->id) }}" method="post">
                             @csrf
                             <div class="sm:ps-[5.271vw] ps-0 relative sm:mt-0 mt-[3vw]">
@@ -636,47 +650,54 @@
                                             class="sm:ps-[2.5vw] ps-0 sm:space-y-[2vw] space-y-[4vw]" x-transition>
                                             {{-- {{ dd($comment->replies) }} --}}
                                             @foreach ($comment->replies as $reply)
-                                            @if ($reply->status == 1)
-                                                <div class="space-y-[1.5vw] sm:mt-[2.5vw] mt-[8vw]">
-                                                    <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                                                        @php
-                                                            $photoReply = $reply->user->profile_picture
-                                                                ? asset('storage/' . $reply->user->profile_picture)
-                                                                : null;
-                                                            $userName = $reply->user->name;
-                                                            $initialsReply =
-                                                                strtoupper(substr($userName, 0, 1)) .
-                                                                strtoupper(
-                                                                    substr($userName, strpos($userName, ' ') + 1, 1),
-                                                                ); // Extract initials
-                                                        @endphp
-                                                        @if ($photoReply)
-                                                            <img src="{{ $photoReply }}" alt=""
-                                                                class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
-                                                        @else
-                                                            <div
-                                                                class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
-                                                                {{ $initialsReply }}
+                                                @if ($reply->status == 1)
+                                                    <div class="space-y-[1.5vw] sm:mt-[2.5vw] mt-[8vw]">
+                                                        <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                                                            @php
+                                                                $photoReply = $reply->user->profile_picture
+                                                                    ? asset('storage/' . $reply->user->profile_picture)
+                                                                    : null;
+                                                                $userName = $reply->user->name;
+                                                                $initialsReply =
+                                                                    strtoupper(substr($userName, 0, 1)) .
+                                                                    strtoupper(
+                                                                        substr(
+                                                                            $userName,
+                                                                            strpos($userName, ' ') + 1,
+                                                                            1,
+                                                                        ),
+                                                                    ); // Extract initials
+                                                            @endphp
+                                                            @if ($photoReply)
+                                                                <img src="{{ $photoReply }}" alt=""
+                                                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
+                                                            @else
+                                                                <div
+                                                                    class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+                                                                    {{ $initialsReply }}
+                                                                </div>
+                                                            @endif
+                                                            <div class="space-y-[0.2vw]">
+                                                                <h3
+                                                                    class="sm:text-[1.042vw] text-[3.721vw] font-semibold">
+                                                                    {{ $reply->user->name }} <span
+                                                                        class="font-normal">ke
+                                                                        <span
+                                                                            class="font-semibold text-main">{{ $comment->user->name }}</span></span>
+                                                                </h3>
+                                                                <p
+                                                                    class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
+                                                                    {{ $comment->user->grade }}</p>
                                                             </div>
-                                                        @endif
-                                                        <div class="space-y-[0.2vw]">
-                                                            <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">
-                                                                {{ $reply->user->name }} <span class="font-normal">ke
-                                                                    <span
-                                                                        class="font-semibold text-main">{{ $comment->user->name }}</span></span>
-                                                            </h3>
-                                                            <p
-                                                                class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
-                                                                {{ $comment->user->grade }}</p>
                                                         </div>
+                                                        <p class="sm:text-[0.938vw] text-[3.256vw]">
+                                                            {{ $reply->content }}
+                                                        </p>
                                                     </div>
-                                                    <p class="sm:text-[0.938vw] text-[3.256vw]">{{ $reply->content }}
-                                                    </p>
-                                                </div>
                                                 @endif
                                             @endforeach
 
-
+                                                
                                             <!-- Form Balas Komentar -->
                                             <div>
                                                 {{-- <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
@@ -704,7 +725,10 @@
                                     </div>
                                 @endif
                             @endforeach
-
+<!-- Pagination Links -->
+{{-- <div class="pagination">
+    {{ $comments->links() }}
+</div> --}}
                         </div>
                     </div>
                 </div>
@@ -783,11 +807,11 @@
             const modalContent = document.getElementById('modalContent');
             const modalImage = document.getElementById('modalImage');
             const nav = document.querySelector('nav');
-    
+
             nav.classList.add('hidden');
             modalImage.src = imageUrl;
             modal.classList.remove('hidden');
-    
+
             // Animasi masuk
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
@@ -795,17 +819,17 @@
                 modalContent.classList.add('scale-100');
             }, 10);
         }
-    
+
         function closeModal(event) {
             const modal = document.getElementById('imageModal');
             const modalContent = document.getElementById('modalContent');
             const nav = document.querySelector('nav');
-    
+
             // Animasi keluar
             modal.classList.add('opacity-0');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-0');
-    
+
             setTimeout(() => {
                 modal.classList.add('hidden');
                 nav.classList.remove('hidden');

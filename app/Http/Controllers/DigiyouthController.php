@@ -94,7 +94,11 @@ class DigiyouthController extends Controller
         // Data tim
         $membersArray = [];
         foreach ($project->team->users as $member) {
-            $membersArray[] = $member->name;
+            if($project->user->id == $member->id){
+                continue;
+            }else{
+                $membersArray[] = $member->name;
+            }
         }
         $members = implode(", ", $membersArray);
 
@@ -197,5 +201,23 @@ class DigiyouthController extends Controller
 
             return redirect()->back();
         }
+    }
+    public function profileDetail(string $id)
+    {
+        $likeModel = Like::class;
+        $profile = User::find($id);
+        $teams = TeamUser::where("user_id", $id)->get();
+
+        $teamsProfile = [];
+        foreach($teams as $team){
+            $teamsProfile[] = $team->team->id;
+        }
+
+        // dd($teamsProfile);
+        $projects = Project::whereIn("team_id", $teamsProfile)->get();
+        $projectsCount = $projects->count();
+        // dd($projectsCount);
+        return view("profile-user", ["likeModel" => $likeModel,"projects" => $projects,"projectsCount" => $projectsCount, "profile" => $profile]);
+        
     }
 }

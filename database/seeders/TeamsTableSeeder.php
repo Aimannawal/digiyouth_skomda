@@ -23,6 +23,12 @@ class TeamsTableSeeder extends Seeder
                 'created_at' => Carbon::parse('2024-11-12 04:48:05'),
                 'updated_at' => Carbon::parse('2024-11-12 04:48:05'),
             ],
+            [
+                'id' => 3,
+                'name' => '000',
+                'created_at' => Carbon::parse('2024-11-12 04:48:05'),
+                'updated_at' => Carbon::parse('2024-11-12 04:48:05'),
+            ],
         ]);
     }
 }

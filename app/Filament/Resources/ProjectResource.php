@@ -31,11 +31,16 @@ class ProjectResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                Forms\Components\Select::make('team_id')
-                    ->relationship('team', 'name')
+                    Forms\Components\Select::make('team_id')
+                    ->relationship('team', 'name', function ($query) {
+                        $query->whereHas('users', function ($query) {
+                            $query->where('user_id', Auth::id());
+                        });
+                    })
                     ->searchable()
                     ->preload()
                     ->required(),
+                
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->reactive()

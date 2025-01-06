@@ -67,44 +67,49 @@
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
-                    @php
-                        $user = auth()->user();
-                        $photo = $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
-                        $userName = $user ? $user->name : 'Guest';
-                        $initials = $userName ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('') : 'G';
-                    @endphp
+                        @php
+                            $user = auth()->user();
+                            $photo =
+                                $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
+                            $userName = $user ? $user->name : 'Guest';
+                            $initials = $userName
+                                ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('')
+                                : 'G';
+                        @endphp
 
-                    <div x-data="{ dropdownOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
-                        <div class="relative flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                            <!-- Foto atau Inisial -->
-                            @if ($photo)
-                                <img src="{{ $photo }}" alt="{{ $userName }}" @click="dropdownOpen = !dropdownOpen"
-                                    class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
-                            @else
-                                <div @click="dropdownOpen = !dropdownOpen"
-                                    class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
-                                    {{ $initials }}
+                        <div x-data="{ dropdownOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
+                            <div class="relative flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                                <!-- Foto atau Inisial -->
+                                @if ($photo)
+                                    <img src="{{ $photo }}" alt="{{ $userName }}"
+                                        @click="dropdownOpen = !dropdownOpen"
+                                        class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                                @else
+                                    <div @click="dropdownOpen = !dropdownOpen"
+                                        class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
+                                        {{ $initials }}
+                                    </div>
+                                @endif
+
+                                <!-- Dropdown Menu -->
+                                <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false"
+                                    class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
+                                    <a href="http://127.0.0.1:8000/admin"
+                                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
+                                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button
+                                            class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">
+                                            Log Out
+                                        </button>
+                                    </form>
                                 </div>
-                            @endif
-
-                            <!-- Dropdown Menu -->
-                            <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false" 
-                                class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
-                                <a href="http://127.0.0.1:8000/admin" 
-                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
-                                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">
-                                        Log Out
-                                    </button>
-                                </form>
                             </div>
                         </div>
-                    </div>
                     @else
-                    <!-- Tombol Login -->
-                    <a href="{{ route('login') }}"
-                        class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
+                        <!-- Tombol Login -->
+                        <a href="{{ route('login') }}"
+                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
                     @endauth
                 </nav>
             @endif
@@ -128,24 +133,24 @@
                         placeholder="Cari proyek, kategori, atau nama siswa">
                 </li>
                 @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end">
-                    @auth
-                    <form action="/dashboard" method="GET">
-                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                            <button type="submit"
-                                class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
-                        </li>
-                    </form>   
-                    @else
-                    <form action="/login" method="GET">
-                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                            <button type="submit"
-                                class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
-                        </li>
-                    </form>   
-                    @endauth
-                </nav>
-            @endif
+                    <nav class="-mx-3 flex flex-1 justify-end">
+                        @auth
+                            <form action="/dashboard" method="GET">
+                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                    <button type="submit"
+                                        class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
+                                </li>
+                            </form>
+                        @else
+                            <form action="/login" method="GET">
+                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                    <button type="submit"
+                                        class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
+                                </li>
+                            </form>
+                        @endauth
+                    </nav>
+                @endif
 
                 <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Beranda</li>
                 <li x-data="{ open: false }">
@@ -285,63 +290,77 @@
     </div>
 
 
-    <section class="sm:mt-[10vw] mt-[30vw] sm:px-[11.667vw] flex items-center justify-center">
-        <div class="sm:space-y-[1.5vw] space-y-[5vw] flex flex-col items-center">
-
-            <div class="flex sm:flex-row flex-col items-center justify-center sm:space-x-[1vw] space-x-0 space-y-[2vw] sm:space-y-0">
-                <img src="assets/profile-picture.png" alt="" class=" sm:w-[5.208vw] sm:h-[5.208vw] w-[23.256vw] h-[23.256vw]">
-                <div class="sm:space-y-[0.2vw] space-y-0">
-                    <h1 class="sm:text-[1.667vw] text-[4.651vw] font-semibold">Sanji Zuckerberk</h1>
-                    <div class="opacity-50 flex items-center sm:space-x-[0.7vw] space-x-[2vw]">
-                        <h3 class="sm:text-[1.042vw] text-[3.256vw] font-medium">XII TJA 1</h3>
-                        <div class="bg-dark sm:w-[0.26vw] sm:h-[0.26vw] w-[1.163vw] h-[1.163vw]  rounded-full"></div>
-                        <h3 class="sm:text-[1.042vw] text-[3.256vw] font-medium">8 Karya</h3>
+    <section class="flex flex-col justify-center items-center px-4 sm:px-48 space-y-6 pt-8 pb-16 mt-40">
+        <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
+            @php
+                $user = auth()->user();
+                $photo = $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
+                $userName = $user ? $user->name : 'Guest';
+                $initials = collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('');
+            @endphp
+    
+            @if ($photo)
+                <img src="{{ $photo }}" alt="{{ $userName }}" 
+                    class="w-20 h-20 sm:w-16 sm:h-16 rounded-full object-cover cursor-pointer">
+            @else
+                <div 
+                    class="w-20 h-20 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black text-white font-bold cursor-pointer">
+                    {{ $initials }}
+                </div>
+            @endif
+    
+            <div class="text-center sm:text-left mt-2 sm:mt-0">
+                <h1 class="text-lg sm:text-base font-semibold">{{ $profile->name }}</h1>
+                <div class="text-gray-500 flex items-center justify-center sm:justify-start space-x-2">
+                    <span class="text-sm sm:text-base font-medium">{{ $profile->grade }}</span>
+                    <div class="w-1 h-1 bg-black rounded-full"></div>
+                    <span class="text-sm sm:text-base font-medium">{{ $projectsCount }} Karya</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col items-center space-y-4">
+            <!-- Thumb, View, Share Section -->
+            <div class="flex justify-center space-x-4">
+                @foreach ([
+                    ['icon' => '/assets/thumb.svg', 'count' => 10],
+                    ['icon' => '/assets/view.svg', 'count' => 60],
+                    ['icon' => '/assets/share.svg', 'count' => 46]
+                ] as $item)
+                    <div class="flex flex-col items-center space-y-1">
+                        <img src="{{ $item['icon'] }}" alt="Icon" class="w-8 h-8 sm:w-6 sm:h-6">
+                        <p class="text-gray-400 font-semibold text-sm">{{ $item['count'] }}</p>
                     </div>
-                </div>
+                @endforeach
             </div>
-
-            <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
-                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                    <img src="assets/thumb.svg" alt=""
-                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
-                        10</p>
-                </div>
-                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                    <img src="assets/view.svg" alt=""
-                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">60
-                    </p>
-                </div>
-                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                    <img src="assets/share.svg" alt=""
-                        class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">46
-                    </p>
-                </div>
-            </div>
-
-            <p class="sm:text-[1.042vw] text-[3.256vw]">Berbagai projek menarik dari Sanji Zuckerberg</p>
-
-            <div
-                class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center">
-                <img src="/assets/filter.svg" alt=""
-                    class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
-                <h1 class="sm:text-[0.938vw] text-[4.186vw]">Filter</h1>
-                <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="sm:w-[0.625vw] sm:h-[1.25vw] fill-dark w-[2.326vw] h-[4.651vw]">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
+    
+            <!-- Description Text -->
+            <p class="text-center text-gray-700 text-sm">
+                Berbagai projek menarik dari {{ $profile->name }}
+            </p>
+    
+            <!-- Filter Section -->
+            <div class="flex items-center space-x-3 px-4 py-2 bg-gray-100 rounded-lg">
+                <img src="/assets/filter.svg" alt="Filter Icon" class="w-5 h-5 sm:w-4 sm:h-4">
+                <h1 class="text-sm sm:text-base">Filter</h1>
+                <svg viewBox="0 0 14 8" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-3 h-3 fill-current text-black">
+                    <path fill-rule="evenodd" clip-rule="evenodd" 
+                        d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z" 
                         fill-opacity="1" />
                 </svg>
             </div>
         </div>
     </section>
+    
+    
+    
+    
+    
 
     <section class="sm:px-[4.375vw] sm:mt-[3vw] mt-[7vw] px-[1.875vw]">
         <div
             class="w-full sm:grid sm:grid-cols-4 grid-cols-1 flex flex-col justify-center items-center sm:gap-x-[1.042vw] sm:gap-y-[3vw] gap-y-[8vw]">
-            {{-- @foreach ($projects as $project)
+            @forelse ($projects as $project)
                 @if ($project->status == 1)
                     <div class="relative group">
 
@@ -421,7 +440,10 @@
                         </div>
                     </div>
                 @endif
-            @endforeach --}}
+
+            @empty
+                <p>User Ini Belum Memiliki Project Apapun</p>
+            @endforelse
         </div>
         {{-- <div class="sm:mt-[5vw] mt-[15vw]">
             @php
