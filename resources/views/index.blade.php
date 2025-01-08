@@ -62,9 +62,12 @@
             </ul>
         </div>
         <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
-            <input type="text" name="" id=""
-                class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
-                placeholder="Cari proyek, kategori, atau nama siswa">
+            <form action="{{ route('search') }}" method="GET">
+                <input type="text" name="keyword" id=""
+                    class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
+                    placeholder="Cari proyek, kategori, atau nama siswa">
+            </form>
+
 
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
@@ -675,7 +678,7 @@
         <div id="slider"
             class="flex items-center sm:mt-[3vw] mt-[8vw] sm:gap-x-[0.5vw] gap-x-[4.651vw] overflow-x-auto flex-nowrap max-w-full scrollbar-hidden scroll-smooth">
             @foreach ($popularContributors as $contributor)
-                <a href="{{ route("profile.detail", $contributor["id"]) }}">
+                <a href="{{ route('profile.detail', $contributor['id']) }}">
                     <div
                         class="border border-gray-300 sm:w-[18.385vw] sm:h-[17.292vw] w-[39.302vw] h-[36.965vw] sm:rounded-[0.781vw] flex flex-col justify-center items-center space-y-[0.7vw] flex-shrink-0  rounded-full">
                         {{-- <img src="{{ asset('storage/' . $contributor['photo']) }}" alt=""

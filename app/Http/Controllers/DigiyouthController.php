@@ -220,4 +220,35 @@ class DigiyouthController extends Controller
         return view("profile-user", ["likeModel" => $likeModel,"projects" => $projects,"projectsCount" => $projectsCount, "profile" => $profile]);
         
     }
+
+    public function search(Request $request){
+        $keyword = $request->input("keyword");
+        // dd($keyword);
+        // $projects = Project::query()->where("title", "LIKE", "%". $keyword ."%")
+        // ->orWhereHas("category", function($query) use ($keyword){
+        //     $query->where("name", "LIKE", "%". $keyword ."%");
+        // })->get();
+        // dd($request->input("keyword") );
+
+        $projects = Project::query()->where("title", "LIKE", "%". $keyword ."%")
+        ->orWhereHas("category", function($query) use ($keyword){
+            $query->where("name", "LIKE", "%". $keyword ."%");
+        })        
+        ->orWhereHas("user", function($query) use ($keyword){
+            $query->where("name", "LIKE", "%". $keyword ."%");
+        })
+        ->get();
+
+
+        // dd($projects);
+        return view("search", [
+            "projects" => $projects
+        ]);
+    }
+
+    public function sort(string $id, Request $request)
+    {
+        $sort = $request->input("sort");
+        dd([$id,$request]);
+    }
 }

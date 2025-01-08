@@ -575,7 +575,7 @@
                             <div class="sm:w-auto sm:block w-full flex items-center justify-center sm:mt-0 mt-[6vw]">
                                 <div
                                     class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] mt-[2vw] items-center justify-center">
-                                    <img src="/assets/filter.svg" alt=""
+                                    {{-- <img src="/assets/filter.svg" alt=""
                                         class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
                                     <h1 class="sm:text-[0.938vw] text-[4.186vw]">Yang Terbaru</h1>
                                     <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -583,7 +583,17 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
                                             fill-opacity="1" />
-                                    </svg>
+                                    </svg> --}}
+                                    <form action="{{ route("detail.sort", $project->id) }}" method="GET">
+                                        <select name="sort" id="">
+                                            <option value="1">Like Terbanyak</option>
+                                            <option value="2">Reply Terbanyak</option>
+                                            <option value="3">Yang Terbaru</option>
+                                            <option value="4">Yang Paling Panjang</option>
+                                            <option value="5">Yang Paling Pendek</option>
+                                        </select>
+                                        <button type="submit">ROR</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -697,7 +707,7 @@
                                                 @endif
                                             @endforeach
 
-                                                
+
                                             <!-- Form Balas Komentar -->
                                             <div>
                                                 {{-- <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
@@ -725,8 +735,8 @@
                                     </div>
                                 @endif
                             @endforeach
-<!-- Pagination Links -->
-{{-- <div class="pagination">
+                            <!-- Pagination Links -->
+                            {{-- <div class="pagination">
     {{ $comments->links() }}
 </div> --}}
                         </div>
