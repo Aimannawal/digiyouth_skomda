@@ -588,7 +588,7 @@
                                             d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
                                             fill-opacity="1" />
                                     </svg> --}}
-                                    <form action="{{ route('detail.sort', $project->id) }}" method="POST">
+                                    {{-- <form action="{{ route('detail.sort', $project->id) }}" method="POST">
                                         @csrf
                                         <select name="sort" id="">
                                             <option value="1" @if ($sort == 1)
@@ -599,6 +599,18 @@
                                         @endif>Reply Terbanyak</option>
                                         </select>
                                         <button type="submit">ROR</button>
+                                    </form> --}}
+                                    <form action="{{ route('detail.sort', $project->id) }}" method="POST" class="flex items-center space-x-4">
+                                        @csrf
+                                        <select name="sort" id="sort"
+                                                class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none ">
+                                            <option value="1" @if ($sort == 1) selected @endif class="bg-main">Yang Terbaru</option>
+                                            <option value="2" @if ($sort == 2) selected @endif>Reply Terbanyak</option>
+                                        </select>
+                                        <button type="submit"
+                                                class="px-6 py-2 bg-main text-white font-semibold rounded-lg shadow focus:outline-none ">
+                                            Cari
+                                        </button>
                                     </form>
                                 </div>
                             </div>

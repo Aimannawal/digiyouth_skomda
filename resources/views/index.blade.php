@@ -173,7 +173,7 @@
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
                         <ul class="space-y-[6.977vw] flex flex-col px-[15vw] font-normal">
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [1,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -183,7 +183,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [2,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -193,7 +193,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [3,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw] ease-in-out duration-300 transition-all">
                                         <g clip-path="url(#clip0_246_6997)">
@@ -212,7 +212,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [4,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
                                         class=" w-[5.814vw] h-[5.814vw] stroke-dark fill-transparent ">
                                         <path
@@ -225,7 +225,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="category.html" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [5,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <g clip-path="url(#clip0_246_6971)">
@@ -245,7 +245,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [6,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="stroke-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -256,7 +256,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [7,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw">
                                         <path
@@ -270,7 +270,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [8,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -280,7 +280,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [9,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -330,7 +330,7 @@
             <div class="grid sm:grid-cols-3 grid-cols-2 sm:px-[10vw] px-0 sm:gap-[1.302vw] gap-[3.488vw] mt-[3vw]">
                 <div class="flex justify-center items-center">
                     <div>
-                        <a href="/category/1">
+                        <a href="/category/1/1">
                             <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300">
@@ -351,7 +351,7 @@
                 <div class="flex justify-center items-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/4">
+                        <a href="/category/4/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
@@ -374,7 +374,7 @@
                 <div class="flex justify-center items-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/7">
+                        <a href="/category/7/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -398,7 +398,7 @@
                 <div class="flex justify-center items-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/2">
+                        <a href="/category/2/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[40.465vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -419,7 +419,7 @@
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/8">
+                        <a href="/category/8/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -441,7 +441,7 @@
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/5">
+                        <a href="/category/5/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -472,7 +472,7 @@
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/3">
+                        <a href="/category/3/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -503,7 +503,7 @@
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/6">
+                        <a href="/category/6/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -525,7 +525,7 @@
                 <div class="flex justify-center items-center sm:col-span-1 col-span-2">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
-                        <a href="/category/9">
+                        <a href="/category/9/1">
                             <div
                                 class="bg-main p-[0.521vw] sm:w-[18.229vw] sm:h-[5.208vw] w-[83.023vw] h-[18.605vw] flex items-center justify-center sm:space-x-[0.521vw] space-x-[2.326vw] sm:rounded-[0.781vw] rounded-[3.488vw] group hover:bg-[#F9F9F9] transition-colors duration-300 fill-transparent">
                                 <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"

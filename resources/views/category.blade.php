@@ -166,7 +166,7 @@
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
                         <ul class="space-y-[6.977vw] flex flex-col px-[15vw] font-normal">
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [1,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -176,7 +176,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [2,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -186,7 +186,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [3,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw] ease-in-out duration-300 transition-all">
                                         <g clip-path="url(#clip0_246_6997)">
@@ -205,7 +205,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [4,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
                                         class=" w-[5.814vw] h-[5.814vw] stroke-dark fill-transparent ">
                                         <path
@@ -218,7 +218,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="category.html" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [5,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <g clip-path="url(#clip0_246_6971)">
@@ -238,7 +238,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [6,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="stroke-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -249,7 +249,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [7,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw">
                                         <path
@@ -263,7 +263,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [8,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -273,7 +273,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [9,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -309,7 +309,7 @@
                         <h1
                             class="font-medium sm:text-[1.146vw] text-[4.186vw] 
                             @if ($all->id == $category->id) active @endif">
-                            <a href="/category/{{ $all->id }}">{{ $all->name }}</a>
+                            <a href="/category/{{ $all->id }}/1">{{ $all->name }}</a>
                         </h1>
                     </div>
                 @endforeach
@@ -338,57 +338,25 @@
                 </div> --}}
             </div>
             <div
-    class="relative flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center cursor-pointer"
-    id="filterDropdownToggle">
-    <!-- Filter Icon -->
-    <img src="/assets/filter.svg" alt="Filter Icon"
-         class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
-    
-    <!-- Filter Text -->
-    <h1 class="sm:text-[0.938vw] text-[4.186vw] font-semibold text-gray-700">Filter</h1>
-    
-    <!-- Dropdown Icon -->
-    <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-         class="sm:w-[0.625vw] sm:h-[1.25vw] fill-dark w-[2.326vw] h-[4.651vw]">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
-              fill-opacity="1" />
-    </svg>
-    
-    <!-- Dropdown Options -->
-    <div id="filterDropdownMenu"
-         class="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 hidden z-10">
-        <form action="{{ route('category.sort', 1) }}" method="POST">
-            @csrf
-            <select name="sort" id="sort"
-                    class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:outline-none text-gray-700">
-                <option value="1" @if ($sort == 1) selected @endif>Yang Terbaru</option>
-                <option value="2" @if ($sort == 2) selected @endif>Yang Terlama</option>
-            </select>
-            <button type="submit"
-                    class="mt-4 w-full px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                Terapkan
-            </button>
-        </form>
-    </div>
-</div>
+                class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center">
+                <!-- Icon Filter -->
+                <img src="/assets/filter.svg" alt="Filter Icon"
+                    class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
 
-<!-- Script -->
-<script>
-    const toggle = document.getElementById('filterDropdownToggle');
-    const menu = document.getElementById('filterDropdownMenu');
-
-    toggle.addEventListener('click', () => {
-        menu.classList.toggle('hidden'); // Toggle visibility
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!toggle.contains(e.target)) {
-            menu.classList.add('hidden'); // Hide if clicked outside
-        }
-    });
-</script>
-
+                <!-- Filter Form -->
+                <form action="{{ route('category.sort', $category->id) }}" method="POST" class="flex items-center space-x-4">
+                    @csrf
+                    <select name="sort" id="sort"
+                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none ">
+                        <option value="1" @if ($sort == 1) selected @endif >Yang Terbaru</option>
+                        <option value="2" @if ($sort == 2) selected @endif>Yang Terlama</option>
+                    </select>
+                    <button type="submit"
+                            class="px-6 py-2 bg-main text-white font-semibold rounded-lg shadow focus:outline-none ">
+                        Cari
+                    </button>
+                </form>
+            </div>
 
         </div>
     </section>
