@@ -584,13 +584,15 @@
                                             d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
                                             fill-opacity="1" />
                                     </svg> --}}
-                                    <form action="{{ route("detail.sort", $project->id) }}" method="GET">
+                                    <form action="{{ route('detail.sort', $project->id) }}" method="POST">
+                                        @csrf
                                         <select name="sort" id="">
-                                            <option value="1">Like Terbanyak</option>
-                                            <option value="2">Reply Terbanyak</option>
-                                            <option value="3">Yang Terbaru</option>
-                                            <option value="4">Yang Paling Panjang</option>
-                                            <option value="5">Yang Paling Pendek</option>
+                                            <option value="1" @if ($sort == 1)
+                                                {{"selected"}}
+                                            @endif>Yang Terbaru</option>
+                                            <option value="2" @if ($sort == 2)
+                                            {{"selected"}}
+                                        @endif>Reply Terbanyak</option>
                                         </select>
                                         <button type="submit">ROR</button>
                                     </form>
@@ -598,8 +600,15 @@
                             </div>
                         </div>
                         <div class="space-y-[3vw]">
+                            @php
+                            $ayam = [];    
+                        @endphp
+                        {{-- {{dd($comments)}} --}}
                             @foreach ($comments as $comment)
+                            {{-- {{dd($comment)}} --}}
+
                                 @if ($comment->status == 1)
+
                                     @php
                                         $photo = $comment->user->profile_picture
                                             ? asset('storage/' . $comment->user->profile_picture)
@@ -733,12 +742,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @php
+                                    $ayam[] = $comment;    
+                                @endphp
                                 @endif
                             @endforeach
+                            {{-- {{dd($ayam)}} --}}
                             <!-- Pagination Links -->
-                            {{-- <div class="pagination">
-    {{ $comments->links() }}
-</div> --}}
+                            <div class="pagination">
+                                {{ $comments->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

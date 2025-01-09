@@ -572,7 +572,7 @@
                 <!-- Card 1 -->
                 @foreach ($project as $index => $pr)
                     @if ($pr->status == 1)
-                        <a href="{{ route('detail', $pr->id) }}">
+                        <a href="{{ route('detail', [$pr->id, 1]) }}">
                             <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
                                 @php
                                     $photos = is_string($pr->photo)

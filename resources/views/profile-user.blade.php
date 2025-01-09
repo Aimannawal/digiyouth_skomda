@@ -379,7 +379,7 @@
                             //     default => '#000000',
                             // };
                         @endphp
-                        <a href="{{ route('detail', $project->id) }}">
+                        <a href="{{ route('detail', [$project->id,1]) }}">
                             <img src="{{ Storage::url($firstPhoto) }}" alt=""
                                 class="sm:w-[23.854vw] sm:h-[17.865vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
                             <!-- Overlay dan informasi profile yang muncul saat hover -->

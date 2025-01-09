@@ -12,6 +12,7 @@ use App\Models\TeamUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DigiyouthController extends Controller
 {
@@ -85,12 +86,24 @@ class DigiyouthController extends Controller
         ]);
     }
 
-    public function detail(string $id)
+    public function detail(string $id, string $sort)
     {
         $likeModel = Like::class; // Model untuk mengelola "like"
         $project = Project::findOrFail($id); // Pastikan project ditemukan, jika tidak return 404
         $category = Category::all();
 
+
+        if($sort == 1){
+            $comments = Comment::where("project_id", $id)->orderBy('created_at', 'desc')->paginate(5);
+        }else if($sort == 2){
+            $comments = Comment::select('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at', DB::raw('COUNT(replies.id) as replies_count'))
+            ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
+            ->where('comments.project_id', $id)
+            ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
+            ->orderByDesc('replies_count') // Order by the number of replies
+            ->paginate(5);
+        }
+        // dd($comments);
         // Data tim
         $membersArray = [];
         foreach ($project->team->users as $member) {
@@ -111,8 +124,8 @@ class DigiyouthController extends Controller
         $toolsArray = explode(", ", $tools);
 
         // Komentar terkait project
-        $comments = Comment::where("project_id", $id)->get();
-        $commentsCount = Comment::where("project_id", $id)->count();
+        // $comments = Comment::where("project_id", $id)->paginate(5);
+        $commentsCount = Comment::where("project_id", $id)->where("status", 1)->count();
 
         // Cek apakah user sudah menyukai project ini
         $userLiked = auth()->check() && Like::where('project_id', $id)
@@ -121,6 +134,7 @@ class DigiyouthController extends Controller
 
         return view('detail', [
             "project" => $project,
+            "sort" => $sort,
             "likeModel" => $likeModel,
             "members" => $members,
             "category" => $category,
@@ -249,6 +263,17 @@ class DigiyouthController extends Controller
     public function sort(string $id, Request $request)
     {
         $sort = $request->input("sort");
-        dd([$id,$request]);
+        return redirect()->route("detail", [$id, $sort]);
+        // if($sort == 1){
+        //     $comments = Comment::where("project_id", $id)->orderBy('created_at', 'desc')->paginate(5);
+        // }else if($sort == 2){
+        //     $comments = Comment::select('comments.id', 'comments.user_id', 'comments.text', 'comments.created_at', DB::raw('COUNT(replies.id) as replies_count'))
+        //     ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
+        //     ->where('comments.project_id', $id)
+        //     ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.created_at') // Explicitly group by these columns
+        //     ->orderByDesc('replies_count') // Order by the number of replies
+        //     ->paginate(5);
+        // }
+        // dd([$id,$comments]);
     }
 }

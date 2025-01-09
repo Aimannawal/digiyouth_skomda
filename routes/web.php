@@ -12,8 +12,8 @@ Route::get('/', [DigiyouthController::class, 'index'])->name("homepage");
 // Route::get('/', [DigiyouthController::class, 'footer'])->name("homepage");
 
 
-Route::get('/detail/{id}', [DigiyouthController::class, 'detail'])->name('detail');
-Route::get('/detail/{id}/sort', [DigiyouthController::class, 'sort'])->name('detail.sort');
+Route::get('/detail/{id}/{sort}', [DigiyouthController::class, 'detail'])->name('detail');
+Route::post('/detail/{id}/sort', [DigiyouthController::class, 'sort'])->name('detail.sort');
 Route::post('/detail/{id}/like', [DigiyouthController::class, 'like'])->name('detail.like');
 Route::post('/detail/{id}/comment', [DigiyouthController::class, 'comment'])->name('detail.comment');
 Route::post('/detail/{id}/reply', [DigiyouthController::class, 'reply'])->name('detail.reply');
