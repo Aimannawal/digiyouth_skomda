@@ -70,15 +70,29 @@ class DigiyouthController extends Controller
 
 
     
-    public function category(string $id)
+    public function category(string $id, string $sort)
     {
         $likeModel = Like::class;
         $category = Category::find($id);
         $allCategories = Category::all();
 
-        $projects = Project::where("category_id", $id)->paginate(8);
+        if($sort == 1){
+            $projects = Project::where("category_id", $id)->orderBy('created_at', 'desc')->paginate(8);
+        }else if($sort == 2){
+            $projects = Project::where("category_id", $id)->orderBy('created_at', 'asc')->paginate(8);
+        }else if($sort == 3){
+            $projects = Project::select('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at', DB::raw('COUNT(replies.id) as replies_count'))
+            ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
+            ->where('comments.project_id', $id)
+            ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
+            ->orderByDesc('replies_count') // Order by the number of replies
+            ->paginate(5);
+        }
+
+        // $projects = Project::where("category_id", $id)->paginate(8);
 
         return view('category', [
+            "sort" => $sort,
             "projects" => $projects,
             "likeModel" => $likeModel,
             "category" => $category,
@@ -260,7 +274,7 @@ class DigiyouthController extends Controller
         ]);
     }
 
-    public function sort(string $id, Request $request)
+    public function commentSort(string $id, Request $request)
     {
         $sort = $request->input("sort");
         return redirect()->route("detail", [$id, $sort]);
@@ -275,5 +289,13 @@ class DigiyouthController extends Controller
         //     ->paginate(5);
         // }
         // dd([$id,$comments]);
+    }
+
+    public function categorySort(string $id, Request $request)
+    {
+        $sort = $request->input("sort");
+        return redirect()->route("category", [$id, $sort]);
+
+        
     }
 }

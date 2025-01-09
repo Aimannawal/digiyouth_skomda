@@ -32,27 +32,27 @@
                         <div class="grid grid-cols-3 gap-[1vw] text-[0.938vw]">
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 1) }}">Hacker</a></li>
+                                        href="{{ route('category', [1,1]) }}">Hacker</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 2) }}">IoT Engineer</a></li>
+                                        href="{{ route('category', [2,1]) }}">IoT Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 3) }}">Network Engineer</a></li>
+                                        href="{{ route('category', [3,1]) }}">Network Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 4) }}">Hipster</a></li>
+                                        href="{{ route('category', [4,1]) }}">Hipster</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 5) }}">Cloud Engineer</a></li>
+                                        href="{{ route('category', [5,1]) }}">Cloud Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 6) }}">Fiber Optic Engineer</a></li>
+                                        href="{{ route('category', [6,1]) }}">Fiber Optic Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 7) }}">Hustler</a></li>
+                                        href="{{ route('category', [7,1]) }}">Hustler</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 8) }}">Graphic Designer</a></li>
+                                        href="{{ route('category', [8,1]) }}">Graphic Designer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 9) }}">System Administrator</a></li>
+                                        href="{{ route('category', [9,1]) }}">System Administrator</a></li>
                             </ul>
                         </div>
                     </div>
@@ -61,9 +61,11 @@
             </ul>
         </div>
         <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
-            <input type="text" name="" id=""
-                class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
-                placeholder="Cari proyek, kategori, atau nama siswa">
+            <form action="{{ route('search') }}" method="GET">
+                <input type="text" name="keyword" id=""
+                    class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
+                    placeholder="Cari proyek, kategori, atau nama siswa">
+            </form>
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
@@ -123,9 +125,11 @@
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
                 <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <input type="text" name="" id=""
-                        class="w-full h-full rounded-[2vw] border-[0.233vw] border-gray-300 text-[3.256vw] p-[5vw] outline-none placeholder:text-[3.256vw]"
-                        placeholder="Cari proyek, kategori, atau nama siswa">
+                    <form action="{{ route('search') }}" method="GET">
+                        <input type="text" name="keyword" id=""
+                            class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
+                            placeholder="Cari proyek, kategori, atau nama siswa">
+                    </form>
                 </li>
                 @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
@@ -155,6 +159,8 @@
                         <p>Kategori</p>
                         <img :class="{ 'rotate-180': open }" src="/assets/arrow-filter.svg" alt="">
                     </div>
+
+
                     <!-- Div yang akan ditampilkan dengan animasi -->
                     <div id="kategoriList" x-transition
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
@@ -332,17 +338,58 @@
                 </div> --}}
             </div>
             <div
-                class="flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center">
-                <img src="/assets/filter.svg" alt=""
-                    class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
-                <h1 class="sm:text-[0.938vw] text-[4.186vw]">Filter</h1>
-                <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="sm:w-[0.625vw] sm:h-[1.25vw] fill-dark w-[2.326vw] h-[4.651vw]">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
-                        fill-opacity="1" />
-                </svg>
-            </div>
+    class="relative flex sm:space-x-[1.042vw] space-x-[4.651vw] sm:px-[1.302vw] sm:py-[0.781vw] px-[5.814vw] py-[3.488vw] bg-[#F9F9F9] sm:rounded-[0.521vw] rounded-[2.326vw] items-center cursor-pointer"
+    id="filterDropdownToggle">
+    <!-- Filter Icon -->
+    <img src="/assets/filter.svg" alt="Filter Icon"
+         class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
+    
+    <!-- Filter Text -->
+    <h1 class="sm:text-[0.938vw] text-[4.186vw] font-semibold text-gray-700">Filter</h1>
+    
+    <!-- Dropdown Icon -->
+    <svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"
+         class="sm:w-[0.625vw] sm:h-[1.25vw] fill-dark w-[2.326vw] h-[4.651vw]">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z"
+              fill-opacity="1" />
+    </svg>
+    
+    <!-- Dropdown Options -->
+    <div id="filterDropdownMenu"
+         class="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-4 hidden z-10">
+        <form action="{{ route('category.sort', 1) }}" method="POST">
+            @csrf
+            <select name="sort" id="sort"
+                    class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:outline-none text-gray-700">
+                <option value="1" @if ($sort == 1) selected @endif>Yang Terbaru</option>
+                <option value="2" @if ($sort == 2) selected @endif>Yang Terlama</option>
+            </select>
+            <button type="submit"
+                    class="mt-4 w-full px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                Terapkan
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Script -->
+<script>
+    const toggle = document.getElementById('filterDropdownToggle');
+    const menu = document.getElementById('filterDropdownMenu');
+
+    toggle.addEventListener('click', () => {
+        menu.classList.toggle('hidden'); // Toggle visibility
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!toggle.contains(e.target)) {
+            menu.classList.add('hidden'); // Hide if clicked outside
+        }
+    });
+</script>
+
+
         </div>
     </section>
 

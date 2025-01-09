@@ -33,27 +33,27 @@
                         <div class="grid grid-cols-3 gap-[1vw] text-[0.938vw]">
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 1) }}">Hacker</a></li>
+                                        href="{{ route('category', [1,1]) }}">Hacker</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 2) }}">IoT Engineer</a></li>
+                                        href="{{ route('category', [2,1]) }}">IoT Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 3) }}">Network Engineer</a></li>
+                                        href="{{ route('category', [3,1]) }}">Network Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 4) }}">Hipster</a></li>
+                                        href="{{ route('category', [4,1]) }}">Hipster</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 5) }}">Cloud Engineer</a></li>
+                                        href="{{ route('category', [5,1]) }}">Cloud Engineer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 6) }}">Fiber Optic Engineer</a></li>
+                                        href="{{ route('category', [6,1]) }}">Fiber Optic Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 7) }}">Hustler</a></li>
+                                        href="{{ route('category', [7,1]) }}">Hustler</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 8) }}">Graphic Designer</a></li>
+                                        href="{{ route('category', [8,1]) }}">Graphic Designer</a></li>
                                 <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', 9) }}">System Administrator</a></li>
+                                        href="{{ route('category', [9,1]) }}">System Administrator</a></li>
                             </ul>
                         </div>
                     </div>
@@ -71,9 +71,11 @@
                     <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Log Out</button>
                 </form>
             </div> --}}
-            <input type="text" name="" id=""
-                class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
-                placeholder="Cari proyek, kategori, atau nama siswa">
+            <form action="{{ route('search') }}" method="GET">
+                <input type="text" name="keyword" id=""
+                    class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
+                    placeholder="Cari proyek, kategori, atau nama siswa">
+            </form>
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end relative">
                     @auth
@@ -140,9 +142,11 @@
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
                 <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <input type="text" name="" id=""
-                        class="w-full h-full rounded-[2vw] border-[0.233vw] border-gray-300 text-[3.256vw] p-[5vw] outline-none placeholder:text-[3.256vw]"
-                        placeholder="Cari proyek, kategori, atau nama siswa">
+                    <form action="{{ route('search') }}" method="GET">
+                        <input type="text" name="keyword" id=""
+                            class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
+                            placeholder="Cari proyek, kategori, atau nama siswa">
+                    </form>
                 </li>
                 @if (Route::has('login'))
                     <nav class="-mx-3 flex flex-1 justify-end">

@@ -13,12 +13,13 @@ Route::get('/', [DigiyouthController::class, 'index'])->name("homepage");
 
 
 Route::get('/detail/{id}/{sort}', [DigiyouthController::class, 'detail'])->name('detail');
-Route::post('/detail/{id}/sort', [DigiyouthController::class, 'sort'])->name('detail.sort');
 Route::post('/detail/{id}/like', [DigiyouthController::class, 'like'])->name('detail.like');
 Route::post('/detail/{id}/comment', [DigiyouthController::class, 'comment'])->name('detail.comment');
+Route::post('/detail/{id}/sort', [DigiyouthController::class, 'commentSort'])->name('detail.sort');
 Route::post('/detail/{id}/reply', [DigiyouthController::class, 'reply'])->name('detail.reply');
 
-Route::get('/category/{id}', [DigiyouthController::class, 'category'])->name("category");
+Route::get('/category/{id}/{sort}', [DigiyouthController::class, 'category'])->name("category");
+Route::post('/category/{id}/sort', [DigiyouthController::class, 'categorySort'])->name("category.sort");
 
 Route::get('/profile-user/{id}', [DigiyouthController::class, 'profileDetail'])->name("profile.detail");
 
