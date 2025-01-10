@@ -99,7 +99,7 @@
                                 <!-- Dropdown Menu -->
                                 <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false"
                                     class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
-                                    <a href="http://127.0.0.1:8000/admin"
+                                    <a href="/admin"
                                         class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
                                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                         @csrf
