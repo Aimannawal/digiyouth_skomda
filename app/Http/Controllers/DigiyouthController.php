@@ -112,6 +112,7 @@ class DigiyouthController extends Controller
         $likeModel = Like::class; // Model untuk mengelola "like"
         $project = Project::findOrFail($id); // Pastikan project ditemukan, jika tidak return 404
         $category = Category::all();
+        $allCategories = Category::all();
 
 
         if($sort == 1){
@@ -162,6 +163,7 @@ class DigiyouthController extends Controller
             "toolsArray" => $toolsArray,
             "comments" => $comments,
             "commentsCount" => $commentsCount,
+            "allCategories" => $allCategories,
             "userLiked" => $userLiked, // Ditambahkan untuk kebutuhan tombol like
         ]);
     }
