@@ -344,17 +344,13 @@
                     class="sm:w-[1.563vw] sm:h-[1.563vw] w-[4.651vw] h-[4.651vw]">
 
                 <!-- Filter Form -->
-                <form action="{{ route('category.sort', $category->id) }}" method="POST" class="flex items-center space-x-4">
+                <form action="{{ route('category.sort', $category->id) }}" method="POST" class="flex items-center">
                     @csrf
-                    <select name="sort" id="sort"
-                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none ">
-                        <option value="1" @if ($sort == 1) selected @endif >Yang Terbaru</option>
+                    <select name="sort" id="sort" onchange="this.form.submit()"
+                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none">
+                        <option value="1" @if ($sort == 1) selected @endif>Yang Terbaru</option>
                         <option value="2" @if ($sort == 2) selected @endif>Yang Terlama</option>
                     </select>
-                    <button type="submit"
-                            class="px-6 py-2 bg-main text-white font-semibold rounded-lg shadow focus:outline-none ">
-                        Cari
-                    </button>
                 </form>
             </div>
 
@@ -430,16 +426,6 @@
                                     class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
                                 <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
                                     {{ $likeModel::where('project_id', $project->id)->count() }}</p>
-                            </div>
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                <img src="/assets/view.svg" alt=""
-                                    class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">60</p>
-                            </div>
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                <img src="/assets/share.svg" alt=""
-                                    class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">Share</p>
                             </div>
                         </div>
                     </div>

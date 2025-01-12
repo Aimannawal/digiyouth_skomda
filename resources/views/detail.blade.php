@@ -340,25 +340,6 @@
                                     <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold">
                                         {{ $likeModel::where('project_id', $project->id)->count() }}</p>
                                 </div>
-                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                    <svg class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]"
-                                        viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M15 11.1937C14.0054 11.1937 13.0516 11.5868 12.3483 12.2866C11.6451 12.9863 11.25 13.9354 11.25 14.925C11.25 15.9146 11.6451 16.8636 12.3483 17.5634C13.0516 18.2631 14.0054 18.6562 15 18.6562C15.9946 18.6562 16.9484 18.2631 17.6517 17.5634C18.3549 16.8636 18.75 15.9146 18.75 14.925C18.75 13.9354 18.3549 12.9863 17.6517 12.2866C16.9484 11.5868 15.9946 11.1937 15 11.1937ZM15 21.1437C13.3424 21.1437 11.7527 20.4885 10.5806 19.3223C9.40848 18.1561 8.75 16.5743 8.75 14.925C8.75 13.2757 9.40848 11.6939 10.5806 10.5277C11.7527 9.36143 13.3424 8.70624 15 8.70624C16.6576 8.70624 18.2473 9.36143 19.4194 10.5277C20.5915 11.6939 21.25 13.2757 21.25 14.925C21.25 16.5743 20.5915 18.1561 19.4194 19.3223C18.2473 20.4885 16.6576 21.1437 15 21.1437ZM15 5.59686C8.75 5.59686 3.4125 9.46493 1.25 14.925C3.4125 20.385 8.75 24.2531 15 24.2531C21.25 24.2531 26.5875 20.385 28.75 14.925C26.5875 9.46493 21.25 5.59686 15 5.59686Z"
-                                            fill="#FFFFFF" fill-opacity="1" />
-                                    </svg>
-                                    <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold">60</p>
-                                </div>
-                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                    <svg class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]"
-                                        viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M25 11.8625L15 0.924988V6.39374C10 6.39374 0 9.67499 0 22.8C0 20.9766 3 17.3312 15 17.3312V22.8L25 11.8625Z"
-                                            fill="#FFFFFF" fill-opacity="1" />
-                                    </svg>
-                                    <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold">46</p>
-                                </div>
-
                             </div>
                         </div>
                         <div
@@ -467,11 +448,12 @@
                             </div>
 
                             <!-- Tombol Share -->
-                            <div class="flex sm:space-x-[0.6vw] space-x-[2vw] items-center">
-                                <img src="/assets/share.svg" alt="Share Icon"
-                                    class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] font-semibold text-gray-400">Share</p>
+                            <div id="share-container" class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                <img src="/assets/share.svg" alt=""
+                                    class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
+                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold cursor-pointer">Share</p>
                             </div>
+                            
                         </div>
                     </div>
 
@@ -600,17 +582,13 @@
                                         </select>
                                         <button type="submit">ROR</button>
                                     </form> --}}
-                                    <form action="{{ route('detail.sort', $project->id) }}" method="POST" class="flex items-center space-x-4">
+                                    <form action="{{ route('detail.sort', $project->id) }}" method="POST" id="sortForm" class="flex items-center space-x-4">
                                         @csrf
                                         <select name="sort" id="sort"
-                                                class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none ">
+                                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none">
                                             <option value="1" @if ($sort == 1) selected @endif class="bg-main">Yang Terbaru</option>
                                             <option value="2" @if ($sort == 2) selected @endif>Reply Terbanyak</option>
                                         </select>
-                                        <button type="submit"
-                                                class="px-6 py-2 bg-main text-white font-semibold rounded-lg shadow focus:outline-none ">
-                                            Cari
-                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -933,6 +911,33 @@
             toggleKategori.classList.toggle('border-main'); // Toggle border utama
         });
     </script>
+
+    <script>
+        document.getElementById('share-container').addEventListener('click', function () {
+            const currentUrl = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title, // Judul halaman
+                    text: 'Check out this page!',
+                    url: currentUrl, // URL saat ini
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((error) => console.error('Error sharing:', error));
+            } else {
+                alert('Sharing is not supported on this browser. Copy this link: ' + currentUrl);
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('sort').addEventListener('change', function () {
+            // Submit form secara otomatis ketika nilai pada <select> berubah
+            document.getElementById('sortForm').submit();
+        });
+    </script>
+
+
 </body>
 
 </html>

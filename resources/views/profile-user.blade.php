@@ -297,22 +297,22 @@
     <section class="flex flex-col justify-center items-center px-4 sm:px-48 space-y-6 pt-8 pb-16 mt-40">
         <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
             @php
-                $user = auth()->user();
-                $photo = $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
-                $userName = $user ? $user->name : 'Guest';
-                $initials = collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('');
+                $photo = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : null;
+                $userName = $profile ? $profile->name : 'Guest';
+                
+                $initials = $userName ? strtoupper(substr($userName, 0, 1)) . (strpos($userName, ' ') ? strtoupper(substr($userName, strpos($userName, ' ') + 1, 1)) : '') : 'G';
             @endphp
-    
+
             @if ($photo)
                 <img src="{{ $photo }}" alt="{{ $userName }}" 
                     class="w-20 h-20 sm:w-16 sm:h-16 rounded-full object-cover cursor-pointer">
             @else
-                <div 
-                    class="w-20 h-20 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black text-white font-bold cursor-pointer">
+                <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black text-white font-bold cursor-pointer">
                     {{ $initials }}
                 </div>
             @endif
-    
+
+
             <div class="text-center sm:text-left mt-2 sm:mt-0">
                 <h1 class="text-lg sm:text-base font-semibold">{{ $profile->name }}</h1>
                 <div class="text-gray-500 flex items-center justify-center sm:justify-start space-x-2">
@@ -327,9 +327,9 @@
             <!-- Thumb, View, Share Section -->
             <div class="flex justify-center space-x-4">
                 @foreach ([
-                    ['icon' => '/assets/thumb.svg', 'count' => 10],
-                    ['icon' => '/assets/view.svg', 'count' => 60],
-                    ['icon' => '/assets/share.svg', 'count' => 46]
+                    // ['icon' => '/assets/thumb.svg', 'count' => 10],
+                    // ['icon' => '/assets/view.svg', 'count' => 60],
+                    // ['icon' => '/assets/share.svg', 'count' => 46]
                 ] as $item)
                     <div class="flex flex-col items-center space-y-1">
                         <img src="{{ $item['icon'] }}" alt="Icon" class="w-8 h-8 sm:w-6 sm:h-6">
@@ -342,17 +342,6 @@
             <p class="text-center text-gray-700 text-sm">
                 Berbagai projek menarik dari {{ $profile->name }}
             </p>
-    
-            <!-- Filter Section -->
-            <div class="flex items-center space-x-3 px-4 py-2 bg-gray-100 rounded-lg">
-                <img src="/assets/filter.svg" alt="Filter Icon" class="w-5 h-5 sm:w-4 sm:h-4">
-                <h1 class="text-sm sm:text-base">Filter</h1>
-                <svg viewBox="0 0 14 8" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-3 h-3 fill-current text-black">
-                    <path fill-rule="evenodd" clip-rule="evenodd" 
-                        d="M6.20324 7.15694L0.539454 1.49994L1.95515 0.0859375L6.91109 5.03594L11.867 0.0859375L13.2827 1.49994L7.61893 7.15694C7.43118 7.34441 7.17657 7.44972 6.91109 7.44972C6.6456 7.44972 6.39099 7.34441 6.20324 7.15694Z" 
-                        fill-opacity="1" />
-                </svg>
-            </div>
         </div>
     </section>
     
@@ -364,7 +353,7 @@
     <section class="sm:px-[4.375vw] sm:mt-[3vw] mt-[7vw] px-[1.875vw]">
         <div
             class="w-full sm:grid sm:grid-cols-4 grid-cols-1 flex flex-col justify-center items-center sm:gap-x-[1.042vw] sm:gap-y-[3vw] gap-y-[8vw]">
-            @forelse ($projects as $project)
+            @foreach ($projects as $project)
                 @if ($project->status == 1)
                     <div class="relative group">
 
@@ -431,23 +420,15 @@
                                 <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
                                     {{ $likeModel::where('project_id', $project->id)->count() }}</p>
                             </div>
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                <img src="/assets/view.svg" alt=""
-                                    class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">60</p>
-                            </div>
-                            <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                            <div id="share-container" class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
                                 <img src="/assets/share.svg" alt=""
                                     class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">Share</p>
-                            </div>
+                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold cursor-pointer">Share</p>
+                            </div>                            
                         </div>
                     </div>
                 @endif
-
-            @empty
-                <p>User Ini Belum Memiliki Project Apapun</p>
-            @endforelse
+            @endforeach
         </div>
         {{-- <div class="sm:mt-[5vw] mt-[15vw]">
             @php
@@ -653,6 +634,18 @@
             toggleKategori.classList.toggle('border-main'); // Toggle border utama
         });
     </script>
+
+<script>
+    document.getElementById('share-container').addEventListener('click', function () {
+        const currentUrl = window.location.href;
+
+        // Salin URL ke clipboard
+        navigator.clipboard.writeText(currentUrl)
+            .then(() => alert('URL copied to clipboard!'))
+            .catch((error) => console.error('Error copying to clipboard:', error));
+    });
+</script>
+
 </body>
 
 </html>

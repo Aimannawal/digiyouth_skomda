@@ -32,11 +32,7 @@ class ProjectResource extends Resource
                     ->preload()
                     ->required(),
                     Forms\Components\Select::make('team_id')
-                    ->relationship('team', 'name', function ($query) {
-                        $query->whereHas('users', function ($query) {
-                            $query->where('user_id', Auth::id());
-                        });
-                    })
+                    ->relationship('team', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),

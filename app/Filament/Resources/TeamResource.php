@@ -48,7 +48,20 @@ class TeamResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = auth()->user();
+
+        // Query menggunakan model Team
+        $query = Team::query();
+    
+        // Tambahkan kondisi berdasarkan peran user
+        if ($user->hasRole('Murid')) {
+            $query->whereHas('team_users', function ($subQuery) use ($user) {
+                $subQuery->where('user_id', $user->id);
+            });
+        }
+
         return $table
+            ->query(fn () => $query)
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Team')

@@ -572,100 +572,93 @@
             <div id="popular-works-slider"
                 class="mt-[3vw] flex items-center sm:gap-x-[1vw] gap-x-[4vw] overflow-x-auto scrollbar-hidden scroll-smooth pe-[3vw]">
                 <!-- Card 1 -->
-                @foreach ($project as $index => $pr)
-                    @if ($pr->status == 1)
-                        <a href="{{ route('detail', [$pr->id, 1]) }}">
-                            <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
+                @php
+                $rank = 1; // Inisialisasi nomor urut
+            @endphp
+            
+            @foreach ($project as $pr)
+                @if ($pr->status == 1)
+                    <a href="{{ route('detail', [$pr->id, 1]) }}">
+                        <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
+                            @php
+                                $photos = is_string($pr->photo)
+                                    ? explode(',', $pr->photo)
+                                    : (is_array($pr->photo) ? $pr->photo : []);
+                                $firstPhoto = $photos[0] ?? null;
+                                $color = match ($rank) {
+                                    1 => '#FFD700',
+                                    2 => '#8B8B8B',
+                                    3 => '#895125',
+                                    default => '#000000',
+                                };
+                            @endphp
+            
+                            @if ($firstPhoto)
+                                <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
+                                    class="sm:w-[37.708vw] sm:h-[28.281vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
+                            @else
+                                <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
+                            @endif
+            
+                            <!-- Overlay dan informasi profil -->
+                            <div
+                                class="sm:w-[37.3vw] sm:h-[28.281vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                            <div
+                                class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 @php
-                                    $photos = is_string($pr->photo)
-                                        ? explode(',', $pr->photo)
-                                        : (is_array($pr->photo)
-                                            ? $pr->photo
-                                            : []);
-                                    $firstPhoto = $photos[0] ?? null;
-                                    $rank = $index + 1;
-                                    $color = match ($rank) {
-                                        1 => '#FFD700',
-                                        2 => '#8B8B8B',
-                                        3 => '#895125',
-                                        default => '#000000',
-                                    };
+                                    $profilePicture = $pr->user->profile_picture
+                                        ? Storage::url($pr->user->profile_picture)
+                                        : null;
+                                    $userName = $pr->user->name;
+                                    $initials = strtoupper(substr($userName, 0, 1)) . strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));
                                 @endphp
-
-                                @if ($firstPhoto)
-                                    <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
-                                        class="sm:w-[37.708vw] sm:h-[28.281vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
+                                @if ($profilePicture)
+                                    <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile"
+                                        class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full">
                                 @else
-                                    <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
+                                    <div
+                                        class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+                                        {{ $initials }}
+                                    </div>
                                 @endif
-                                <!-- Overlay dan informasi profile yang muncul saat hover -->
-                                <div
-                                    class="sm:w-[37.3vw] sm:h-[28.281vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                </div>
-                                <div
-                                    class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {{-- <img src="{{ Storage::url($pr->user->profile_picture) }}" alt=""
-                                    class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full"> --}}
-                                    @php
-                                        $profilePicture = $pr->user->profile_picture
-                                            ? Storage::url($pr->user->profile_picture)
-                                            : null;
-                                        $userName = $pr->user->name;
-                                        $initials =
-                                            strtoupper(substr($userName, 0, 1)) .
-                                            strtoupper(substr($userName, strpos($userName, ' ') + 1, 1)); // Extract initials
-                                    @endphp
-                                    @if ($profilePicture)
-                                        <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile"
-                                            class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full">
-                                    @else
-                                        <div
-                                            class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
-                                            {{ $initials }}
-                                        </div>
-                                    @endif
-                                    <p class="sm:text-[1.25vw] text-[3.256vw] text-white font-semibold">
-                                        {{ $pr->user->name }}
+                                <p class="sm:text-[1.25vw] text-[3.256vw] text-white font-semibold">
+                                    {{ $pr->user->name }}
+                                </p>
+                            </div>
+                            <div
+                                class="absolute bg-white sm:w-[5.208vw] sm:h-[5.208vw] w-[11.628vw] h-[11.628vw] rounded-full top-[1.5vw] left-[2vw] flex items-center justify-center">
+                                <h1 class="sm:text-[2.083vw] text-[5.581vw] font-semibold"
+                                    style="color: {{ $color }}">#{{ $rank }}</h1>
+                            </div>
+            
+                            <div class="flex space-x-[1vw] mt-[2vw] sm:justify-start justify-between">
+                                <h3 class="sm:text-[1.875vw] text-[4.651vw] font-semibold">{{ $pr->title }}</h3>
+                                <p
+                                    class="sm:text-[1.042vw] sm:px-[1.563vw] sm:py-[0.781vw] text-[2.791vw] px-[5.814vw] py-[2.326vw] bg-main bg-opacity-5 rounded-full text-main font-bold">
+                                    {{ $pr->category->name }}</p>
+                            </div>
+                            <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
+                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                    <img src="assets/thumb.svg" alt=""
+                                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
+                                        {{ $pr->likes_count }}
                                     </p>
                                 </div>
-                                <div
-                                    class="absolute bg-white sm:w-[5.208vw] sm:h-[5.208vw] w-[11.628vw] h-[11.628vw] rounded-full top-[1.5vw] left-[2vw] flex items-center justify-center">
-                                    <h1 class="sm:text-[2.083vw] text-[5.581vw] font-semibold"
-                                        style="color: {{ $color }}">#{{ $index + 1 }}</h1>
-                                </div>
-
-
-                                <div class="flex space-x-[1vw] mt-[2vw] sm:justify-start justify-between">
-                                    <h3 class="sm:text-[1.875vw] text-[4.651vw] font-semibold">{{ $pr->title }}
-                                    </h3>
-                                    <p
-                                        class="sm:text-[1.042vw] sm:px-[1.563vw] sm:py-[0.781vw] text-[2.791vw] px-[5.814vw] py-[2.326vw] bg-main bg-opacity-5 rounded-full text-main font-bold">
-                                        {{ $pr->category->name }}</p>
-                                </div>
-                                <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
-                                    <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                        <img src="assets/thumb.svg" alt=""
-                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
-                                            {{ $pr->likes_count }}</p>
-                                    </div>
-                                    <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                        <img src="assets/view.svg" alt=""
-                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">60
-                                        </p>
-                                    </div>
-                                    <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                        <img src="assets/share.svg" alt=""
-                                            class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">46
-                                        </p>
-                                    </div>
+                                <div id="share-container" class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                    <img src="assets/share.svg" alt=""
+                                        class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
+                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">Share</p>
                                 </div>
                             </div>
-                        </a>
-                    @endif
-                @endforeach
+                        </div>
+                    </a>
+                    @php
+                        $rank++; // Increment nomor urut hanya jika status == 1
+                    @endphp
+                @endif
+            @endforeach            
             </div>
         </div>
     </section>
@@ -682,7 +675,7 @@
             @foreach ($popularContributors as $contributor)
                 <a href="{{ route('profile.detail', $contributor['id']) }}">
                     <div
-                        class="border border-gray-300 sm:w-[18.385vw] sm:h-[17.292vw] w-[39.302vw] h-[36.965vw] sm:rounded-[0.781vw] flex flex-col justify-center items-center space-y-[0.7vw] flex-shrink-0  rounded-full">
+                        class="border border-gray-300 sm:w-[18.385vw] sm:h-[17.292vw] w-[39.302vw] h-[36.965vw] sm:rounded-[0.781vw] flex flex-col justify-center items-center space-y-[0.7vw] flex-shrink-0   rounded-[2.326vw]">
                         {{-- <img src="{{ asset('storage/' . $contributor['photo']) }}" alt=""
                         class="sm:w-[7.419vw] sm:h-[7.419vw] w-[16.279vw] h-[16.279vw] object-cover rounded-full"> --}}
                         @php
@@ -817,153 +810,169 @@
 
 </body>
 
-<script>
-    document.getElementById('kategori-button').addEventListener('click', function() {
-        var kategoriDiv = document.getElementById('kategori');
-        if (kategoriDiv.classList.contains('hidden')) {
-            kategoriDiv.classList.remove('hidden');
-        } else {
-            kategoriDiv.classList.add('hidden');
+    <script>
+        document.getElementById('kategori-button').addEventListener('click', function() {
+            var kategoriDiv = document.getElementById('kategori');
+            if (kategoriDiv.classList.contains('hidden')) {
+                kategoriDiv.classList.remove('hidden');
+            } else {
+                kategoriDiv.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+    <script>
+        // Ambil elemen slider
+        const slider = document.getElementById('slider');
+
+        // Tombol panah kiri dan kanan
+        const leftArrow = document.getElementById('left-arrow');
+        const rightArrow = document.getElementById('right-arrow');
+
+        // Fungsi untuk mengonversi nilai vw ke piksel
+        function vwToPx(vw) {
+            return (vw / 100) * window.innerWidth; // Konversi nilai vw ke px berdasarkan lebar viewport
         }
-    });
-</script>
 
+        // Ambil lebar card dalam satuan vw (misalnya 18.385vw)
+        let cardWidthVW = 18.385;
+        let cardWidth = vwToPx(cardWidthVW); // Konversi cardWidth ke piksel
 
-<script>
-    // Ambil elemen slider
-    const slider = document.getElementById('slider');
-
-    // Tombol panah kiri dan kanan
-    const leftArrow = document.getElementById('left-arrow');
-    const rightArrow = document.getElementById('right-arrow');
-
-    // Fungsi untuk mengonversi nilai vw ke piksel
-    function vwToPx(vw) {
-        return (vw / 100) * window.innerWidth; // Konversi nilai vw ke px berdasarkan lebar viewport
-    }
-
-    // Ambil lebar card dalam satuan vw (misalnya 18.385vw)
-    let cardWidthVW = 18.385;
-    let cardWidth = vwToPx(cardWidthVW); // Konversi cardWidth ke piksel
-
-    // Fungsi untuk sliding ke kiri
-    leftArrow.addEventListener('click', () => {
-        slider.scrollBy({
-            left: -cardWidth, // Geser ke kiri sebesar lebar 1 card
-            behavior: 'smooth'
-        });
-    });
-
-    // Fungsi untuk sliding ke kanan
-    rightArrow.addEventListener('click', () => {
-        slider.scrollBy({
-            left: cardWidth, // Geser ke kanan sebesar lebar 1 card
-            behavior: 'smooth'
-        });
-    });
-
-    // Update lebar card saat ukuran jendela berubah
-    window.addEventListener('resize', () => {
-        cardWidth = vwToPx(cardWidthVW); // Update lebar card saat ukuran viewport berubah
-    });
-</script>
-
-
-<script>
-    // Ambil elemen slider dengan ID yang baru
-    const popularWorksSlider = document.getElementById('popular-works-slider');
-
-    // Tombol panah kiri dan kanan
-    const leftArrow1 = document.getElementById('left-arrow1');
-    const rightArrow1 = document.getElementById('right-arrow1');
-
-    // Fungsi untuk mengonversi nilai vw ke piksel
-    function vwToPx(vw) {
-        return (vw / 100) * window.innerWidth;
-    }
-
-    // Ambil lebar card dalam satuan vw
-    const cardWidthVW1 = 37.24;
-    const cardWidth1 = vwToPx(cardWidthVW1);
-
-    // Fungsi untuk sliding ke kiri
-    leftArrow1.addEventListener('click', () => {
-        popularWorksSlider.scrollBy({
-            left: -cardWidth1,
-            behavior: 'smooth'
-        });
-    });
-
-    // Fungsi untuk sliding ke kanan
-    rightArrow1.addEventListener('click', () => {
-        popularWorksSlider.scrollBy({
-            left: cardWidth1,
-            behavior: 'smooth'
-        });
-    });
-
-    // Update scroll width saat window resize
-    window.addEventListener('resize', () => {
-        cardWidth1 = vwToPx(cardWidthVW1);
-    });
-</script>
-<script>
-    const sidebar = document.getElementById('sidebar');
-    const hamburgerBtn = document.getElementById('hamburger');
-    const closeBtn = document.getElementById('close');
-    const nav = document.querySelector('nav'); // Ambil elemen nav
-
-    // Fungsi untuk membuka sidebar
-    function openSidebar() {
-        sidebar.classList.add('open');
-        document.body.classList.add('no-scroll');
-
-        // Menghapus class 'fixed' pada nav saat sidebar dibuka
-        nav.classList.remove('fixed');
-        section.getElementById('fixed');
-
-        // Optional: Tambahkan overlay
-        const overlay = document.createElement('div');
-        overlay.classList.add('sidebar-overlay');
-        document.body.appendChild(overlay);
-
-        // Trigger reflow untuk animasi
-        overlay.offsetHeight;
-        overlay.classList.add('active');
-    }
-
-    // Fungsi untuk menutup sidebar
-    function closeSidebar() {
-        sidebar.classList.remove('open');
-        document.body.classList.remove('no-scroll');
-
-        // Menambahkan kembali class 'fixed' pada nav saat sidebar ditutup
-        nav.classList.add('fixed');
-
-        // Optional: Hapus overlay dengan animasi
-        const overlay = document.querySelector('.sidebar-overlay');
-        if (overlay) {
-            overlay.classList.remove('active');
-            overlay.addEventListener('transitionend', () => {
-                overlay.remove();
+        // Fungsi untuk sliding ke kiri
+        leftArrow.addEventListener('click', () => {
+            slider.scrollBy({
+                left: -cardWidth, // Geser ke kiri sebesar lebar 1 card
+                behavior: 'smooth'
             });
+        });
+
+        // Fungsi untuk sliding ke kanan
+        rightArrow.addEventListener('click', () => {
+            slider.scrollBy({
+                left: cardWidth, // Geser ke kanan sebesar lebar 1 card
+                behavior: 'smooth'
+            });
+        });
+
+        // Update lebar card saat ukuran jendela berubah
+        window.addEventListener('resize', () => {
+            cardWidth = vwToPx(cardWidthVW); // Update lebar card saat ukuran viewport berubah
+        });
+    </script>
+
+
+    <script>
+        // Ambil elemen slider dengan ID yang baru
+        const popularWorksSlider = document.getElementById('popular-works-slider');
+
+        // Tombol panah kiri dan kanan
+        const leftArrow1 = document.getElementById('left-arrow1');
+        const rightArrow1 = document.getElementById('right-arrow1');
+
+        // Fungsi untuk mengonversi nilai vw ke piksel
+        function vwToPx(vw) {
+            return (vw / 100) * window.innerWidth;
         }
-    }
 
-    // Event listeners untuk hamburger button dan close button
-    hamburgerBtn.addEventListener('click', openSidebar);
-    closeBtn.addEventListener('click', closeSidebar);
-</script>
+        // Ambil lebar card dalam satuan vw
+        const cardWidthVW1 = 37.24;
+        const cardWidth1 = vwToPx(cardWidthVW1);
 
-<script>
-    const toggleKategori = document.getElementById('toggleKategori');
-    const kategoriList = document.getElementById('kategoriList');
+        // Fungsi untuk sliding ke kiri
+        leftArrow1.addEventListener('click', () => {
+            popularWorksSlider.scrollBy({
+                left: -cardWidth1,
+                behavior: 'smooth'
+            });
+        });
 
-    toggleKategori.addEventListener('click', function() {
-        kategoriList.classList.toggle('active'); // Toggle kelas active
-        toggleKategori.classList.toggle('border-main'); // Toggle border utama
-    });
-</script>
+        // Fungsi untuk sliding ke kanan
+        rightArrow1.addEventListener('click', () => {
+            popularWorksSlider.scrollBy({
+                left: cardWidth1,
+                behavior: 'smooth'
+            });
+        });
 
+        // Update scroll width saat window resize
+        window.addEventListener('resize', () => {
+            cardWidth1 = vwToPx(cardWidthVW1);
+        });
+    </script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const hamburgerBtn = document.getElementById('hamburger');
+        const closeBtn = document.getElementById('close');
+        const nav = document.querySelector('nav'); // Ambil elemen nav
 
+        // Fungsi untuk membuka sidebar
+        function openSidebar() {
+            sidebar.classList.add('open');
+            document.body.classList.add('no-scroll');
+
+            // Menghapus class 'fixed' pada nav saat sidebar dibuka
+            nav.classList.remove('fixed');
+            section.getElementById('fixed');
+
+            // Optional: Tambahkan overlay
+            const overlay = document.createElement('div');
+            overlay.classList.add('sidebar-overlay');
+            document.body.appendChild(overlay);
+
+            // Trigger reflow untuk animasi
+            overlay.offsetHeight;
+            overlay.classList.add('active');
+        }
+
+        // Fungsi untuk menutup sidebar
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+
+            // Menambahkan kembali class 'fixed' pada nav saat sidebar ditutup
+            nav.classList.add('fixed');
+
+            // Optional: Hapus overlay dengan animasi
+            const overlay = document.querySelector('.sidebar-overlay');
+            if (overlay) {
+                overlay.classList.remove('active');
+                overlay.addEventListener('transitionend', () => {
+                    overlay.remove();
+                });
+            }
+        }
+
+        // Event listeners untuk hamburger button dan close button
+        hamburgerBtn.addEventListener('click', openSidebar);
+        closeBtn.addEventListener('click', closeSidebar);
+    </script>
+
+    <script>
+        const toggleKategori = document.getElementById('toggleKategori');
+        const kategoriList = document.getElementById('kategoriList');
+
+        toggleKategori.addEventListener('click', function() {
+            kategoriList.classList.toggle('active'); // Toggle kelas active
+            toggleKategori.classList.toggle('border-main'); // Toggle border utama
+        });
+    </script>
+
+    <script>
+        document.getElementById('share-container').addEventListener('click', function () {
+            const currentUrl = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title, // Judul halaman
+                    text: 'Check out this page!',
+                    url: currentUrl, // URL saat ini
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((error) => console.error('Error sharing:', error));
+            } else {
+                alert('Sharing is not supported on this browser. Copy this link: ' + currentUrl);
+            }
+        });
+    </script>
 </html>

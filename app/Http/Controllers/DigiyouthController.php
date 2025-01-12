@@ -17,56 +17,63 @@ use Illuminate\Support\Facades\DB;
 class DigiyouthController extends Controller
 {
     public function index()
-    {
-        // dd(Auth::id());
-        $project = Project::with('category')
-            ->withCount('likes')
-            ->orderBy('likes_count', 'desc')
-            ->take(3)
-            ->get();
+{
+    // Ambil proyek dengan status == 1 untuk ditampilkan
+    $project = Project::with('category')
+        ->withCount('likes')
+        ->where('status', 1)
+        ->orderBy('likes_count', 'desc')
+        ->take(3)
+        ->get();
 
-        $teamUserContributions = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
-            ->groupBy('user_id')
-            ->get()
-            ->keyBy('user_id');
+    // Ambil semua proyek untuk menghitung kontribusi (tanpa filter status)
+    $allProjects = Project::select('user_id', \DB::raw('COUNT(*) as contributions'))
+        ->groupBy('user_id')
+        ->get()
+        ->keyBy('user_id');
 
-        $projectContributions = Project::select('user_id', \DB::raw('COUNT(*) as contributions'))
-            ->groupBy('user_id')
-            ->get()
-            ->keyBy('user_id');
+    // Hitung kontribusi dari tabel TeamUser
+    $teamUserContributions = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
+        ->groupBy('user_id')
+        ->get()
+        ->keyBy('user_id');
 
-        $combinedContributions = collect();
+    // Gabungkan kontribusi proyek dan tim
+    $combinedContributions = collect();
 
-        $allUserIds = $teamUserContributions->keys()->merge($projectContributions->keys())->unique();
+    // Gabungkan semua user_id dari proyek dan tim
+    $allUserIds = $allProjects->keys()->merge($teamUserContributions->keys())->unique();
 
-        foreach ($allUserIds as $userId) {
-            $teamUserCount = $teamUserContributions->get($userId)->contributions ?? 0;
-            $projectCount = $projectContributions->get($userId)->contributions ?? 0;
+    foreach ($allUserIds as $userId) {
+        $projectCount = $allProjects->get($userId)->contributions ?? 0;
+        $teamUserCount = $teamUserContributions->get($userId)->contributions ?? 0;
 
-            $combinedContributions->push([
-                'user_id' => $userId,
-                'contributions' => $teamUserCount + $projectCount,
-            ]);
-        }
-
-        $popularContributors = $combinedContributions
-            ->sortByDesc('contributions')
-            ->take(10)
-            ->map(function ($contribution) {
-                $user = User::find($contribution['user_id']);
-                return [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'grade' => $user->grade,
-                    'photo' => $user->profile_picture,
-                    'contributions' => $contribution['contributions'],
-                ];
-            });
-
-        $allCategories = Category::all();
-
-        return view('index', compact('project', 'popularContributors', 'allCategories'));
+        $combinedContributions->push([
+            'user_id' => $userId,
+            'contributions' => $projectCount + $teamUserCount,
+        ]);
     }
+
+    // Sortir dan ambil 10 pengguna dengan kontribusi tertinggi
+    $popularContributors = $combinedContributions
+        ->sortByDesc('contributions')
+        ->take(10)
+        ->map(function ($contribution) {
+            $user = User::find($contribution['user_id']);
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'grade' => $user->grade,
+                'photo' => $user->profile_picture,
+                'contributions' => $contribution['contributions'],
+            ];
+        });
+
+    // Ambil semua kategori
+    $allCategories = Category::all();
+
+    return view('index', compact('project', 'popularContributors', 'allCategories'));
+}
 
 
     
@@ -235,18 +242,26 @@ class DigiyouthController extends Controller
         $likeModel = Like::class;
         $profile = User::find($id);
         $teams = TeamUser::where("user_id", $id)->get();
-
+        
         $teamsProfile = [];
-        foreach($teams as $team){
+        foreach ($teams as $team) {
             $teamsProfile[] = $team->team->id;
         }
-
-        // dd($teamsProfile);
-        $projects = Project::whereIn("team_id", $teamsProfile)->get();
-        $projectsCount = $projects->count();
-        // dd($projectsCount);
-        return view("profile-user", ["likeModel" => $likeModel,"projects" => $projects,"projectsCount" => $projectsCount, "profile" => $profile]);
         
+        // Ambil proyek yang hanya memiliki status 1
+        $projects = Project::whereIn("team_id", $teamsProfile)
+            ->where('status', 1) // Filter hanya proyek dengan status 1
+            ->get();
+        
+        // Hitung jumlah proyek yang statusnya 1
+        $projectsCount = $projects->count();
+        
+        return view("profile-user", [
+            "likeModel" => $likeModel,
+            "projects" => $projects,
+            "projectsCount" => $projectsCount,
+            "profile" => $profile,
+        ]);
     }
 
     public function search(Request $request){
