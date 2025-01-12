@@ -752,7 +752,7 @@
             </div>
         </section>
     </div>
-    <footer class="sm:mt-[20vw] mt-[15vw]">
+    <footer class="sm:mt-[5vw] mt-[15vw]">
         <div class="bg-white py-[2vw] px-[3vw]">
             <div class="grid sm:grid-cols-5 grid-cols-1 gap-x-[2vw] sm:gap-y-0 gap-y-[6.977vw] sm:px-0 px-[8.372vw]">
                 <div class="space-y-[1.5vw] sm:inline hidden">
@@ -771,16 +771,16 @@
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Menu Utama</li>
                         <li><a href="/">Beranda</a></li>
-                        <li><a href="/category/1">Kategori</a></li>
-                        <li><a href="/event">Event</a></li>
+                        <li><a href="#">Kategori</a></li>
+                        <li><a href="#">Event</a></li>
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
                     <ul
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
-                        @foreach ($category as $category)
-                            <li><a href="/category/{{ $category->id }}">{{ $category->name }}</a></li>
+                        @foreach ($allCategories as $all)
+                            <li><a href="/category/{{ $all->id }}/1">{{ $all->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

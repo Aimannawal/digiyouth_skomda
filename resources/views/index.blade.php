@@ -762,8 +762,8 @@
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Menu Utama</li>
                         <li><a href="/">Beranda</a></li>
-                        <li><a href="/category/1">Kategori</a></li>
-                        <li><a href="/event">Event</a></li>
+                        <li><a href="#">Kategori</a></li>
+                        <li><a href="#">Event</a></li>
                     </ul>
                 </div>
                 <div class="mt-[2vw] flex justify-center">
@@ -771,7 +771,7 @@
                         class="sm:text-[1.25vw] text-[4.186vw] sm:space-y-[1.563vw] space-y-[4.651vw] sm:block flex flex-col items-center justify-center">
                         <li class="font-semibold sm:mb-[0.313vw] mb-[2,326]">Explore</li>
                         @foreach ($allCategories as $all)
-                            <li><a href="/category/{{ $all->id }}">{{ $all->name }}</a></li>
+                            <li><a href="/category/{{ $all->id }}/1">{{ $all->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
