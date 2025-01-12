@@ -93,7 +93,7 @@ class DigiyouthController extends Controller
             ->where('comments.project_id', $id)
             ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
             ->orderByDesc('replies_count') // Order by the number of replies
-            ->paginate(5);
+            ->paginate(8);
         }
 
         // $projects = Project::where("category_id", $id)->paginate(8);
@@ -272,7 +272,8 @@ class DigiyouthController extends Controller
         //     $query->where("name", "LIKE", "%". $keyword ."%");
         // })->get();
         // dd($request->input("keyword") );
-
+        $allCategories = Category::all();
+        $likeModel = Like::class;
         $projects = Project::query()->where("title", "LIKE", "%". $keyword ."%")
         ->orWhereHas("category", function($query) use ($keyword){
             $query->where("name", "LIKE", "%". $keyword ."%");
@@ -280,12 +281,14 @@ class DigiyouthController extends Controller
         ->orWhereHas("user", function($query) use ($keyword){
             $query->where("name", "LIKE", "%". $keyword ."%");
         })
-        ->get();
+        ->paginate(8);
 
 
         // dd($projects);
         return view("search", [
-            "projects" => $projects
+            "projects" => $projects,
+            "allCategories" => $allCategories,
+            "likeModel" => $likeModel,
         ]);
     }
 
