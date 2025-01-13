@@ -31,15 +31,15 @@ class ProjectResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                    Forms\Components\Select::make('team_id')
+                Forms\Components\Select::make('team_id')
                     ->relationship('team', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
-                
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->reactive()
+                    ->debounce(500) // Menambahkan debounce 500ms
                     ->afterStateUpdated(function (\Filament\Forms\Set $set, $state) {
                         $set('slug', \Illuminate\Support\Str::slug($state));
                     })
