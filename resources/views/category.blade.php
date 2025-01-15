@@ -18,7 +18,7 @@
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
             <img src="/assets/logo.png" alt=""
-                class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+                    class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a
                         href="{{ route('homepage') }}">Beranda</a>
@@ -66,47 +66,54 @@
                     class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
                     placeholder="Cari proyek, kategori, atau nama siswa">
             </form>
+
+
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
-                    @php
-                        $user = auth()->user();
-                        $photo = $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
-                        $userName = $user ? $user->name : 'Guest';
-                        $initials = $userName ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('') : 'G';
-                    @endphp
+                        @php
+                            $user = auth()->user();
+                            $photo =
+                                $user && $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
+                            $userName = $user ? $user->name : 'Guest';
+                            $initials = $userName
+                                ? collect(explode(' ', $userName))->map(fn($word) => strtoupper($word[0]))->join('')
+                                : 'G';
+                        @endphp
 
-                    <div x-data="{ dropdownOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
-                        <div class="relative flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                            <!-- Foto atau Inisial -->
-                            @if ($photo)
-                                <img src="{{ $photo }}" alt="{{ $userName }}" @click="dropdownOpen = !dropdownOpen"
-                                    class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
-                            @else
-                                <div @click="dropdownOpen = !dropdownOpen"
-                                    class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
-                                    {{ $initials }}
+                        <div x-data="{ dropdownOpen: false }" class="sm:space-y-[1.2vw] space-y-[3vw]">
+                            <div class="relative flex items-center sm:space-x-[1vw] space-x-[3vw]">
+                                <!-- Foto atau Inisial -->
+                                @if ($photo)
+                                    <img src="{{ $photo }}" alt="{{ $userName }}"
+                                        @click="dropdownOpen = !dropdownOpen"
+                                        class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover cursor-pointer">
+                                @else
+                                    <div @click="dropdownOpen = !dropdownOpen"
+                                        class="sm:w-[3vw] sm:h-[3vw] w-[11.628vw] h-[11.628vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center cursor-pointer">
+                                        {{ $initials }}
+                                    </div>
+                                @endif
+
+                                <!-- Dropdown Menu -->
+                                <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false"
+                                    class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
+                                    <a href="/admin"
+                                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
+                                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button
+                                            class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">
+                                            Log Out
+                                        </button>
+                                    </form>
                                 </div>
-                            @endif
-
-                            <!-- Dropdown Menu -->
-                            <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false" 
-                                class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
-                                <a href="http://127.0.0.1:8000/admin" 
-                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
-                                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">
-                                        Log Out
-                                    </button>
-                                </form>
                             </div>
                         </div>
-                    </div>
                     @else
-                    <!-- Tombol Login -->
-                    <a href="{{ route('login') }}"
-                        class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
+                        <!-- Tombol Login -->
+                        <a href="{{ route('login') }}"
+                            class="py-[0.95vw] px-[2.604vw] bg-main rounded-[0.521vw] text-[1.042vw] font-semibold text-white">Masuk</a>
                     @endauth
                 </nav>
             @endif
@@ -120,47 +127,48 @@
     <div id="sidebar"
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
         <div class="flex relative flex-col items-center justify-center">
-            <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+            <a href="/">
+                <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+            </a>
             <img id="close" src="/assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
-                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <form action="{{ route('search') }}" method="GET">
+                <li class=" flex justify-center items-center ">
+                    <form action="{{ route('search') }}" method="GET" class="w-[83.256vw] h-[14.651vw]">
                         <input type="text" name="keyword" id=""
-                            class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
-                            placeholder="Cari proyek, kategori, atau nama siswa">
+                            class="w-full h-full border-[0.1vw] border-gray-300 rounded-[2vw] text-[3.256vw] placeholder:text-[3.256vw] px-[5vw] outline-none"
+                            placeholder="Cari proyek, kategori, atau nama siswa" autocomplete="off">
                     </form>
                 </li>
                 @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end">
-                    @auth
-                    <form action="/dashboard" method="GET">
-                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                            <button type="submit"
-                                class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
-                        </li>
-                    </form>   
-                    @else
-                    <form action="/login" method="GET">
-                        <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                            <button type="submit"
-                                class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
-                        </li>
-                    </form>   
-                    @endauth
-                </nav>
-            @endif
+                    <nav class="-mx-3 flex flex-1 justify-end">
+                        @auth
+                            <form action="/admin" method="GET">
+                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                    <button type="submit"
+                                        class="w-full h-full bg-main text-white rounded-[2vw]">Projek</button>
+                                </li>
+                            </form>
+                        @else
+                            <form action="/login" method="GET">
+                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                    <button type="submit"
+                                        class="w-full h-full bg-main text-white rounded-[2vw]">Masuk</button>
+                                </li>
+                            </form>
+                        @endauth
+                    </nav>
+                @endif
 
-                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Beranda</li>
+
+                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a href="/">Beranda</a></li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
                     <div id="toggleKategori" @click="open = !open"
                         class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw] nav-active border space-x-[3vw]">
                         <p>Kategori</p>
-                        <img :class="{ 'rotate-180': open }" src="/assets/arrow-filter.svg" alt="">
+                        <img :class="{ 'rotate-180': open }" src="assets/arrow-filter.svg" alt="">
                     </div>
-
-
                     <!-- Div yang akan ditampilkan dengan animasi -->
                     <div id="kategoriList" x-transition
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
@@ -286,6 +294,17 @@
                     </div>
                 </li>
                 <li class=" w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Event</li>
+                <li>
+                    @if (Route::has('login'))
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                <button type="submit"
+                                    class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                            </li>
+                        </form>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>
@@ -347,7 +366,7 @@
                 <form action="{{ route('category.sort', $category->id) }}" method="POST" class="flex items-center">
                     @csrf
                     <select name="sort" id="sort" onchange="this.form.submit()"
-                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none">
+                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none text-[1vw]">
                         <option value="1" @if ($sort == 1) selected @endif>Yang Terbaru</option>
                         <option value="2" @if ($sort == 2) selected @endif>Yang Terlama</option>
                     </select>

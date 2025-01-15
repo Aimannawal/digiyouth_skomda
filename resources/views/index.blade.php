@@ -18,8 +18,10 @@
     <nav
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
-            <img src="assets/logo.png" alt=""
-                class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+            <a href="/">
+                <img src="assets/logo.png" alt=""
+                    class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+            </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a
                         href="{{ route('homepage') }}">Beranda</a>
@@ -128,24 +130,26 @@
     <div id="sidebar"
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
         <div class="flex relative flex-col items-center justify-center">
-            <img src="assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+            <a href="/">
+                <img src="assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+            </a>
             <img id="close" src="assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
-                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <form action="{{ route('search') }}" method="GET">
+                <li class=" flex justify-center items-center ">
+                    <form action="{{ route('search') }}" method="GET" class="w-[83.256vw] h-[14.651vw]">
                         <input type="text" name="keyword" id=""
-                            class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
-                            placeholder="Cari proyek, kategori, atau nama siswa">
+                            class="w-full h-full border-[0.1vw] border-gray-300 rounded-[2vw] text-[3.256vw] placeholder:text-[3.256vw] px-[5vw] outline-none"
+                            placeholder="Cari proyek, kategori, atau nama siswa" autocomplete="off">
                     </form>
                 </li>
                 @if (Route::has('login'))
                     <nav class="-mx-3 flex flex-1 justify-end">
                         @auth
-                            <form action="/dashboard" method="GET">
+                            <form action="/admin" method="GET">
                                 <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
                                     <button type="submit"
-                                        class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
+                                        class="w-full h-full bg-main text-white rounded-[2vw]">Projek</button>
                                 </li>
                             </form>
                         @else
@@ -160,7 +164,7 @@
                 @endif
 
 
-                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Beranda</li>
+                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a href="/">Beranda</a></li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
                     <div id="toggleKategori" @click="open = !open"
@@ -293,6 +297,17 @@
                     </div>
                 </li>
                 <li class=" w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Event</li>
+                <li>
+                    @if (Route::has('login'))
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                <button type="submit"
+                                    class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                            </li>
+                        </form>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>
@@ -698,9 +713,6 @@
                             @endif
                         </div>
 
-                        <div class="text-center mt-2 text-sm text-white">
-                            <p>{{ $userName }}</p>
-                        </div>
 
                         <h1 class="sm:text-[1.042vw] text-[3.256vw] font-semibold">{{ $contributor['name'] }}</h1>
                         <p class="sm:text-[0.938vw] text-[2.791vw] opacity-50 font-medium">

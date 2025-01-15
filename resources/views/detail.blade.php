@@ -18,8 +18,10 @@
     <nav
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
-            <img src="/assets/logo.png" alt=""
-                class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+            <a href="/">
+                <img src="/assets/logo.png" alt=""
+                    class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+            </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a
                         href="{{ route('homepage') }}">Beranda</a>
@@ -61,23 +63,16 @@
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="">Event</a></li>
             </ul>
         </div>
-        <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw] relative">
-            {{-- Modal --}}
-            {{-- <div class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
-                <a href="" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Profile</a>
-                <a href="" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">History</a>
-                <form action="" method="POST" style="display: inline;">
-                    @csrf
-                    <button class="block ps-4 text-start w-full py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Log Out</button>
-                </form>
-            </div> --}}
+        <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
             <form action="{{ route('search') }}" method="GET">
                 <input type="text" name="keyword" id=""
                     class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
                     placeholder="Cari proyek, kategori, atau nama siswa">
             </form>
+
+
             @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end relative">
+                <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
                         @php
                             $user = auth()->user();
@@ -106,7 +101,7 @@
                                 <!-- Dropdown Menu -->
                                 <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false"
                                     class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
-                                    <a href="http://127.0.0.1:8000/admin"
+                                    <a href="/admin"
                                         class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
                                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                         @csrf
@@ -126,8 +121,6 @@
                 </nav>
             @endif
 
-
-
         </div>
         <div id="hamburger" class="sm:hidden pt-[3vw]">
             <img src="/assets/hamburger.svg" alt="" class=" w-[6.047vw] h-[4.535vw]">
@@ -137,24 +130,26 @@
     <div id="sidebar"
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
         <div class="flex relative flex-col items-center justify-center">
-            <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+            <a href="/">
+                <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+            </a>
             <img id="close" src="/assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
-                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                    <form action="{{ route('search') }}" method="GET">
+                <li class=" flex justify-center items-center ">
+                    <form action="{{ route('search') }}" method="GET" class="w-[83.256vw] h-[14.651vw]">
                         <input type="text" name="keyword" id=""
-                            class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
-                            placeholder="Cari proyek, kategori, atau nama siswa">
+                            class="w-full h-full border-[0.1vw] border-gray-300 rounded-[2vw] text-[3.256vw] placeholder:text-[3.256vw] px-[5vw] outline-none"
+                            placeholder="Cari proyek, kategori, atau nama siswa" autocomplete="off">
                     </form>
                 </li>
                 @if (Route::has('login'))
                     <nav class="-mx-3 flex flex-1 justify-end">
                         @auth
-                            <form action="/dashboard" method="GET">
+                            <form action="/admin" method="GET">
                                 <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
                                     <button type="submit"
-                                        class="w-full h-full bg-main text-white rounded-[2vw]">Dashboard</button>
+                                        class="w-full h-full bg-main text-white rounded-[2vw]">Projek</button>
                                 </li>
                             </form>
                         @else
@@ -168,20 +163,21 @@
                     </nav>
                 @endif
 
-                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Beranda</li>
+
+                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a href="/">Beranda</a></li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
                     <div id="toggleKategori" @click="open = !open"
                         class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw] nav-active border space-x-[3vw]">
                         <p>Kategori</p>
-                        <img :class="{ 'rotate-180': open }" src="/assets/arrow-filter.svg" alt="">
+                        <img :class="{ 'rotate-180': open }" src="assets/arrow-filter.svg" alt="">
                     </div>
                     <!-- Div yang akan ditampilkan dengan animasi -->
                     <div id="kategoriList" x-transition
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
                         <ul class="space-y-[6.977vw] flex flex-col px-[15vw] font-normal">
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [1,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -191,7 +187,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [2,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -201,7 +197,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [3,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw] ease-in-out duration-300 transition-all">
                                         <g clip-path="url(#clip0_246_6997)">
@@ -220,7 +216,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [4,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
                                         class=" w-[5.814vw] h-[5.814vw] stroke-dark fill-transparent ">
                                         <path
@@ -233,7 +229,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="category.html" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [5,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <g clip-path="url(#clip0_246_6971)">
@@ -253,7 +249,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [6,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="stroke-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -264,7 +260,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [7,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw">
                                         <path
@@ -278,7 +274,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [8,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -288,7 +284,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [9,1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -301,6 +297,17 @@
                     </div>
                 </li>
                 <li class=" w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Event</li>
+                <li>
+                    @if (Route::has('login'))
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                <button type="submit"
+                                    class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                            </li>
+                        </form>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>
