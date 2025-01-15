@@ -133,7 +133,7 @@
             <a href="/">
                 <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
-            <img id="close" src="/assets/close.svg" alt=""
+            <img id="close" src="assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
                 <li class=" flex justify-center items-center ">
@@ -299,13 +299,15 @@
                 <li class=" w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Event</li>
                 <li>
                     @if (Route::has('login'))
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                                <button type="submit"
-                                    class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
-                            </li>
-                        </form>
+                        @auth
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                    <button type="submit"
+                                        class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                                </li>
+                            </form>
+                        @endauth
                     @endif
                 </li>
             </ul>
@@ -351,8 +353,10 @@
                         </div>
                         <div
                             class="absolute sm:top-0 sm:left-[3vw] left-0 top-[2vw] flex items-center justify-center sm:w-[3.646vw] sm:h-[3.646vw] w-[11.628vw] h-[11.628vw] page-inactive rounded-full">
+                            <a href="/">
                             <img src="/assets/arrow.svg" alt=""
                                 class="sm:w-[1vw] sm:h-[1vw] w-[3vw] h-[3vw]">
+                            </a>
                         </div>
                     </div>
                 </div>

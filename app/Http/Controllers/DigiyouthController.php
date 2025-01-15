@@ -243,6 +243,7 @@ class DigiyouthController extends Controller
     {
         $likeModel = Like::class;
         $profile = User::find($id);
+        $allCategories = Category::all();
         $teams = TeamUser::where("user_id", $id)->get();
         
         $teamsProfile = [];
@@ -263,6 +264,7 @@ class DigiyouthController extends Controller
             "projects" => $projects,
             "projectsCount" => $projectsCount,
             "profile" => $profile,
+            "allCategories" => $allCategories,
         ]);
     }
 

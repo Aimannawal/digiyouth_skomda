@@ -131,7 +131,7 @@
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
         <div class="flex relative flex-col items-center justify-center">
             <a href="/">
-                <img src="assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+                <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
             <img id="close" src="assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
@@ -299,13 +299,15 @@
                 <li class=" w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]">Event</li>
                 <li>
                     @if (Route::has('login'))
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                                <button type="submit"
-                                    class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
-                            </li>
-                        </form>
+                        @auth
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                                    <button type="submit"
+                                        class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                                </li>
+                            </form>
+                        @endauth
                     @endif
                 </li>
             </ul>
