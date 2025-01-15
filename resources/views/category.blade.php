@@ -130,7 +130,7 @@
             <a href="/">
                 <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
-            <img id="close" src="assets/close.svg" alt=""
+            <img id="close" src="/assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
                 <li class=" flex justify-center items-center ">
@@ -368,7 +368,7 @@
                 <form action="{{ route('category.sort', $category->id) }}" method="POST" class="flex items-center">
                     @csrf
                     <select name="sort" id="sort" onchange="this.form.submit()"
-                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none text-[1vw]">
+                            class="w-full py-2 bg-[#F9F9F9] focus:outline-none focus:ring-0 rounded-lg outline-none text-gray-700 border-none sm:text-[1.1vw] text-[3vw]">
                         <option value="1" @if ($sort == 1) selected @endif>Yang Terbaru</option>
                         <option value="2" @if ($sort == 2) selected @endif>Yang Terlama</option>
                     </select>

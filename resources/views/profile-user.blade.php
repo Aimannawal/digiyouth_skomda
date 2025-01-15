@@ -17,8 +17,10 @@
     <nav
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
-            <img src="/assets/logo.png" alt=""
-                class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+            <a href="/">
+                <img src="/assets/logo.png" alt=""
+                    class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
+            </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
                 <li class="hover:text-main transition-all duration-300 ease-in-out"><a
                         href="{{ route('homepage') }}">Beranda</a>
@@ -66,6 +68,8 @@
                     class="w-[23.75vw] h-[3.385vw] border-[0.1vw] border-gray-300 rounded-[0.521vw] text-[0.938vw] placeholder:text-[0.938vw] px-[1vw] outline-none"
                     placeholder="Cari proyek, kategori, atau nama siswa">
             </form>
+
+
             @if (Route::has('login'))
                 <nav class="-mx-3 flex flex-1 justify-end">
                     @auth
@@ -96,7 +100,7 @@
                                 <!-- Dropdown Menu -->
                                 <div x-show="dropdownOpen" x-cloak @click.outside="dropdownOpen = false"
                                     class="absolute w-[12vw] rounded-[0.5vw] z-50 bg-white right-0 top-[6vw] shadow-lg">
-                                    <a href="http://127.0.0.1:8000/admin"
+                                    <a href="/admin"
                                         class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-[0.5vw] text-[1.2vw]">Project</a>
                                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                         @csrf
@@ -128,7 +132,7 @@
             <a href="/">
                 <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
-            <img id="close" src="assets/close.svg" alt=""
+            <img id="close" src="/assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
                 <li class=" flex justify-center items-center ">
@@ -310,7 +314,7 @@
     </div>
 
 
-    <section class="flex flex-col justify-center items-center px-4 sm:px-48 space-y-6 pt-8 pb-16 mt-40">
+    <section class="flex flex-col justify-center items-center px-4 sm:px-48 space-y-6 pt-8 pb-16 sm:mt-[8vw] mt-[23vw]">
         <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
             @php
                 $photo = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : null;
