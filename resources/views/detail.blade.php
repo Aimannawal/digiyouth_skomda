@@ -19,7 +19,7 @@
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
             <a href="/">
-                <img src="/assets/logo.png" alt=""
+                <img src="/assets/logo.webp" alt=""
                     class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
@@ -131,7 +131,7 @@
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
         <div class="flex relative flex-col items-center justify-center">
             <a href="/">
-                <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+                <img src="/assets/logo.webp" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
             <img id="close" src="/assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
@@ -542,7 +542,7 @@
                                     </div>
                                 @endauth
                             @else
-                                <img src="/assets/default.png" alt=""
+                                <img src="/assets/default.webp" alt=""
                                     class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
                                 <div class="space-y-[0.2vw]">
                                     <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Guest</h3>
@@ -728,7 +728,7 @@
                                             <!-- Form Balas Komentar -->
                                             <div>
                                                 {{-- <div class="flex items-center sm:space-x-[1vw] space-x-[3vw]">
-                <img src="/assets/profile-picture.png" alt=""
+                <img src="/assets/profile-picture.webp" alt=""
                     class="sm:w-[4.271vw] sm:h-[4.271vw] w-[11.628vw] h-[11.628vw] rounded-full object-cover">
                 <div class="space-y-[0.2vw]">
                     <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">Arka Jenar
@@ -770,7 +770,7 @@
         <div class="bg-white py-[2vw] px-[3vw]">
             <div class="grid sm:grid-cols-5 grid-cols-1 gap-x-[2vw] sm:gap-y-0 gap-y-[6.977vw] sm:px-0 px-[8.372vw]">
                 <div class="space-y-[1.5vw] sm:inline hidden">
-                    <img src="/assets/logo.png" alt="" class="w-[11.406vw] h-[4.115vw]">
+                    <img src="/assets/logo.webp" alt="" class="w-[11.406vw] h-[4.115vw]">
                     <p class="text-[1.042vw]">Ready to take the next step? Submit your project and let your skills
                         shine.</p>
                     <div class="flex space-x-[1vw]">
@@ -816,7 +816,7 @@
                     </ul>
                 </div>
                 <div class="space-y-[6vw] sm:hidden flex flex-col items-center justify-center">
-                    <a href="index.html"><img src="/assets/logo.png" alt=""
+                    <a href="index.html"><img src="/assets/logo.webp" alt=""
                             class="w-[46.512vw] h-[16.779vw]"></a>
                     <p class="text-[3.256vw] text-center">Ready to take the next step? Submit your project and let your
                         skills shine.</p>

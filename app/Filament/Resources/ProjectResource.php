@@ -56,6 +56,7 @@ class ProjectResource extends Resource
                     ->image()
                     ->multiple()
                     ->required()
+                    ->optimize('webp')
                     ->dehydrateStateUsing(function ($state) {
                         return $state ? implode(',', $state) : null;
                     }),

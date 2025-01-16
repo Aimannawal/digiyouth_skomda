@@ -50,6 +50,7 @@ class UserResource extends Resource
                     ->nullable(),
                 Forms\Components\FileUpload::make('profile_picture')
                     ->directory('profile_pictures')
+                    ->optimize('webp')
                     ->image(),
                 Forms\Components\Hidden::make('remember_token')
                     ->default(Str::random(60)) 

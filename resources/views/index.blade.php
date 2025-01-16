@@ -19,7 +19,7 @@
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
             <a href="/">
-                <img src="assets/logo.png" alt=""
+                <img src="/assets/logo.webp" alt=""
                     class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
@@ -131,7 +131,7 @@
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
         <div class="flex relative flex-col items-center justify-center">
             <a href="/">
-                <img src="/assets/logo.png" alt="" class="w-[34.884vw] h-[13.151vw]">
+                <img src="/assets/logo.webp" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
             <img id="close" src="assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
@@ -333,7 +333,7 @@
                 </div>
             </div>
             <div class="sm:w-1/2 flex sm:justify-end justify-center w-full">
-                <img src="assets/hero.png" alt=""
+                <img src="assets/hero.webp" alt=""
                     class="sm:w-[36.458vw] sm:h-[35vw] w-[81.395vw] h-[93.826vw] object-contain">
             </div>
         </div>
@@ -737,12 +737,12 @@
     <section class="sm:mt-[10vw] mt-[21.86vw]">
         <div class="w-full relative">
             <!-- Gambar background waves -->
-            <img src="assets/bg-waves.png" alt="" class="absolute inset-0 w-full h-full object-cover z-0">
+            <img src="/assets/bg-waves.webp" alt="" class="absolute inset-0 w-full h-full object-cover z-0">
 
             <!-- Konten di depan, termasuk gambar wanita -->
             <div class="relative w-full z-20 px-[3vw] flex sm:flex-row flex-col-reverse">
                 <div class="sm:w-1/2 w-full flex items-center justify-center">
-                    <img src="assets/woman-1.png" alt=""
+                    <img src="assets/woman-1.webp" alt=""
                         class="sm:w-[36.302vw] sm:h-[41.771vw] w-[81.395vw] h-[93.658vw]">
                 </div>
                 <div class="sm:w-1/2 w-full pt-[8vw] flex flex-col items-center sm:space-y-[1vw] space-y-[5vw]">
@@ -761,7 +761,7 @@
         <div class="bg-white py-[2vw] px-[3vw]">
             <div class="grid sm:grid-cols-5 grid-cols-1 gap-x-[2vw] sm:gap-y-0 gap-y-[6.977vw] sm:px-0 px-[8.372vw]">
                 <div class="space-y-[1.5vw] sm:inline hidden">
-                    <img src="/assets/logo.png" alt="" class="w-[11.406vw] h-[4.115vw]">
+                    <img src="/assets/logo.webp" alt="" class="w-[11.406vw] h-[4.115vw]">
                     <p class="text-[1.042vw]">Ready to take the next step? Submit your project and let your skills
                         shine.</p>
                     <div class="flex space-x-[1vw]">
@@ -807,7 +807,7 @@
                     </ul>
                 </div>
                 <div class="space-y-[6vw] sm:hidden flex flex-col items-center justify-center">
-                    <a href="index.html"><img src="/assets/logo.png" alt=""
+                    <a href="index.html"><img src="/assets/logo.webp" alt=""
                             class="w-[46.512vw] h-[16.779vw]"></a>
                     <p class="text-[3.256vw] text-center">Ready to take the next step? Submit your project and let your
                         skills shine.</p>
