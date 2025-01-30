@@ -42,7 +42,7 @@ class UserResource extends Resource
                     ->label(fn ($livewire) => $livewire instanceof Pages\CreateUser ? 'Password' : 'Change Password')
                     ->maxLength(255)
                     ->nullable(),
-                Forms\Components\TextInput::make('grade')
+                Forms\Components\TextInput::make('angkatan')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('number')

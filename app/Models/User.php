@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 // implements FilamentUser
 {
     use HasFactory, Notifiable, HasRoles;
@@ -26,9 +26,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'grade',
+        'angkatan',
         'number',
         'profile_picture',
+        'role',
     ];
 
     /**
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->hasMany(Project::class);
+    }
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return true;
     }
 }

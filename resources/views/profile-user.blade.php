@@ -336,7 +336,7 @@
             <div class="text-center sm:text-left mt-2 sm:mt-0">
                 <h1 class="text-lg sm:text-base font-semibold">{{ $profile->name }}</h1>
                 <div class="text-gray-500 flex items-center justify-center sm:justify-start space-x-2">
-                    <span class="text-sm sm:text-base font-medium">{{ $profile->grade }}</span>
+                    <span class="text-sm sm:text-base font-medium">{{ $profile->angkatan }}</span>
                     <div class="w-1 h-1 bg-black rounded-full"></div>
                     <span class="text-sm sm:text-base font-medium">{{ $projectsCount }} Karya</span>
                 </div>

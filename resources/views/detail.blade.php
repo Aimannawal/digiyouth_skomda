@@ -538,7 +538,7 @@
                                         <h3 class="sm:text-[1.042vw] text-[3.721vw] font-semibold">{{ $user->name }}
                                         </h3>
                                         <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
-                                            {{ $user->grade ?? 'Guest' }}</p>
+                                            {{ $user->angkatan ?? 'Guest' }}</p>
                                     </div>
                                 @endauth
                             @else
@@ -643,7 +643,7 @@
                                                     <span class="font-normal">- 1 Hari yang lalu</span>
                                                 </h3>
                                                 <p class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
-                                                    {{ $comment->user->grade }}</p>
+                                                    {{ $comment->user->angkatan }}</p>
                                             </div>
                                         </div>
                                         <p class="sm:text-[0.938vw] text-[3.256vw]">{{ $comment->text }}</p>
@@ -714,7 +714,7 @@
                                                                 </h3>
                                                                 <p
                                                                     class="sm:text-[0.938vw] text-[3.256vw] font-medium text-gray-400">
-                                                                    {{ $comment->user->grade }}</p>
+                                                                    {{ $comment->user->angkatan }}</p>
                                                             </div>
                                                         </div>
                                                         <p class="sm:text-[0.938vw] text-[3.256vw]">

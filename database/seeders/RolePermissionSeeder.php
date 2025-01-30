@@ -181,7 +181,7 @@ class RolePermissionSeeder extends Seeder
                     "name" => "Arka Jenar Maarif",
                     "email" => "arka@gmail.com",
                     "password" => bcrypt("arka1234"),
-                    "grade" => "XII SIJA 1",
+                    "angkatan" => "XII SIJA 1",
                 ]);
         
                 $user->assignRole($studentRole);
@@ -190,7 +190,7 @@ class RolePermissionSeeder extends Seeder
                     "name" => "Muhammad Rizal Ramzi",
                     "email" => "ramzi@gmail.com",
                     "password" => bcrypt("ramzi1234"),
-                    "grade" => "XII SIJA 1",
+                    "angkatan" => "XII SIJA 1",
                 ]);
         
                 $user->assignRole($studentRole);
@@ -199,7 +199,7 @@ class RolePermissionSeeder extends Seeder
                     "name" => "Elang Satrio Al Ayyu",
                     "email" => "elang@gmail.com",
                     "password" => bcrypt("elang1234"),
-                    "grade" => "XII SIJA 1",
+                    "angkatan" => "XII SIJA 1",
                 ]);
         
                 $user->assignRole($studentRole);
@@ -208,7 +208,7 @@ class RolePermissionSeeder extends Seeder
                     "name" => "Aiman Wafi'i An Nawal",
                     "email" => "aiman@gmail.com",
                     "password" => bcrypt("aiman1234"),
-                    "grade" => "XII SIJA 2",
+                    "angkatan" => "XII SIJA 2",
                 ]);
         
                 $user->assignRole($studentRole);
@@ -217,7 +217,7 @@ class RolePermissionSeeder extends Seeder
                     "name" => "Abi Arrasyid",
                     "email" => "abi@gmail.com",
                     "password" => bcrypt("abi1234"),
-                    "grade" => "XII SIJA 1",
+                    "angkatan" => "XII SIJA 1",
                 ]);
         
                 $user->assignRole($studentRole);
@@ -226,7 +226,7 @@ class RolePermissionSeeder extends Seeder
                     "name" => "Ihsan Ryu Al Kautsar",
                     "email" => "ryu@gmail.com",
                     "password" => bcrypt("ryu1234"),
-                    "grade" => "XII SIJA 1",
+                    "angkatan" => "XII SIJA 1",
                 ]);
         
                 $user->assignRole($studentRole);

@@ -63,7 +63,7 @@ class DigiyouthController extends Controller
             return [
                 'id' => $user->id,
                 'name' => $user->name,
-                'grade' => $user->grade,
+                'angkatan' => $user->angkatan,
                 'photo' => $user->profile_picture,
                 'contributions' => $contribution['contributions'],
             ];

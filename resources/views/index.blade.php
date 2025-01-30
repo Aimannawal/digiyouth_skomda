@@ -718,7 +718,7 @@
 
                         <h1 class="sm:text-[1.042vw] text-[3.256vw] font-semibold">{{ $contributor['name'] }}</h1>
                         <p class="sm:text-[0.938vw] text-[2.791vw] opacity-50 font-medium">
-                            {{ $contributor['grade'] }}</p>
+                            {{ $contributor['angkatan'] }}</p>
                     </div>
                 </a>
             @endforeach

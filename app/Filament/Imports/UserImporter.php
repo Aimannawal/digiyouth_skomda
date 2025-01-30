@@ -18,12 +18,12 @@ class UserImporter extends Importer
                 ->rules(['max:255']),
 
             ImportColumn::make('email')
-                ->rules(rules: ['max:255', 'unique:users,email']),
+                ->rules(rules: ['max:255']),
 
             ImportColumn::make('password')
                 ->rules(['max:255']),
 
-            ImportColumn::make('grade')
+            ImportColumn::make('angkatan')
                 ->rules(['max:255']),
 
             ImportColumn::make('number')
@@ -32,16 +32,35 @@ class UserImporter extends Importer
             ImportColumn::make('profile_picture')
                 ->rules(['nullable', 'max:255']),
 
+            ImportColumn::make('role')
+                ->rules(['nullable', 'max:255']),
         ];
     }
 
     public function resolveRecord(): ?User
-    {
-        return User::firstOrNew([
-            // Update existing records, matching them by `$this->data['column_name']`
-            'email' => $this->data['email'],
-        ]);
+{
+    $user = User::firstOrNew([
+        'email' => $this->data['email'],
+    ]);
+
+    $user->fill([
+        'name' => $this->data['name'] ?? $user->name,
+        'password' => bcrypt($this->data['password'] ?? $user->password),
+        'angkatan' => $this->data['angkatan'] ?? $user->angkatan,
+        'number' => $this->data['number'] ?? $user->number,
+        'profile_picture' => $this->data['profile_picture'] ?? $user->profile_picture,
+    ]);
+
+    $user->save();
+
+    // Assign role jika ada
+    if (!empty($this->data['role'])) {
+        $user->syncRoles([$this->data['role']]);
     }
+
+    return $user;
+}
+
 
     public static function getCompletedNotificationBody(Import $import): string
     {

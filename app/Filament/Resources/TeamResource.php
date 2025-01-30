@@ -37,7 +37,11 @@ class TeamResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('users')
                     ->multiple()
-                    ->relationship('users', 'name')
+                    ->relationship('users', 'name', function ($query) {
+                        return $query->whereHas('roles', function ($q) {
+                            $q->where('name', 'Murid');
+                        });
+                    })
                     ->Label('Team Members')->preload(),
                 // Forms\Components\Toggle::make('role_in_team')
                 //     ->label('Role in Team')  // Checkbox for true/false role
