@@ -13,7 +13,7 @@
     <title>Digiyouth | SMK Telkom Sidoarjo</title>
 </head>
 
-<body class="text-dark relative">
+<body class="relative text-dark">
     <nav
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
@@ -22,44 +22,44 @@
                     class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
-                <li class="hover:text-main transition-all duration-300 ease-in-out"><a
+                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
                         href="{{ route('homepage') }}">Beranda</a>
                 </li>
                 <!-- Menambahkan class group pada kategori-button -->
-                <li id="kategori-button" class="cursor-pointer group relative">
-                    <p class="hover:text-main transition-all duration-300 ease-in-out">Kategori</p>
+                <li id="kategori-button" class="relative cursor-pointer group">
+                    <p class="transition-all duration-300 ease-in-out hover:text-main">Kategori</p>
                     <!-- Div kategori dengan peer-hover untuk muncul saat kategori-button di-hover -->
                     <div id="kategori"
                         class="absolute hidden group-hover:flex left-0 top-[1vw] mt-2 p-[2vw] bg-white shadow rounded-[0.781vw] w-[35vw]">
                         <div class="grid grid-cols-3 gap-[1vw] text-[0.938vw]">
                             <ul class="space-y-[1vw]">
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [1,1]) }}">Hacker</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [2,1]) }}">IoT Engineer</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [3,1]) }}">Network Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [1, 1]) }}">Hacker</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [2, 1]) }}">IoT Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [3, 1]) }}">Network Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [4,1]) }}">Hipster</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [5,1]) }}">Cloud Engineer</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [6,1]) }}">Fiber Optic Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [4, 1]) }}">Hipster</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [5, 1]) }}">Cloud Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [6, 1]) }}">Fiber Optic Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [7,1]) }}">Hustler</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [8,1]) }}">Graphic Designer</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [9,1]) }}">System Administrator</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [7, 1]) }}">Hustler</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [8, 1]) }}">Graphic Designer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [9, 1]) }}">System Administrator</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="">Event</a></li>
+                <li class="transition-all duration-300 ease-in-out hover:text-main"><a href="">Event</a></li>
             </ul>
         </div>
         <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
@@ -71,7 +71,7 @@
 
 
             @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end">
+                <nav class="flex justify-end flex-1 -mx-3">
                     @auth
                         @php
                             $user = auth()->user();
@@ -128,14 +128,14 @@
 
     <div id="sidebar"
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
-        <div class="flex relative flex-col items-center justify-center">
+        <div class="relative flex flex-col items-center justify-center">
             <a href="/">
                 <img src="/assets/logo.webp" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
             <img id="close" src="/assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
-                <li class=" flex justify-center items-center ">
+                <li class="flex items-center justify-center ">
                     <form action="{{ route('search') }}" method="GET" class="w-[83.256vw] h-[14.651vw]">
                         <input type="text" name="keyword" id=""
                             class="w-full h-full border-[0.1vw] border-gray-300 rounded-[2vw] text-[3.256vw] placeholder:text-[3.256vw] px-[5vw] outline-none"
@@ -143,7 +143,7 @@
                     </form>
                 </li>
                 @if (Route::has('login'))
-                    <nav class="-mx-3 flex flex-1 justify-end">
+                    <nav class="flex justify-end flex-1 -mx-3">
                         @auth
                             <form action="/admin" method="GET">
                                 <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
@@ -163,7 +163,8 @@
                 @endif
 
 
-                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a href="/">Beranda</a></li>
+                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a
+                        href="/">Beranda</a></li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
                     <div id="toggleKategori" @click="open = !open"
@@ -176,7 +177,7 @@
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
                         <ul class="space-y-[6.977vw] flex flex-col px-[15vw] font-normal">
                             <li>
-                                <a href="{{ route('category', [1,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [1, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -186,7 +187,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [2,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [2, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -196,7 +197,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [3,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [3, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw] ease-in-out duration-300 transition-all">
                                         <g clip-path="url(#clip0_246_6997)">
@@ -215,7 +216,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [4,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [4, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
                                         class=" w-[5.814vw] h-[5.814vw] stroke-dark fill-transparent ">
                                         <path
@@ -228,7 +229,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [5,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [5, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <g clip-path="url(#clip0_246_6971)">
@@ -248,7 +249,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [6,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [6, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="stroke-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -259,7 +260,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [7,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [7, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw">
                                         <path
@@ -273,7 +274,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [8,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [8, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -283,7 +284,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [9,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [9, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -301,74 +302,78 @@
                         @auth
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                                    <button type="submit"
-                                        class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
-                                </li>
-                            </form>
-                        @endauth
-                    @endif
+                    <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                        <button type="submit" class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                    </li>
+                    </form>
+                @endauth
+                @endif
                 </li>
             </ul>
         </div>
     </div>
 
 
-    <section class="flex flex-col justify-center items-center px-4 sm:px-48 space-y-6 pt-8 pb-16 sm:mt-[8vw] mt-[23vw]">
-        <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
+    <section
+        class="flex flex-col justify-center items-center px-4 sm:px-48 space-y-6 pt-8 pb-16 sm:mt-[8vw] mt-[23vw]">
+        <div class="flex flex-col items-center sm:flex-row sm:space-x-4">
             @php
                 $photo = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : null;
                 $userName = $profile ? $profile->name : 'Guest';
-                
-                $initials = $userName ? strtoupper(substr($userName, 0, 1)) . (strpos($userName, ' ') ? strtoupper(substr($userName, strpos($userName, ' ') + 1, 1)) : '') : 'G';
+
+                $initials = $userName
+                    ? strtoupper(substr($userName, 0, 1)) .
+                        (strpos($userName, ' ') ? strtoupper(substr($userName, strpos($userName, ' ') + 1, 1)) : '')
+                    : 'G';
             @endphp
 
             @if ($photo)
-                <img src="{{ $photo }}" alt="{{ $userName }}" 
-                    class="w-20 h-20 sm:w-16 sm:h-16 rounded-full object-cover cursor-pointer">
+                <img src="{{ $photo }}" alt="{{ $userName }}"
+                    class="object-cover w-20 h-20 rounded-full cursor-pointer sm:w-16 sm:h-16">
             @else
-                <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black text-white font-bold cursor-pointer">
+                <div
+                    class="flex items-center justify-center w-20 h-20 font-bold text-white bg-black rounded-full cursor-pointer sm:w-16 sm:h-16">
                     {{ $initials }}
                 </div>
             @endif
 
 
-            <div class="text-center sm:text-left mt-2 sm:mt-0">
-                <h1 class="text-lg sm:text-base font-semibold">{{ $profile->name }}</h1>
-                <div class="text-gray-500 flex items-center justify-center sm:justify-start space-x-2">
-                    <span class="text-sm sm:text-base font-medium">{{ $profile->angkatan }}</span>
+            <div class="mt-2 text-center sm:text-left sm:mt-0">
+                <h1 class="text-lg font-semibold sm:text-base">{{ $profile->name }}</h1>
+                <div class="flex items-center justify-center space-x-2 text-gray-500 sm:justify-start">
+                    <span class="text-sm font-medium sm:text-base">{{ $profile->angkatan }}</span>
                     <div class="w-1 h-1 bg-black rounded-full"></div>
-                    <span class="text-sm sm:text-base font-medium">{{ $projectsCount }} Karya</span>
+                    <span class="text-sm font-medium sm:text-base">{{ $projectsCount }} Karya</span>
                 </div>
             </div>
         </div>
-    
+
         <div class="flex flex-col items-center space-y-4">
             <!-- Thumb, View, Share Section -->
             <div class="flex justify-center space-x-4">
                 @foreach ([
-                    // ['icon' => '/assets/thumb.svg', 'count' => 10],
-                    // ['icon' => '/assets/view.svg', 'count' => 60],
-                    // ['icon' => '/assets/share.svg', 'count' => 46]
-                ] as $item)
+        // ['icon' => '/assets/thumb.svg', 'count' => 10],
+        // ['icon' => '/assets/view.svg', 'count' => 60],
+        // ['icon' => '/assets/share.svg', 'count' => 46]
+    ] as $item)
                     <div class="flex flex-col items-center space-y-1">
                         <img src="{{ $item['icon'] }}" alt="Icon" class="w-8 h-8 sm:w-6 sm:h-6">
-                        <p class="text-gray-400 font-semibold text-sm">{{ $item['count'] }}</p>
+                        <p class="text-sm font-semibold text-gray-400">{{ $item['count'] }}</p>
                     </div>
                 @endforeach
             </div>
-    
+
             <!-- Description Text -->
-            <p class="text-center text-gray-700 text-sm">
+            <p class="text-sm text-center text-gray-700">
                 Berbagai projek menarik dari {{ $profile->name }}
             </p>
         </div>
     </section>
-    
-    
-    
-    
-    
+
+
+
+
+
 
     <section class="sm:px-[4.375vw] sm:mt-[3vw] mt-[7vw] px-[1.875vw]">
         <div
@@ -392,7 +397,7 @@
                             //     default => '#000000',
                             // };
                         @endphp
-                        <a href="{{ route('detail', [$project->id,1]) }}">
+                        <a href="{{ route('detail', [$project->slug, 1]) }}">
                             <img src="{{ Storage::url($firstPhoto) }}" alt=""
                                 class="sm:w-[23.854vw] sm:h-[17.865vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
                             <!-- Overlay dan informasi profile yang muncul saat hover -->
@@ -443,8 +448,9 @@
                             <div id="share-container" class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
                                 <img src="/assets/share.svg" alt=""
                                     class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold cursor-pointer">Share</p>
-                            </div>                            
+                                <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold cursor-pointer">
+                                    Share</p>
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -456,7 +462,7 @@
             @endphp
             <div class="flex items-center justify-center sm:px-[10vw] px-[5vw] sm:space-x-[1vw] space-x-[3vw]">
                 <!-- Previous Page Link -->
-                <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center">
                     @if ($projects->onFirstPage())
                         <div
                             class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-inactive sm:rounded-[0.26vw] rounded-[1.163vw]">
@@ -478,7 +484,7 @@
                 <div
                     class="grid grid-cols-{{ $pageCount }} sm:gap-x-[0.521vw] gap-x-[2vw] sm:text-[0.938vw] text-[3.256vw] font-semibold">
                     @foreach ($projects->getUrlRange(1, $projects->lastPage()) as $page => $url)
-                        <div class="flex justify-center items-center">
+                        <div class="flex items-center justify-center">
                             @if ($page == $projects->currentPage())
                                 <div
                                     class="flex items-center justify-center sm:w-[3.125vw] sm:h-[3.125vw] w-[11.628vw] h-[11.628vw] page-active sm:rounded-[0.26vw] rounded-[1.163vw]">
@@ -497,7 +503,7 @@
                 </div>
 
                 <!-- Next Page Link -->
-                <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center">
                     @if ($projects->hasMorePages())
                         <a href="{{ $projects->nextPageUrl() }}">
                             <div
@@ -655,16 +661,16 @@
         });
     </script>
 
-<script>
-    document.getElementById('share-container').addEventListener('click', function () {
-        const currentUrl = window.location.href;
+    <script>
+        document.getElementById('share-container').addEventListener('click', function() {
+            const currentUrl = window.location.href;
 
-        // Salin URL ke clipboard
-        navigator.clipboard.writeText(currentUrl)
-            .then(() => alert('URL copied to clipboard!'))
-            .catch((error) => console.error('Error copying to clipboard:', error));
-    });
-</script>
+            // Salin URL ke clipboard
+            navigator.clipboard.writeText(currentUrl)
+                .then(() => alert('URL copied to clipboard!'))
+                .catch((error) => console.error('Error copying to clipboard:', error));
+        });
+    </script>
 
 </body>
 

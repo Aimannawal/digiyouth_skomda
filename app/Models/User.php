@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements FilamentUser
-// implements FilamentUser
+    // implements FilamentUser
 {
     use HasFactory, Notifiable, HasRoles;
     // , HasPanelShield;
@@ -69,4 +70,36 @@ class User extends Authenticatable implements FilamentUser
     {
         return true;
     }
+
+
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            $user->slug = static::generateUniqueSlug($user->name);
+        });
+
+        static::updating(function ($user) {
+            if ($user->isDirty('name')) {
+                $user->slug = static::generateUniqueSlug($user->name, $user->id);
+            }
+        });
+    }
+
+    public static function generateUniqueSlug($name, $ignoreId = null)
+    {
+        $slug = Str::slug($name);
+        $original = $slug;
+        $i = 1;
+
+        while (
+            static::where('slug', $slug)
+                ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+                ->exists()
+        ) {
+            $slug = $original . '-' . $i++;
+        }
+
+        return $slug;
+    }
+
 }

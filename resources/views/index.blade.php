@@ -14,7 +14,7 @@
     <title>Digiyouth | SMK Telkom Sidoarjo</title>
 </head>
 
-<body class="text-dark relative">
+<body class="relative text-dark">
     <nav
         class="w-full fixed sm:px-[4.271vw] sm:pt-[0.7vw] sm:pb-[1.8vw] px-[8.372vw] pt-[5vw] pb-[6vw] bg-white z-40 sm:shadow shadow-none flex justify-between items-center top-0">
         <div class="flex items-center space-x-[4vw]">
@@ -23,44 +23,44 @@
                     class="sm:w-[10.417vw] sm:h-[3.935vw] w-[34.884vw] h-[13.151vw] object-contain">
             </a>
             <ul class="text-[1vw] sm:flex sm:items-center hidden pt-[1vw] space-x-[2vw]">
-                <li class="hover:text-main transition-all duration-300 ease-in-out"><a
+                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
                         href="{{ route('homepage') }}">Beranda</a>
                 </li>
                 <!-- Menambahkan class group pada kategori-button -->
-                <li id="kategori-button" class="cursor-pointer group relative">
-                    <p class="hover:text-main transition-all duration-300 ease-in-out">Kategori</p>
+                <li id="kategori-button" class="relative cursor-pointer group">
+                    <p class="transition-all duration-300 ease-in-out hover:text-main">Kategori</p>
                     <!-- Div kategori dengan peer-hover untuk muncul saat kategori-button di-hover -->
                     <div id="kategori"
                         class="absolute hidden group-hover:flex left-0 top-[1vw] mt-2 p-[2vw] bg-white shadow rounded-[0.781vw] w-[35vw]">
                         <div class="grid grid-cols-3 gap-[1vw] text-[0.938vw]">
                             <ul class="space-y-[1vw]">
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [1,1]) }}">Hacker</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [2,1]) }}">IoT Engineer</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [3,1]) }}">Network Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [1, 1]) }}">Hacker</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [2, 1]) }}">IoT Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [3, 1]) }}">Network Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [4,1]) }}">Hipster</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [5,1]) }}">Cloud Engineer</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [6,1]) }}">Fiber Optic Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [4, 1]) }}">Hipster</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [5, 1]) }}">Cloud Engineer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [6, 1]) }}">Fiber Optic Engineer</a></li>
                             </ul>
                             <ul class="space-y-[1vw]">
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [7,1]) }}">Hustler</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [8,1]) }}">Graphic Designer</a></li>
-                                <li class="hover:text-main ease-in-out duration-300 transition-all"><a
-                                        href="{{ route('category', [9,1]) }}">System Administrator</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [7, 1]) }}">Hustler</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [8, 1]) }}">Graphic Designer</a></li>
+                                <li class="transition-all duration-300 ease-in-out hover:text-main"><a
+                                        href="{{ route('category', [9, 1]) }}">System Administrator</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
-                <li class="hover:text-main transition-all duration-300 ease-in-out"><a href="">Event</a></li>
+                <li class="transition-all duration-300 ease-in-out hover:text-main"><a href="">Event</a></li>
             </ul>
         </div>
         <div class="pt-[1vw] sm:flex sm:items-center hidden space-x-[0.781vw]">
@@ -72,7 +72,7 @@
 
 
             @if (Route::has('login'))
-                <nav class="-mx-3 flex flex-1 justify-end">
+                <nav class="flex justify-end flex-1 -mx-3">
                     @auth
                         @php
                             $user = auth()->user();
@@ -129,14 +129,14 @@
 
     <div id="sidebar"
         class="absolute  z-50 w-[100vw] h-[216.744vw] px-[8.372vw] py-[6vw] bg-white top-0  rounded-[0.781vw]">
-        <div class="flex relative flex-col items-center justify-center">
+        <div class="relative flex flex-col items-center justify-center">
             <a href="/">
                 <img src="/assets/logo.webp" alt="" class="w-[34.884vw] h-[13.151vw]">
             </a>
             <img id="close" src="assets/close.svg" alt=""
                 class="w-[4.186vw] h-[4.186vw] absolute right-[4vw] top-[6vw]">
             <ul class="flex flex-col justify-center items-center text-[4.186vw] font-medium mt-[12vw] space-y-[5vw]">
-                <li class=" flex justify-center items-center ">
+                <li class="flex items-center justify-center ">
                     <form action="{{ route('search') }}" method="GET" class="w-[83.256vw] h-[14.651vw]">
                         <input type="text" name="keyword" id=""
                             class="w-full h-full border-[0.1vw] border-gray-300 rounded-[2vw] text-[3.256vw] placeholder:text-[3.256vw] px-[5vw] outline-none"
@@ -144,7 +144,7 @@
                     </form>
                 </li>
                 @if (Route::has('login'))
-                    <nav class="-mx-3 flex flex-1 justify-end">
+                    <nav class="flex justify-end flex-1 -mx-3">
                         @auth
                             <form action="/admin" method="GET">
                                 <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
@@ -164,7 +164,8 @@
                 @endif
 
 
-                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a href="/">Beranda</a></li>
+                <li class="w-[83.256vw] h-[13.023vw] flex justify-center items-center rounded-[2vw]"><a
+                        href="/">Beranda</a></li>
                 <li x-data="{ open: false }">
                     <!-- ID untuk toggle -->
                     <div id="toggleKategori" @click="open = !open"
@@ -177,7 +178,7 @@
                         class="kategori-list w-full flex flex-col bg-[#f9f9f9] overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
                         <ul class="space-y-[6.977vw] flex flex-col px-[15vw] font-normal">
                             <li>
-                                <a href="{{ route('category', [1,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [1, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -187,7 +188,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [2,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [2, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -197,7 +198,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [3,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [3, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw] ease-in-out duration-300 transition-all">
                                         <g clip-path="url(#clip0_246_6997)">
@@ -216,7 +217,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [4,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [4, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
                                         class=" w-[5.814vw] h-[5.814vw] stroke-dark fill-transparent ">
                                         <path
@@ -229,7 +230,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [5,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [5, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <g clip-path="url(#clip0_246_6971)">
@@ -249,7 +250,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [6,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [6, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="stroke-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -260,7 +261,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [7,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [7, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw">
                                         <path
@@ -274,7 +275,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [8,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [8, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[8.14vw] h-[8.14vw]">
                                         <path
@@ -284,7 +285,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('category', [9,1]) }}" class="flex items-center space-x-[3vw]">
+                                <a href="{{ route('category', [9, 1]) }}" class="flex items-center space-x-[3vw]">
                                     <svg viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-dark w-[6.977vw] h-[6.977vw]">
                                         <path
@@ -302,21 +303,20 @@
                         @auth
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
-                                    <button type="submit"
-                                        class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
-                                </li>
-                            </form>
-                        @endauth
-                    @endif
+                    <li class=" w-[83.256vw] h-[14.651vw] flex justify-center items-center ">
+                        <button type="submit" class="w-full h-full bg-white text-dark rounded-[2vw]">Keluar</button>
+                    </li>
+                    </form>
+                @endauth
+                @endif
                 </li>
             </ul>
         </div>
     </div>
 
     <section id="hero" class="sm:px-[11.667vw] px-[8.372vw] sm:mt-[7vw] mt-[33vw]">
-        <div class="w-full sm:flex sm:items-center block">
-            <div class="sm:w-1/2 w-full">
+        <div class="block w-full sm:flex sm:items-center">
+            <div class="w-full sm:w-1/2">
                 <h4 class="sm:text-[1.042vw] text-[3.256vw] font-semibold text-main">Part of SMK TELKOM SIDOARJO</h4>
                 <div class="sm:space-y-[1.5vw] space-y-[5vw]">
                     <div class="sm:space-y-[1vw] space-y-[4vw]">
@@ -332,7 +332,7 @@
                         Sekarang</button>
                 </div>
             </div>
-            <div class="sm:w-1/2 flex sm:justify-end justify-center w-full">
+            <div class="flex justify-center w-full sm:w-1/2 sm:justify-end">
                 <img src="assets/hero.webp" alt=""
                     class="sm:w-[36.458vw] sm:h-[35vw] w-[81.395vw] h-[93.826vw] object-contain">
             </div>
@@ -345,7 +345,7 @@
             <div class="bg-main sm:w-[5.208vw] sm:h-[0.521vw] w-[11.628vw] h-[1.163vw]"></div>
             <h1 class="font-semibold sm:text-[2.865vw] text-[7.907vw]">Eksplor Karya</h1>
             <div class="grid sm:grid-cols-3 grid-cols-2 sm:px-[10vw] px-0 sm:gap-[1.302vw] gap-[3.488vw] mt-[3vw]">
-                <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center">
                     <div>
                         <a href="/category/1/1">
                             <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
@@ -365,7 +365,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/4/1">
@@ -388,7 +388,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/7/1">
@@ -412,7 +412,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center">
+                <div class="flex items-center justify-center">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/2/1">
@@ -433,7 +433,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center sm:col-span-1 col-span-2">
+                <div class="flex items-center justify-center col-span-2 sm:col-span-1">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/8/1">
@@ -455,7 +455,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center sm:col-span-1 col-span-2">
+                <div class="flex items-center justify-center col-span-2 sm:col-span-1">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/5/1">
@@ -486,7 +486,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center sm:col-span-1 col-span-2">
+                <div class="flex items-center justify-center col-span-2 sm:col-span-1">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/3/1">
@@ -517,7 +517,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center sm:col-span-1 col-span-2">
+                <div class="flex items-center justify-center col-span-2 sm:col-span-1">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/6/1">
@@ -539,7 +539,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center sm:col-span-1 col-span-2">
+                <div class="flex items-center justify-center col-span-2 sm:col-span-1">
                     <div>
                         <!-- Tambahkan class group untuk mengaktifkan efek hover pada elemen anak -->
                         <a href="/category/9/1">
@@ -590,92 +590,99 @@
                 class="mt-[3vw] flex items-center sm:gap-x-[1vw] gap-x-[4vw] overflow-x-auto scrollbar-hidden scroll-smooth pe-[3vw]">
                 <!-- Card 1 -->
                 @php
-                $rank = 1; // Inisialisasi nomor urut
-            @endphp
-            
-            @foreach ($project as $pr)
-                @if ($pr->status == 1)
-                    <a href="{{ route('detail', [$pr->id, 1]) }}">
-                        <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
-                            @php
-                                $photos = is_string($pr->photo)
-                                    ? explode(',', $pr->photo)
-                                    : (is_array($pr->photo) ? $pr->photo : []);
-                                $firstPhoto = $photos[0] ?? null;
-                                $color = match ($rank) {
-                                    1 => '#FFD700',
-                                    2 => '#8B8B8B',
-                                    3 => '#895125',
-                                    default => '#000000',
-                                };
-                            @endphp
-            
-                            @if ($firstPhoto)
-                                <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
-                                    class="sm:w-[37.708vw] sm:h-[28.281vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
-                            @else
-                                <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
-                            @endif
-            
-                            <!-- Overlay dan informasi profil -->
-                            <div
-                                class="sm:w-[37.3vw] sm:h-[28.281vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            </div>
-                            <div
-                                class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    $rank = 1; // Inisialisasi nomor urut
+                @endphp
+
+                @foreach ($project as $pr)
+                    @if ($pr->status == 1)
+                        <a href="{{ route('detail', [$pr->slug, 1]) }}">
+                            <div class="relative group flex-shrink-0 sm:w-[37.24vw] w-[83.256vw]">
                                 @php
-                                    $profilePicture = $pr->user->profile_picture
-                                        ? Storage::url($pr->user->profile_picture)
-                                        : null;
-                                    $userName = $pr->user->name;
-                                    $initials = strtoupper(substr($userName, 0, 1)) . strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));
+                                    $photos = is_string($pr->photo)
+                                        ? explode(',', $pr->photo)
+                                        : (is_array($pr->photo)
+                                            ? $pr->photo
+                                            : []);
+                                    $firstPhoto = $photos[0] ?? null;
+                                    $color = match ($rank) {
+                                        1 => '#FFD700',
+                                        2 => '#8B8B8B',
+                                        3 => '#895125',
+                                        default => '#000000',
+                                    };
                                 @endphp
-                                @if ($profilePicture)
-                                    <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile"
-                                        class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full">
+
+                                @if ($firstPhoto)
+                                    <img src="{{ asset('storage/' . trim($firstPhoto)) }}" alt=""
+                                        class="sm:w-[37.708vw] sm:h-[28.281vw] w-[83.256vw] h-[55.542vw] object-cover rounded-[1.563vw]">
                                 @else
-                                    <div
-                                        class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
-                                        {{ $initials }}
-                                    </div>
+                                    <p>Foto tidak tersedia untuk project {{ $pr->id }}</p>
                                 @endif
-                                <p class="sm:text-[1.25vw] text-[3.256vw] text-white font-semibold">
-                                    {{ $pr->user->name }}
-                                </p>
-                            </div>
-                            <div
-                                class="absolute bg-white sm:w-[5.208vw] sm:h-[5.208vw] w-[11.628vw] h-[11.628vw] rounded-full top-[1.5vw] left-[2vw] flex items-center justify-center">
-                                <h1 class="sm:text-[2.083vw] text-[5.581vw] font-semibold"
-                                    style="color: {{ $color }}">#{{ $rank }}</h1>
-                            </div>
-            
-                            <div class="flex space-x-[1vw] mt-[2vw] sm:justify-start justify-between">
-                                <h3 class="sm:text-[1.875vw] text-[4.651vw] font-semibold">{{ $pr->title }}</h3>
-                                <p
-                                    class="sm:text-[1.042vw] sm:px-[1.563vw] sm:py-[0.781vw] text-[2.791vw] px-[5.814vw] py-[2.326vw] bg-main bg-opacity-5 rounded-full text-main font-bold">
-                                    {{ $pr->category->name }}</p>
-                            </div>
-                            <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
-                                <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                    <img src="assets/thumb.svg" alt=""
-                                        class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
-                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
-                                        {{ $pr->likes_count }}
+
+                                <!-- Overlay dan informasi profil -->
+                                <div
+                                    class="sm:w-[37.3vw] sm:h-[28.281vw] w-[83.256vw] h-[31.207vw] absolute sm:bottom-[7.5vw] bottom-[16.6vw] rounded-[1.563vw] bg-gradient-to-t from-black/70 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                                <div
+                                    class="flex items-center absolute sm:bottom-[10vw] bottom-[22vw] left-[5vw] sm:space-x-[1vw] space-x-[2vw] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    @php
+                                        $profilePicture = $pr->user->profile_picture
+                                            ? Storage::url($pr->user->profile_picture)
+                                            : null;
+                                        $userName = $pr->user->name;
+                                        $initials =
+                                            strtoupper(substr($userName, 0, 1)) .
+                                            strtoupper(substr($userName, strpos($userName, ' ') + 1, 1));
+                                    @endphp
+                                    @if ($profilePicture)
+                                        <img src="{{ $profilePicture }}" alt="{{ $userName }}'s profile"
+                                            class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full">
+                                    @else
+                                        <div
+                                            class="sm:w-[2.604vw] sm:h-[2.604vw] w-[8.14vw] h-[8.14vw] rounded-full flex items-center justify-center bg-black text-white font-bold text-center">
+                                            {{ $initials }}
+                                        </div>
+                                    @endif
+                                    <p class="sm:text-[1.25vw] text-[3.256vw] text-white font-semibold">
+                                        {{ $pr->user->name }}
                                     </p>
                                 </div>
-                                <div id="share-container" class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
-                                    <img src="assets/share.svg" alt=""
-                                        class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
-                                    <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">Share</p>
+                                <div
+                                    class="absolute bg-white sm:w-[5.208vw] sm:h-[5.208vw] w-[11.628vw] h-[11.628vw] rounded-full top-[1.5vw] left-[2vw] flex items-center justify-center">
+                                    <h1 class="sm:text-[2.083vw] text-[5.581vw] font-semibold"
+                                        style="color: {{ $color }}">#{{ $rank }}</h1>
+                                </div>
+
+                                <div class="flex space-x-[1vw] mt-[2vw] sm:justify-start justify-between">
+                                    <h3 class="sm:text-[1.875vw] text-[4.651vw] font-semibold">{{ $pr->title }}
+                                    </h3>
+                                    <p
+                                        class="sm:text-[1.042vw] sm:px-[1.563vw] sm:py-[0.781vw] text-[2.791vw] px-[5.814vw] py-[2.326vw] bg-main bg-opacity-5 rounded-full text-main font-bold">
+                                        {{ $pr->category->name }}</p>
+                                </div>
+                                <div class="flex sm:space-x-[1.042vw] space-x-[2.326vw] mt-[0.9vw]">
+                                    <div class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                        <img src="assets/thumb.svg" alt=""
+                                            class="sm:w-[1.563vw] sm:h-[1.555vw] w-[4.651vw] h-[4.651vw]">
+                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">
+                                            {{ $pr->likes_count }}
+                                        </p>
+                                    </div>
+                                    <div id="share-container"
+                                        class="flex items-center sm:space-x-[0.6vw] space-x-[2.326vw]">
+                                        <img src="assets/share.svg" alt=""
+                                            class="sm:w-[1.302vw] sm:h-[1.14vw] w-[4.651vw] h-[4.07vw]">
+                                        <p class="sm:text-[0.938vw] text-[3.256vw] text-gray-400 font-semibold">Share
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                    @php
-                        $rank++; // Increment nomor urut hanya jika status == 1
-                    @endphp
-                @endif
-            @endforeach            
+                        </a>
+                        @php
+                            $rank++; // Increment nomor urut hanya jika status == 1
+                        @endphp
+                    @endif
+                @endforeach
             </div>
         </div>
     </section>
@@ -683,14 +690,14 @@
 
 
     <section class="sm:px-[11.667vw] px-[8vw] sm:mt-[10vw] mt-[17.674vw]  overflow-hidden relative">
-        <div class="flex justify-center items-center">
+        <div class="flex items-center justify-center">
             <div class="bg-main sm:w-[5.208vw] sm:h-[0.521vw] w-[11.628vw] h-[1.163vw]"></div>
         </div>
         <h1 class="font-semibold sm:text-[2.865vw] text-[7.907vw] text-center">Kontributor Terpopuler</h1>
         <div id="slider"
             class="flex items-center sm:mt-[3vw] mt-[8vw] sm:gap-x-[0.5vw] gap-x-[4.651vw] overflow-x-auto flex-nowrap max-w-full scrollbar-hidden scroll-smooth">
             @foreach ($popularContributors as $contributor)
-                <a href="{{ route('profile.detail', $contributor['id']) }}">
+                <a href="{{ route('profile.detail', $contributor['slug']) }}">
                     <div
                         class="border border-gray-300 sm:w-[18.385vw] sm:h-[17.292vw] w-[39.302vw] h-[36.965vw] sm:rounded-[0.781vw] flex flex-col justify-center items-center space-y-[0.7vw] flex-shrink-0   rounded-[2.326vw]">
                         {{-- <img src="{{ asset('storage/' . $contributor['photo']) }}" alt=""
@@ -735,13 +742,13 @@
     </section>
 
     <section class="sm:mt-[10vw] mt-[21.86vw]">
-        <div class="w-full relative">
+        <div class="relative w-full">
             <!-- Gambar background waves -->
-            <img src="/assets/bg-waves.webp" alt="" class="absolute inset-0 w-full h-full object-cover z-0">
+            <img src="/assets/bg-waves.webp" alt="" class="absolute inset-0 z-0 object-cover w-full h-full">
 
             <!-- Konten di depan, termasuk gambar wanita -->
             <div class="relative w-full z-20 px-[3vw] flex sm:flex-row flex-col-reverse">
-                <div class="sm:w-1/2 w-full flex items-center justify-center">
+                <div class="flex items-center justify-center w-full sm:w-1/2">
                     <img src="assets/woman-1.webp" alt=""
                         class="sm:w-[36.302vw] sm:h-[41.771vw] w-[81.395vw] h-[93.658vw]">
                 </div>
@@ -824,169 +831,170 @@
 
 </body>
 
-    <script>
-        document.getElementById('kategori-button').addEventListener('click', function() {
-            var kategoriDiv = document.getElementById('kategori');
-            if (kategoriDiv.classList.contains('hidden')) {
-                kategoriDiv.classList.remove('hidden');
-            } else {
-                kategoriDiv.classList.add('hidden');
-            }
-        });
-    </script>
-
-
-    <script>
-        // Ambil elemen slider
-        const slider = document.getElementById('slider');
-
-        // Tombol panah kiri dan kanan
-        const leftArrow = document.getElementById('left-arrow');
-        const rightArrow = document.getElementById('right-arrow');
-
-        // Fungsi untuk mengonversi nilai vw ke piksel
-        function vwToPx(vw) {
-            return (vw / 100) * window.innerWidth; // Konversi nilai vw ke px berdasarkan lebar viewport
+<script>
+    document.getElementById('kategori-button').addEventListener('click', function() {
+        var kategoriDiv = document.getElementById('kategori');
+        if (kategoriDiv.classList.contains('hidden')) {
+            kategoriDiv.classList.remove('hidden');
+        } else {
+            kategoriDiv.classList.add('hidden');
         }
+    });
+</script>
 
-        // Ambil lebar card dalam satuan vw (misalnya 18.385vw)
-        let cardWidthVW = 18.385;
-        let cardWidth = vwToPx(cardWidthVW); // Konversi cardWidth ke piksel
 
-        // Fungsi untuk sliding ke kiri
-        leftArrow.addEventListener('click', () => {
-            slider.scrollBy({
-                left: -cardWidth, // Geser ke kiri sebesar lebar 1 card
-                behavior: 'smooth'
+<script>
+    // Ambil elemen slider
+    const slider = document.getElementById('slider');
+
+    // Tombol panah kiri dan kanan
+    const leftArrow = document.getElementById('left-arrow');
+    const rightArrow = document.getElementById('right-arrow');
+
+    // Fungsi untuk mengonversi nilai vw ke piksel
+    function vwToPx(vw) {
+        return (vw / 100) * window.innerWidth; // Konversi nilai vw ke px berdasarkan lebar viewport
+    }
+
+    // Ambil lebar card dalam satuan vw (misalnya 18.385vw)
+    let cardWidthVW = 18.385;
+    let cardWidth = vwToPx(cardWidthVW); // Konversi cardWidth ke piksel
+
+    // Fungsi untuk sliding ke kiri
+    leftArrow.addEventListener('click', () => {
+        slider.scrollBy({
+            left: -cardWidth, // Geser ke kiri sebesar lebar 1 card
+            behavior: 'smooth'
+        });
+    });
+
+    // Fungsi untuk sliding ke kanan
+    rightArrow.addEventListener('click', () => {
+        slider.scrollBy({
+            left: cardWidth, // Geser ke kanan sebesar lebar 1 card
+            behavior: 'smooth'
+        });
+    });
+
+    // Update lebar card saat ukuran jendela berubah
+    window.addEventListener('resize', () => {
+        cardWidth = vwToPx(cardWidthVW); // Update lebar card saat ukuran viewport berubah
+    });
+</script>
+
+
+<script>
+    // Ambil elemen slider dengan ID yang baru
+    const popularWorksSlider = document.getElementById('popular-works-slider');
+
+    // Tombol panah kiri dan kanan
+    const leftArrow1 = document.getElementById('left-arrow1');
+    const rightArrow1 = document.getElementById('right-arrow1');
+
+    // Fungsi untuk mengonversi nilai vw ke piksel
+    function vwToPx(vw) {
+        return (vw / 100) * window.innerWidth;
+    }
+
+    // Ambil lebar card dalam satuan vw
+    const cardWidthVW1 = 37.24;
+    const cardWidth1 = vwToPx(cardWidthVW1);
+
+    // Fungsi untuk sliding ke kiri
+    leftArrow1.addEventListener('click', () => {
+        popularWorksSlider.scrollBy({
+            left: -cardWidth1,
+            behavior: 'smooth'
+        });
+    });
+
+    // Fungsi untuk sliding ke kanan
+    rightArrow1.addEventListener('click', () => {
+        popularWorksSlider.scrollBy({
+            left: cardWidth1,
+            behavior: 'smooth'
+        });
+    });
+
+    // Update scroll width saat window resize
+    window.addEventListener('resize', () => {
+        cardWidth1 = vwToPx(cardWidthVW1);
+    });
+</script>
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerBtn = document.getElementById('hamburger');
+    const closeBtn = document.getElementById('close');
+    const nav = document.querySelector('nav'); // Ambil elemen nav
+
+    // Fungsi untuk membuka sidebar
+    function openSidebar() {
+        sidebar.classList.add('open');
+        document.body.classList.add('no-scroll');
+
+        // Menghapus class 'fixed' pada nav saat sidebar dibuka
+        nav.classList.remove('fixed');
+        section.getElementById('fixed');
+
+        // Optional: Tambahkan overlay
+        const overlay = document.createElement('div');
+        overlay.classList.add('sidebar-overlay');
+        document.body.appendChild(overlay);
+
+        // Trigger reflow untuk animasi
+        overlay.offsetHeight;
+        overlay.classList.add('active');
+    }
+
+    // Fungsi untuk menutup sidebar
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+
+        // Menambahkan kembali class 'fixed' pada nav saat sidebar ditutup
+        nav.classList.add('fixed');
+
+        // Optional: Hapus overlay dengan animasi
+        const overlay = document.querySelector('.sidebar-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+            overlay.addEventListener('transitionend', () => {
+                overlay.remove();
             });
-        });
-
-        // Fungsi untuk sliding ke kanan
-        rightArrow.addEventListener('click', () => {
-            slider.scrollBy({
-                left: cardWidth, // Geser ke kanan sebesar lebar 1 card
-                behavior: 'smooth'
-            });
-        });
-
-        // Update lebar card saat ukuran jendela berubah
-        window.addEventListener('resize', () => {
-            cardWidth = vwToPx(cardWidthVW); // Update lebar card saat ukuran viewport berubah
-        });
-    </script>
-
-
-    <script>
-        // Ambil elemen slider dengan ID yang baru
-        const popularWorksSlider = document.getElementById('popular-works-slider');
-
-        // Tombol panah kiri dan kanan
-        const leftArrow1 = document.getElementById('left-arrow1');
-        const rightArrow1 = document.getElementById('right-arrow1');
-
-        // Fungsi untuk mengonversi nilai vw ke piksel
-        function vwToPx(vw) {
-            return (vw / 100) * window.innerWidth;
         }
+    }
 
-        // Ambil lebar card dalam satuan vw
-        const cardWidthVW1 = 37.24;
-        const cardWidth1 = vwToPx(cardWidthVW1);
+    // Event listeners untuk hamburger button dan close button
+    hamburgerBtn.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+</script>
 
-        // Fungsi untuk sliding ke kiri
-        leftArrow1.addEventListener('click', () => {
-            popularWorksSlider.scrollBy({
-                left: -cardWidth1,
-                behavior: 'smooth'
-            });
-        });
+<script>
+    const toggleKategori = document.getElementById('toggleKategori');
+    const kategoriList = document.getElementById('kategoriList');
 
-        // Fungsi untuk sliding ke kanan
-        rightArrow1.addEventListener('click', () => {
-            popularWorksSlider.scrollBy({
-                left: cardWidth1,
-                behavior: 'smooth'
-            });
-        });
+    toggleKategori.addEventListener('click', function() {
+        kategoriList.classList.toggle('active'); // Toggle kelas active
+        toggleKategori.classList.toggle('border-main'); // Toggle border utama
+    });
+</script>
 
-        // Update scroll width saat window resize
-        window.addEventListener('resize', () => {
-            cardWidth1 = vwToPx(cardWidthVW1);
-        });
-    </script>
-    <script>
-        const sidebar = document.getElementById('sidebar');
-        const hamburgerBtn = document.getElementById('hamburger');
-        const closeBtn = document.getElementById('close');
-        const nav = document.querySelector('nav'); // Ambil elemen nav
+<script>
+    document.getElementById('share-container').addEventListener('click', function() {
+        const currentUrl = window.location.href;
 
-        // Fungsi untuk membuka sidebar
-        function openSidebar() {
-            sidebar.classList.add('open');
-            document.body.classList.add('no-scroll');
-
-            // Menghapus class 'fixed' pada nav saat sidebar dibuka
-            nav.classList.remove('fixed');
-            section.getElementById('fixed');
-
-            // Optional: Tambahkan overlay
-            const overlay = document.createElement('div');
-            overlay.classList.add('sidebar-overlay');
-            document.body.appendChild(overlay);
-
-            // Trigger reflow untuk animasi
-            overlay.offsetHeight;
-            overlay.classList.add('active');
-        }
-
-        // Fungsi untuk menutup sidebar
-        function closeSidebar() {
-            sidebar.classList.remove('open');
-            document.body.classList.remove('no-scroll');
-
-            // Menambahkan kembali class 'fixed' pada nav saat sidebar ditutup
-            nav.classList.add('fixed');
-
-            // Optional: Hapus overlay dengan animasi
-            const overlay = document.querySelector('.sidebar-overlay');
-            if (overlay) {
-                overlay.classList.remove('active');
-                overlay.addEventListener('transitionend', () => {
-                    overlay.remove();
-                });
-            }
-        }
-
-        // Event listeners untuk hamburger button dan close button
-        hamburgerBtn.addEventListener('click', openSidebar);
-        closeBtn.addEventListener('click', closeSidebar);
-    </script>
-
-    <script>
-        const toggleKategori = document.getElementById('toggleKategori');
-        const kategoriList = document.getElementById('kategoriList');
-
-        toggleKategori.addEventListener('click', function() {
-            kategoriList.classList.toggle('active'); // Toggle kelas active
-            toggleKategori.classList.toggle('border-main'); // Toggle border utama
-        });
-    </script>
-
-    <script>
-        document.getElementById('share-container').addEventListener('click', function () {
-            const currentUrl = window.location.href;
-
-            if (navigator.share) {
-                navigator.share({
+        if (navigator.share) {
+            navigator.share({
                     title: document.title, // Judul halaman
                     text: 'Check out this page!',
                     url: currentUrl, // URL saat ini
                 })
                 .then(() => console.log('Shared successfully'))
                 .catch((error) => console.error('Error sharing:', error));
-            } else {
-                alert('Sharing is not supported on this browser. Copy this link: ' + currentUrl);
-            }
-        });
-    </script>
+        } else {
+            alert('Sharing is not supported on this browser. Copy this link: ' + currentUrl);
+        }
+    });
+</script>
+
 </html>

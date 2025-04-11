@@ -17,83 +17,84 @@ use Illuminate\Support\Facades\DB;
 class DigiyouthController extends Controller
 {
     public function index()
-{
-    // Ambil proyek dengan status == 1 untuk ditampilkan
-    $project = Project::with('category')
-        ->withCount('likes')
-        ->where('status', 1)
-        ->orderBy('likes_count', 'desc')
-        ->take(3)
-        ->get();
+    {
+        // Ambil proyek dengan status == 1 untuk ditampilkan
+        $project = Project::with('category')
+            ->withCount('likes')
+            ->where('status', 1)
+            ->orderBy('likes_count', 'desc')
+            ->take(3)
+            ->get();
 
-    // Ambil semua proyek untuk menghitung kontribusi (tanpa filter status)
-    $allProjects = Project::select('user_id', \DB::raw('COUNT(*) as contributions'))
-        ->groupBy('user_id')
-        ->get()
-        ->keyBy('user_id');
+        // Ambil semua proyek untuk menghitung kontribusi (tanpa filter status)
+        $allProjects = Project::select('user_id', \DB::raw('COUNT(*) as contributions'))
+            ->groupBy('user_id')
+            ->get()
+            ->keyBy('user_id');
 
-    // Hitung kontribusi dari tabel TeamUser
-    $teamUserContributions = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
-        ->groupBy('user_id')
-        ->get()
-        ->keyBy('user_id');
+        // Hitung kontribusi dari tabel TeamUser
+        $teamUserContributions = TeamUser::select('user_id', \DB::raw('COUNT(*) as contributions'))
+            ->groupBy('user_id')
+            ->get()
+            ->keyBy('user_id');
 
-    // Gabungkan kontribusi proyek dan tim
-    $combinedContributions = collect();
+        // Gabungkan kontribusi proyek dan tim
+        $combinedContributions = collect();
 
-    // Gabungkan semua user_id dari proyek dan tim
-    $allUserIds = $allProjects->keys()->merge($teamUserContributions->keys())->unique();
+        // Gabungkan semua user_id dari proyek dan tim
+        $allUserIds = $allProjects->keys()->merge($teamUserContributions->keys())->unique();
 
-    foreach ($allUserIds as $userId) {
-        $projectCount = $allProjects->get($userId)->contributions ?? 0;
-        $teamUserCount = $teamUserContributions->get($userId)->contributions ?? 0;
+        foreach ($allUserIds as $userId) {
+            $projectCount = $allProjects->get($userId)->contributions ?? 0;
+            $teamUserCount = $teamUserContributions->get($userId)->contributions ?? 0;
 
-        $combinedContributions->push([
-            'user_id' => $userId,
-            'contributions' => $projectCount + $teamUserCount,
-        ]);
+            $combinedContributions->push([
+                'user_id' => $userId,
+                'contributions' => $projectCount + $teamUserCount,
+            ]);
+        }
+
+        // Sortir dan ambil 10 pengguna dengan kontribusi tertinggi
+        $popularContributors = $combinedContributions
+            ->sortByDesc('contributions')
+            ->take(10)
+            ->map(function ($contribution) {
+                $user = User::find($contribution['user_id']);
+                return [
+                    'id' => $user->id,
+                    'slug' => $user->slug,
+                    'name' => $user->name,
+                    'angkatan' => $user->angkatan,
+                    'photo' => $user->profile_picture,
+                    'contributions' => $contribution['contributions'],
+                ];
+            });
+
+        // Ambil semua kategori
+        $allCategories = Category::all();
+
+        return view('index', compact('project', 'popularContributors', 'allCategories'));
     }
 
-    // Sortir dan ambil 10 pengguna dengan kontribusi tertinggi
-    $popularContributors = $combinedContributions
-        ->sortByDesc('contributions')
-        ->take(10)
-        ->map(function ($contribution) {
-            $user = User::find($contribution['user_id']);
-            return [
-                'id' => $user->id,
-                'name' => $user->name,
-                'angkatan' => $user->angkatan,
-                'photo' => $user->profile_picture,
-                'contributions' => $contribution['contributions'],
-            ];
-        });
-
-    // Ambil semua kategori
-    $allCategories = Category::all();
-
-    return view('index', compact('project', 'popularContributors', 'allCategories'));
-}
 
 
-    
     public function category(string $id, string $sort)
     {
         $likeModel = Like::class;
         $category = Category::find($id);
         $allCategories = Category::all();
 
-        if($sort == 1){
+        if ($sort == 1) {
             $projects = Project::where("category_id", $id)->orderBy('created_at', 'desc')->paginate(8);
-        }else if($sort == 2){
+        } else if ($sort == 2) {
             $projects = Project::where("category_id", $id)->orderBy('created_at', 'asc')->paginate(8);
-        }else if($sort == 3){
+        } else if ($sort == 3) {
             $projects = Project::select('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at', DB::raw('COUNT(replies.id) as replies_count'))
-            ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
-            ->where('comments.project_id', $id)
-            ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
-            ->orderByDesc('replies_count') // Order by the number of replies
-            ->paginate(8);
+                ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
+                ->where('comments.project_id', $id)
+                ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
+                ->orderByDesc('replies_count') // Order by the number of replies
+                ->paginate(8);
         }
 
         // $projects = Project::where("category_id", $id)->paginate(8);
@@ -107,31 +108,32 @@ class DigiyouthController extends Controller
         ]);
     }
 
-    public function detail(string $id, string $sort)
+    public function detail(string $slug, string $sort)
     {
         $likeModel = Like::class; // Model untuk mengelola "like"
-        $project = Project::findOrFail($id); // Pastikan project ditemukan, jika tidak return 404
+        $project = Project::where('slug', $slug)->firstOrFail(); // Pastikan project ditemukan, jika tidak return 404
+        $id = $project->id;
         $category = Category::all();
         $allCategories = Category::all();
 
 
-        if($sort == 1){
+        if ($sort == 1) {
             $comments = Comment::where("project_id", $id)->orderBy('created_at', 'desc')->paginate(5);
-        }else if($sort == 2){
+        } else if ($sort == 2) {
             $comments = Comment::select('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at', DB::raw('COUNT(replies.id) as replies_count'))
-            ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
-            ->where('comments.project_id', $id)
-            ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
-            ->orderByDesc('replies_count') // Order by the number of replies
-            ->paginate(5);
+                ->leftJoin('replies', 'comments.id', '=', 'replies.comment_id')
+                ->where('comments.project_id', $id)
+                ->groupBy('comments.id', 'comments.user_id', 'comments.text', 'comments.status', 'comments.created_at') // Explicitly group by these columns
+                ->orderByDesc('replies_count') // Order by the number of replies
+                ->paginate(5);
         }
         // dd($comments);
         // Data tim
         $membersArray = [];
         foreach ($project->team->users as $member) {
-            if($project->user->id == $member->id){
+            if ($project->user->id == $member->id) {
                 continue;
-            }else{
+            } else {
                 $membersArray[] = $member->name;
             }
         }
@@ -177,15 +179,15 @@ class DigiyouthController extends Controller
 
     public function comment(Request $request, string $id)
     {
-        if (Auth::id() == null ) {
+        if (Auth::id() == null) {
             return redirect()->route('login');
         } else {
-            // dd($request->input('comment')); 
-            if($request->input('comment') == null){
+            // dd($request->input('comment'));
+            if ($request->input('comment') == null) {
                 return redirect()->back();
             }
             $project = Project::find($id);
-        $newComment = Comment::create([
+            $newComment = Comment::create([
                 'project_id' => $project->id,
                 'user_id' => Auth::id(),
                 'text' => $request->input('comment'),
@@ -210,7 +212,7 @@ class DigiyouthController extends Controller
                     'project_id' => $project->id,
                     'user_id' => Auth::id(),
                 ]);
-            }else{
+            } else {
                 Like::destroy($like->id);
             }
 
@@ -221,15 +223,15 @@ class DigiyouthController extends Controller
 
     public function reply(Request $request, string $id)
     {
-        if (Auth::id() == null ) {
+        if (Auth::id() == null) {
             return redirect()->route('login');
         } else {
-            // dd($request->input('comment')); 
-            if($request->input('reply') == null){
+            // dd($request->input('comment'));
+            if ($request->input('reply') == null) {
                 return redirect()->back();
             }
             $comment = Comment::find($id);
-        $newReply = Reply::create([
+            $newReply = Reply::create([
                 'comment_id' => $comment->id,
                 'user_id' => Auth::id(),
                 'content' => $request->input('reply'),
@@ -239,26 +241,28 @@ class DigiyouthController extends Controller
             return redirect()->back();
         }
     }
-    public function profileDetail(string $id)
+    public function profileDetail(string $slug)
     {
         $likeModel = Like::class;
-        $profile = User::find($id);
+
+        $profile = User::where('slug', $slug)->firstOrFail();
+        $id = $profile->id;
         $allCategories = Category::all();
         $teams = TeamUser::where("user_id", $id)->get();
-        
+
         $teamsProfile = [];
         foreach ($teams as $team) {
             $teamsProfile[] = $team->team->id;
         }
-        
+
         // Ambil proyek yang hanya memiliki status 1
         $projects = Project::whereIn("team_id", $teamsProfile)
             ->where('status', 1) // Filter hanya proyek dengan status 1
             ->get();
-        
+
         // Hitung jumlah proyek yang statusnya 1
         $projectsCount = $projects->count();
-        
+
         return view("profile-user", [
             "likeModel" => $likeModel,
             "projects" => $projects,
@@ -268,7 +272,8 @@ class DigiyouthController extends Controller
         ]);
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $keyword = $request->input("keyword");
         // dd($keyword);
         // $projects = Project::query()->where("title", "LIKE", "%". $keyword ."%")
@@ -278,14 +283,14 @@ class DigiyouthController extends Controller
         // dd($request->input("keyword") );
         $allCategories = Category::all();
         $likeModel = Like::class;
-        $projects = Project::query()->where("title", "LIKE", "%". $keyword ."%")
-        ->orWhereHas("category", function($query) use ($keyword){
-            $query->where("name", "LIKE", "%". $keyword ."%");
-        })        
-        ->orWhereHas("user", function($query) use ($keyword){
-            $query->where("name", "LIKE", "%". $keyword ."%");
-        })
-        ->paginate(8);
+        $projects = Project::query()->where("title", "LIKE", "%" . $keyword . "%")
+            ->orWhereHas("category", function ($query) use ($keyword) {
+                $query->where("name", "LIKE", "%" . $keyword . "%");
+            })
+            ->orWhereHas("user", function ($query) use ($keyword) {
+                $query->where("name", "LIKE", "%" . $keyword . "%");
+            })
+            ->paginate(8);
 
 
         // dd($projects);
@@ -318,6 +323,6 @@ class DigiyouthController extends Controller
         $sort = $request->input("sort");
         return redirect()->route("category", [$id, $sort]);
 
-        
+
     }
 }

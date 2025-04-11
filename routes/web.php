@@ -12,7 +12,8 @@ Route::get('/', [DigiyouthController::class, 'index'])->name("homepage");
 // Route::get('/', [DigiyouthController::class, 'footer'])->name("homepage");
 
 
-Route::get('/detail/{id}/{sort}', [DigiyouthController::class, 'detail'])->name('detail');
+// Route::get('/detail/{id}/{sort}', [DigiyouthController::class, 'detail'])->name('detail');
+Route::get('/detail/{slug}/{sort}', [DigiyouthController::class, 'detail'])->name('detail');
 Route::post('/detail/{id}/like', [DigiyouthController::class, 'like'])->name('detail.like');
 Route::post('/detail/{id}/comment', [DigiyouthController::class, 'comment'])->name('detail.comment');
 Route::post('/detail/{id}/sort', [DigiyouthController::class, 'commentSort'])->name('detail.sort');
@@ -21,7 +22,7 @@ Route::post('/detail/{id}/reply', [DigiyouthController::class, 'reply'])->name('
 Route::get('/category/{id}/{sort}', [DigiyouthController::class, 'category'])->name("category");
 Route::post('/category/{id}/sort', [DigiyouthController::class, 'categorySort'])->name("category.sort");
 
-Route::get('/profile-user/{id}', [DigiyouthController::class, 'profileDetail'])->name("profile.detail");
+Route::get('/profile-user/{slug}', [DigiyouthController::class, 'profileDetail'])->name("profile.detail");
 
 Route::get('/search', [DigiyouthController::class, "search"])->name("search");
 // Route::get('/login', [DigiyouthController::class, 'login']);
@@ -39,4 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
